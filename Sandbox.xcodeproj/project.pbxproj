@@ -1,0 +1,283 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7D4278241551865E000240A5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4278231551865E000240A5 /* UIKit.framework */; };
+		7D4278261551865E000240A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4278251551865E000240A5 /* Foundation.framework */; };
+		7D4278281551865E000240A5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4278271551865E000240A5 /* CoreGraphics.framework */; };
+		7D42782E1551865E000240A5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D42782C1551865E000240A5 /* InfoPlist.strings */; };
+		7D4278301551865E000240A5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D42782F1551865E000240A5 /* main.m */; };
+		7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4278331551865E000240A5 /* SandboxAppDelegate.m */; };
+		7D4278371551865E000240A5 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D4278351551865E000240A5 /* MainStoryboard.storyboard */; };
+		7D42783A1551865E000240A5 /* SandboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4278391551865E000240A5 /* SandboxViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7D42781F1551865E000240A5 /* Sandbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sandbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D4278231551865E000240A5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		7D4278251551865E000240A5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7D4278271551865E000240A5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		7D42782B1551865E000240A5 /* Sandbox-Info.plist */ = {isa = PBXFileReference; path = "Sandbox-Info.plist"; sourceTree = "<group>"; };
+		7D42782D1551865E000240A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7D42782F1551865E000240A5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7D4278311551865E000240A5 /* Sandbox-Prefix.pch */ = {isa = PBXFileReference; path = "Sandbox-Prefix.pch"; sourceTree = "<group>"; };
+		7D4278321551865E000240A5 /* SandboxAppDelegate.h */ = {isa = PBXFileReference; path = SandboxAppDelegate.h; sourceTree = "<group>"; };
+		7D4278331551865E000240A5 /* SandboxAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SandboxAppDelegate.m; sourceTree = "<group>"; };
+		7D4278361551865E000240A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		7D4278381551865E000240A5 /* SandboxViewController.h */ = {isa = PBXFileReference; path = SandboxViewController.h; sourceTree = "<group>"; };
+		7D4278391551865E000240A5 /* SandboxViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SandboxViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7D42781C1551865E000240A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D4278241551865E000240A5 /* UIKit.framework in Frameworks */,
+				7D4278261551865E000240A5 /* Foundation.framework in Frameworks */,
+				7D4278281551865E000240A5 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7D4278141551865D000240A5 = {
+			isa = PBXGroup;
+			children = (
+				7D4278291551865E000240A5 /* Sandbox */,
+				7D4278221551865E000240A5 /* Frameworks */,
+				7D4278201551865E000240A5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7D4278201551865E000240A5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7D42781F1551865E000240A5 /* Sandbox.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7D4278221551865E000240A5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7D4278231551865E000240A5 /* UIKit.framework */,
+				7D4278251551865E000240A5 /* Foundation.framework */,
+				7D4278271551865E000240A5 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7D4278291551865E000240A5 /* Sandbox */ = {
+			isa = PBXGroup;
+			children = (
+				7D4278321551865E000240A5 /* SandboxAppDelegate.h */,
+				7D4278331551865E000240A5 /* SandboxAppDelegate.m */,
+				7D4278351551865E000240A5 /* MainStoryboard.storyboard */,
+				7D4278381551865E000240A5 /* SandboxViewController.h */,
+				7D4278391551865E000240A5 /* SandboxViewController.m */,
+				7D42782A1551865E000240A5 /* Supporting Files */,
+			);
+			path = Sandbox;
+			sourceTree = "<group>";
+		};
+		7D42782A1551865E000240A5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7D42782B1551865E000240A5 /* Sandbox-Info.plist */,
+				7D42782C1551865E000240A5 /* InfoPlist.strings */,
+				7D42782F1551865E000240A5 /* main.m */,
+				7D4278311551865E000240A5 /* Sandbox-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7D42781E1551865E000240A5 /* Sandbox */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D42783D1551865E000240A5 /* Build configuration list for PBXNativeTarget "Sandbox" */;
+			buildPhases = (
+				7D42781B1551865E000240A5 /* Sources */,
+				7D42781C1551865E000240A5 /* Frameworks */,
+				7D42781D1551865E000240A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Sandbox;
+			productName = Sandbox;
+			productReference = 7D42781F1551865E000240A5 /* Sandbox.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7D4278161551865D000240A5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = Sandbox;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = MCMDI;
+			};
+			buildConfigurationList = 7D4278191551865D000240A5 /* Build configuration list for PBXProject "Sandbox" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7D4278141551865D000240A5;
+			productRefGroup = 7D4278201551865E000240A5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7D42781E1551865E000240A5 /* Sandbox */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7D42781D1551865E000240A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D42782E1551865E000240A5 /* InfoPlist.strings in Resources */,
+				7D4278371551865E000240A5 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7D42781B1551865E000240A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D4278301551865E000240A5 /* main.m in Sources */,
+				7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */,
+				7D42783A1551865E000240A5 /* SandboxViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7D42782C1551865E000240A5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7D42782D1551865E000240A5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		7D4278351551865E000240A5 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7D4278361551865E000240A5 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7D42783B1551865E000240A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		7D42783C1551865E000240A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7D42783E1551865E000240A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sandbox/Sandbox-Prefix.pch";
+				INFOPLIST_FILE = "Sandbox/Sandbox-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		7D42783F1551865E000240A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sandbox/Sandbox-Prefix.pch";
+				INFOPLIST_FILE = "Sandbox/Sandbox-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7D4278191551865D000240A5 /* Build configuration list for PBXProject "Sandbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D42783B1551865E000240A5 /* Debug */,
+				7D42783C1551865E000240A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7D42783D1551865E000240A5 /* Build configuration list for PBXNativeTarget "Sandbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D42783E1551865E000240A5 /* Debug */,
+				7D42783F1551865E000240A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7D4278161551865D000240A5 /* Project object */;
+}
