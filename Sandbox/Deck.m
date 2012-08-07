@@ -2,7 +2,7 @@
 //  Deck.m
 //  Sandbox
 //
-//  Created by Ken Haggerty on 5/3/12.
+//  Created by Ken M. Haggerty on 5/3/12.
 //  Copyright (c) 2012 MCMDI. All rights reserved.
 //
 
