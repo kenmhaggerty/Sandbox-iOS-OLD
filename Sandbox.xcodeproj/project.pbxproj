@@ -15,6 +15,7 @@
 		7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4278331551865E000240A5 /* SandboxAppDelegate.m */; };
 		7D4278371551865E000240A5 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D4278351551865E000240A5 /* MainStoryboard.storyboard */; };
 		7D42783A1551865E000240A5 /* SandboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4278391551865E000240A5 /* SandboxViewController.m */; };
+		7DD538A6158C100800E63E29 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD538A5158C100800E63E29 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,15 +23,16 @@
 		7D4278231551865E000240A5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D4278251551865E000240A5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D4278271551865E000240A5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		7D42782B1551865E000240A5 /* Sandbox-Info.plist */ = {isa = PBXFileReference; path = "Sandbox-Info.plist"; sourceTree = "<group>"; };
+		7D42782B1551865E000240A5 /* Sandbox-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sandbox-Info.plist"; sourceTree = "<group>"; };
 		7D42782D1551865E000240A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7D42782F1551865E000240A5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7D4278311551865E000240A5 /* Sandbox-Prefix.pch */ = {isa = PBXFileReference; path = "Sandbox-Prefix.pch"; sourceTree = "<group>"; };
-		7D4278321551865E000240A5 /* SandboxAppDelegate.h */ = {isa = PBXFileReference; path = SandboxAppDelegate.h; sourceTree = "<group>"; };
+		7D4278311551865E000240A5 /* Sandbox-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sandbox-Prefix.pch"; sourceTree = "<group>"; };
+		7D4278321551865E000240A5 /* SandboxAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SandboxAppDelegate.h; sourceTree = "<group>"; };
 		7D4278331551865E000240A5 /* SandboxAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SandboxAppDelegate.m; sourceTree = "<group>"; };
 		7D4278361551865E000240A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		7D4278381551865E000240A5 /* SandboxViewController.h */ = {isa = PBXFileReference; path = SandboxViewController.h; sourceTree = "<group>"; };
+		7D4278381551865E000240A5 /* SandboxViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SandboxViewController.h; sourceTree = "<group>"; };
 		7D4278391551865E000240A5 /* SandboxViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SandboxViewController.m; sourceTree = "<group>"; };
+		7DD538A5158C100800E63E29 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DD538A6158C100800E63E29 /* QuartzCore.framework in Frameworks */,
 				7D4278241551865E000240A5 /* UIKit.framework in Frameworks */,
 				7D4278261551865E000240A5 /* Foundation.framework in Frameworks */,
 				7D4278281551865E000240A5 /* CoreGraphics.framework in Frameworks */,
@@ -50,6 +53,7 @@
 		7D4278141551865D000240A5 = {
 			isa = PBXGroup;
 			children = (
+				7DD538A5158C100800E63E29 /* QuartzCore.framework */,
 				7D4278291551865E000240A5 /* Sandbox */,
 				7D4278221551865E000240A5 /* Frameworks */,
 				7D4278201551865E000240A5 /* Products */,
@@ -276,6 +280,7 @@
 				7D42783F1551865E000240A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

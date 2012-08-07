@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class SandboxViewController;
+
 @interface SandboxViewController : UIViewController
 
 @end
