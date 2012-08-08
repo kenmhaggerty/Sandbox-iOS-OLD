@@ -14,13 +14,11 @@
 
 @interface SandboxViewController ()
 @property (nonatomic, weak) IBOutlet UIView *tiltedView;
-@property (nonatomic, weak) IBOutlet UIButton *actionButton;
 @end
 
 @implementation SandboxViewController
 
 @synthesize tiltedView = _tiltedView;
-@synthesize actionButton = _actionButton;
 
 // SETTERS AND GETTERS //
 
@@ -37,6 +35,16 @@
     transform = CATransform3DRotate(transform, ANGLE_TILTED_BACK * M_PI_2, 1, 0, 0);
     self.tiltedView.layer.transform = transform;
     // TILT tiltedView BACK - END //
+    
+    // ADD GESTURE RECOGNIZERS FOR SUBVIEWS OF tiltedView - START //
+    for (int i = 0; i < self.tiltedView.subviews.count; i++)
+    {
+        UIView *subviewOfInterest = [self.tiltedView.subviews objectAtIndex:i];
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:subviewOfInterest action:@selector(tapOnce:)];
+        singleTap.numberOfTapsRequired = 1;
+        [subviewOfInterest addGestureRecognizer:singleTap];
+    }
+    // ADD GESTURE RECOGNIZERS FOR SUBVIEWS OF tiltedView - START //
 }
 
 - (void)viewDidUnload
@@ -52,33 +60,13 @@
 
 // PUBLIC FUNCTIONS //
 
+- (void)tapOnce:(UIGestureRecognizer *)gesture
+{
+    //on a single  tap, call zoomToRect in UIScrollView
+    NSLog(@"TAPPED!");
+}
+
 // PRIVATE FUNCTIONS //
 
-- (IBAction)buttonPerformAnimation:(id)sender
-{
-    for (int i = 0; i < self.tiltedView.subviews.count; i++)
-    {
-        UIView *viewOfInterest = [self.tiltedView.subviews objectAtIndex:i];
-//        CGRect newRect = [self.tiltedView convertRect:viewOfInterest.frame toView:self.view];
-//        UIView *viewToAdd = [[UIView alloc] initWithFrame:newRect];
-//        viewToAdd.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.5];
-//        [self.view addSubview:viewToAdd];
-        CGFloat scale = 3;
-        CGRect originalRect = viewOfInterest.bounds;
-        CGRect newRect = CGRectMake(viewOfInterest.bounds.origin.x, viewOfInterest.bounds.origin.y, viewOfInterest.bounds.size.width*scale, viewOfInterest.bounds.size.height*scale);
-        [UIView animateWithDuration:2
-                         animations:^{
-                             [viewOfInterest setBounds:newRect];
-                         }
-                         completion:^(BOOL finished) {
-                             NSLog(@"Part II");
-                             [UIView animateWithDuration:2
-                                              animations:^{
-                                                  [viewOfInterest setBounds:originalRect];
-                                              }
-                                              completion:nil];
-                         }];
-    }
-}
 
 @end
