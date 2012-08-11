@@ -13,11 +13,13 @@
 #define PERSPECTIVE_VALUE 400.0
 
 @interface SandboxViewController ()
+@property (nonatomic, weak) IBOutlet UIButton *testButton;
 @property (nonatomic, weak) IBOutlet UIView *tiltedView;
 @end
 
 @implementation SandboxViewController
 
+@synthesize testButton = _testButton;
 @synthesize tiltedView = _tiltedView;
 
 // SETTERS AND GETTERS //
@@ -37,18 +39,19 @@
     // TILT tiltedView BACK - END //
     
     // ADD GESTURE RECOGNIZERS FOR SUBVIEWS OF tiltedView - START //
-    for (int i = 0; i < self.tiltedView.subviews.count; i++)
-    {
-        UIView *subviewOfInterest = [self.tiltedView.subviews objectAtIndex:i];
-        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:subviewOfInterest action:@selector(tapOnce:)];
-        singleTap.numberOfTapsRequired = 1;
-        [subviewOfInterest addGestureRecognizer:singleTap];
-    }
+//    for (int i = 0; i < self.tiltedView.subviews.count; i++)
+//    {
+//        UIView *subviewOfInterest = [self.tiltedView.subviews objectAtIndex:i];
+//        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:subviewOfInterest action:@selector(tapOnce:)];
+//        singleTap.numberOfTapsRequired = 1;
+//        [subviewOfInterest addGestureRecognizer:singleTap];
+//    }
     // ADD GESTURE RECOGNIZERS FOR SUBVIEWS OF tiltedView - START //
 }
 
 - (void)viewDidUnload
 {
+    [self setTestButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -68,5 +71,9 @@
 
 // PRIVATE FUNCTIONS //
 
+- (IBAction)testButtonAction:(id)sender
+{
+    NSLog(@"PRESSED");
+}
 
 @end
