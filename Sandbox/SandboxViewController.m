@@ -9,18 +9,20 @@
 #import "SandboxViewController.h"
 #import <QuartzCore/Quartzcore.h>
 
-#define ANGLE_TILTED_BACK 0.75
+#define ANGLE_TILTED_BACK 0.5
 #define PERSPECTIVE_VALUE 400.0
 
 @interface SandboxViewController ()
 @property (nonatomic, weak) IBOutlet UIButton *testButton;
 @property (nonatomic, weak) IBOutlet UIView *tiltedView;
+@property (nonatomic) NSUInteger count;
 @end
 
 @implementation SandboxViewController
 
 @synthesize testButton = _testButton;
 @synthesize tiltedView = _tiltedView;
+@synthesize count = _count;
 
 // SETTERS AND GETTERS //
 
@@ -46,6 +48,23 @@
 //        singleTap.numberOfTapsRequired = 1;
 //        [subviewOfInterest addGestureRecognizer:singleTap];
 //    }
+    
+//    [self.tiltedView addGestureRecognizer:singleTap];
+    for (int i = 0; i < self.tiltedView.subviews.count; i++)
+    {
+        if (![[self.tiltedView.subviews objectAtIndex:i] isKindOfClass:[UIButton class]])
+        {
+            UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnce:)];
+            singleTap.numberOfTapsRequired = 1;
+            [[self.tiltedView.subviews objectAtIndex:i] addGestureRecognizer:singleTap];
+            NSLog(@"Class = %@", [[self.tiltedView.subviews objectAtIndex:i] class]);
+        }
+    }
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnce:)];
+    singleTap.numberOfTapsRequired = 1;
+    singleTap.cancelsTouchesInView = NO;
+    [self.tiltedView addGestureRecognizer:singleTap];
+//    [self.tiltedView setCanCancelContentTouches:NO];
     // ADD GESTURE RECOGNIZERS FOR SUBVIEWS OF tiltedView - START //
 }
 
@@ -65,15 +84,15 @@
 
 - (void)tapOnce:(UIGestureRecognizer *)gesture
 {
-    //on a single  tap, call zoomToRect in UIScrollView
-    NSLog(@"TAPPED!");
+    NSLog(@"TRIGGERED: class = %@", gesture.view.class);
+    if (gesture.view.subviews.count == 0) NSLog(@"TAPPED! count = %i", ++self.count);
 }
 
 // PRIVATE FUNCTIONS //
 
 - (IBAction)testButtonAction:(id)sender
 {
-    NSLog(@"PRESSED");
+    NSLog(@"PRESSED: class = %@", [sender class]);
 }
 
 @end
