@@ -15,6 +15,7 @@
 		7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4278331551865E000240A5 /* SandboxAppDelegate.m */; };
 		7D4278371551865E000240A5 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D4278351551865E000240A5 /* MainStoryboard.storyboard */; };
 		7D42783A1551865E000240A5 /* SandboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4278391551865E000240A5 /* SandboxViewController.m */; };
+		7D4DCBD415E5BDBC00552228 /* DraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4DCBD315E5BDBC00552228 /* DraggableImageView.m */; };
 		7DD538A6158C100800E63E29 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD538A5158C100800E63E29 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,8 @@
 		7D4278361551865E000240A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		7D4278381551865E000240A5 /* SandboxViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SandboxViewController.h; sourceTree = "<group>"; };
 		7D4278391551865E000240A5 /* SandboxViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SandboxViewController.m; sourceTree = "<group>"; };
+		7D4DCBD215E5BDBC00552228 /* DraggableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DraggableImageView.h; path = ../../Woodbox/Woodbox/DraggableImageView.h; sourceTree = "<group>"; };
+		7D4DCBD315E5BDBC00552228 /* DraggableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DraggableImageView.m; path = ../../Woodbox/Woodbox/DraggableImageView.m; sourceTree = "<group>"; };
 		7DD538A5158C100800E63E29 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -86,6 +89,8 @@
 				7D4278351551865E000240A5 /* MainStoryboard.storyboard */,
 				7D4278381551865E000240A5 /* SandboxViewController.h */,
 				7D4278391551865E000240A5 /* SandboxViewController.m */,
+				7D4DCBD215E5BDBC00552228 /* DraggableImageView.h */,
+				7D4DCBD315E5BDBC00552228 /* DraggableImageView.m */,
 				7D42782A1551865E000240A5 /* Supporting Files */,
 			);
 			path = Sandbox;
@@ -169,6 +174,7 @@
 				7D4278301551865E000240A5 /* main.m in Sources */,
 				7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */,
 				7D42783A1551865E000240A5 /* SandboxViewController.m in Sources */,
+				7D4DCBD415E5BDBC00552228 /* DraggableImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

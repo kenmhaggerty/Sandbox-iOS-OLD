@@ -8,6 +8,7 @@
 
 #import "SandboxViewController.h"
 #import <QuartzCore/Quartzcore.h>
+#import "DraggableImageView.h"
 
 #define ANGLE_TILTED_BACK 0.5
 #define PERSPECTIVE_VALUE 400.0
@@ -52,18 +53,29 @@
 //    [self.tiltedView addGestureRecognizer:singleTap];
     for (int i = 0; i < self.tiltedView.subviews.count; i++)
     {
-        if (![[self.tiltedView.subviews objectAtIndex:i] isKindOfClass:[UIButton class]])
+        if ([[self.tiltedView.subviews objectAtIndex:i] isKindOfClass:[DraggableImageView class]])
         {
-            UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnce:)];
-            singleTap.numberOfTapsRequired = 1;
-            [[self.tiltedView.subviews objectAtIndex:i] addGestureRecognizer:singleTap];
-            NSLog(@"Class = %@", [[self.tiltedView.subviews objectAtIndex:i] class]);
+            [[self.tiltedView.subviews objectAtIndex:i] setDelegate:self];
+        }
+        else if (![[self.tiltedView.subviews objectAtIndex:i] isKindOfClass:[UIButton class]])
+        {
+//            UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnce:)];
+//            singleTap.numberOfTapsRequired = 1;
+//            [[self.tiltedView.subviews objectAtIndex:i] addGestureRecognizer:singleTap];
+//            NSLog(@"Class = %@", [[self.tiltedView.subviews objectAtIndex:i] class]);
         }
     }
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnce:)];
-    singleTap.numberOfTapsRequired = 1;
-    singleTap.cancelsTouchesInView = NO;
-    [self.tiltedView addGestureRecognizer:singleTap];
+    for (int i = 0; i < self.view.subviews.count; i++)
+    {
+        if ([[self.view.subviews objectAtIndex:i] isKindOfClass:[DraggableImageView class]])
+        {
+            [[self.view.subviews objectAtIndex:i] setDelegate:nil];
+        }
+    }
+//    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnce:)];
+//    singleTap.numberOfTapsRequired = 1;
+//    singleTap.cancelsTouchesInView = NO;
+//    [self.tiltedView addGestureRecognizer:singleTap];
 //    [self.tiltedView setCanCancelContentTouches:NO];
     // ADD GESTURE RECOGNIZERS FOR SUBVIEWS OF tiltedView - START //
 }
@@ -80,13 +92,37 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+// DELEGATED FUNCTIONS //
+
+- (void)viewWasTapped:(DraggableImageView *)sender
+{
+    NSLog(@"[DraggableImageView] viewWasTapped");
+    if (sender.subviews.count != 0) NSLog(@"Sender has %i subviews", sender.subviews.count);
+    else NSLog(@"TAPPED! count = %i", ++self.count);
+}
+
+- (void)viewWasDoubleTapped:(DraggableImageView *)sender
+{
+    NSLog(@"[DraggableImageView] viewWasDoubleTapped");
+}
+
+- (void)viewIsBeingMoved:(DraggableImageView *)sender
+{
+    NSLog(@"[DraggableImageView] viewIsBeingMoved");
+}
+
+- (void)viewIsDoneMoving:(DraggableImageView *)sender
+{
+    NSLog(@"[DraggableImageView] viewIsDoneMoving");
+}
+
 // PUBLIC FUNCTIONS //
 
-- (void)tapOnce:(UIGestureRecognizer *)gesture
-{
-    NSLog(@"TRIGGERED: class = %@", gesture.view.class);
-    if (gesture.view.subviews.count == 0) NSLog(@"TAPPED! count = %i", ++self.count);
-}
+//- (void)tapOnce:(UIGestureRecognizer *)gesture
+//{
+//    NSLog(@"TRIGGERED: class = %@", gesture.view.class);
+//    if (gesture.view.subviews.count == 0) NSLog(@"TAPPED! count = %i", ++self.count);
+//}
 
 // PRIVATE FUNCTIONS //
 
