@@ -98,7 +98,11 @@
 {
     NSLog(@"[DraggableImageView] viewWasTapped");
     if (sender.subviews.count != 0) NSLog(@"Sender has %i subviews", sender.subviews.count);
-    else NSLog(@"TAPPED! count = %i", ++self.count);
+    else
+    {
+        NSLog(@"TAPPED! count = %i", ++self.count);
+        [sender removeFromSuperview];
+    }
 }
 
 - (void)viewWasDoubleTapped:(DraggableImageView *)sender
