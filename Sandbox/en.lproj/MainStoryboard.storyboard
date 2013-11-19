@@ -1,160 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3080" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="kw3-0O-mlI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="yCZ-O6-upd">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2078"/>
+        <deployment defaultVersion="1280" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
-        <!--Threeo View Controller-->
-        <scene sceneID="ZuW-l8-pwT">
+        <!--Sandbox View Controller-->
+        <scene sceneID="ug2-eX-mbY">
             <objects>
-                <viewController storyboardIdentifier="Threeo View Controller" id="kw3-0O-mlI" customClass="ThreeoViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="C07-a5-q4L">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                <viewController id="s9O-XY-xmw" customClass="SandboxViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YEa-YQ-Sf4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="r68-7g-CH8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="t7A-8g-YDn">
+                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" id="8Qh-Cr-mh3">
-                                <rect key="frame" x="0.0" y="-396" width="320" height="856"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" id="F7K-xJ-KEM">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" id="aNx-3P-c1x">
-                                        <rect key="frame" x="0.0" y="396" width="320" height="460"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    </view>
-                                    <imageView opaque="NO" contentMode="scaleAspectFit" image="button_sidebar_unpressed_nomessages.png" id="SRB-6l-K2x" customClass="CustomButton">
-                                        <rect key="frame" x="0.0" y="388" width="80" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </imageView>
-                                    <imageView opaque="NO" contentMode="scaleAspectFit" image="button_chat_unpressed_nomessages.png" id="v1i-aR-lJa" customClass="CustomButton">
-                                        <rect key="frame" x="240" y="388" width="80" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="s9O-XY-xmw" id="0md-jF-Oyf"/>
+                                    <outlet property="delegate" destination="s9O-XY-xmw" id="hpi-fP-zri"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
-                        <outlet property="buttonSideView" destination="SRB-6l-K2x" id="fEO-Eb-plY"/>
-                        <outlet property="buttonTopView" destination="v1i-aR-lJa" id="zIt-YC-2Sz"/>
-                        <outlet property="containerView" destination="8Qh-Cr-mh3" id="imK-we-Lnj"/>
-                        <outlet property="mainView" destination="aNx-3P-c1x" id="ujk-Is-l7j"/>
-                        <outlet property="sideView" destination="r68-7g-CH8" id="g3N-dj-W9M"/>
-                        <outlet property="topView" destination="F7K-xJ-KEM" id="Qi6-HM-1c6"/>
+                        <outlet property="tableView" destination="t7A-8g-YDn" id="FUd-iM-Vld"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PHH-a5-5Tf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ueW-lc-RfV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="185" y="373"/>
+            <point key="canvasLocation" x="156" y="639"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="Ll4-nF-xTy">
+        <!--Sandbox Table View Controller-->
+        <scene sceneID="1re-vh-Uu8">
             <objects>
-                <viewController storyboardIdentifier="Top View Controller" id="czF-WC-vCL" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="C67-LK-SCH">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view alpha="0.33000000000000002" contentMode="scaleToFill" id="Ufo-gV-TbD">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="TopView" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tc5-oL-vFk">
-                                        <rect key="frame" x="0.0" y="218" width="320" height="23"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="g43-Kz-SrO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="yCZ-O6-upd" customClass="SandboxTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bOB-qW-agP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="yCZ-O6-upd" id="jy2-cY-3Hx"/>
+                            <outlet property="delegate" destination="yCZ-O6-upd" id="awa-x9-J61"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dhz-Z7-oYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="628" y="372"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="WaP-8Y-ysY">
-            <objects>
-                <viewController storyboardIdentifier="Side View Controller" id="42M-kV-44X" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="tLP-tw-pTm">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view alpha="0.33000000000000002" contentMode="scaleToFill" id="blu-KL-5o8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SideView" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6Qa-hS-jAv">
-                                        <rect key="frame" x="0.0" y="218" width="320" height="23"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3wF-W6-RsV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="184" y="963"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="nJD-T2-xDV">
-            <objects>
-                <viewController storyboardIdentifier="Main View Controller" id="Y8q-fg-juw" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="maW-sN-ZCz">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view alpha="0.33000000000000002" contentMode="scaleToFill" id="5d3-kS-82c">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="MainView" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hjn-2i-Z3k">
-                                        <rect key="frame" x="0.0" y="219" width="320" height="23"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="caY-7k-nq3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="630" y="959"/>
+            <point key="canvasLocation" x="575" y="647"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="button_chat_unpressed_nomessages.png" width="82" height="82"/>
-        <image name="button_sidebar_unpressed_nomessages.png" width="82" height="82"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

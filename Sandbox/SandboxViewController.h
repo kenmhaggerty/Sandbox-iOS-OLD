@@ -17,5 +17,4 @@
 #pragma mark - // DEFINITIONS (Public) //
 
 @interface SandboxViewController : UIViewController
-
 @end
