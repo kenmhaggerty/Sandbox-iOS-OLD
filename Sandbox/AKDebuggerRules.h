@@ -1,5 +1,5 @@
 //
-//  AKDebuggerRules_Sandbox.h
+//  AKDebuggerRules.h
 //  Sandbox
 //
 //  Created by Ken M. Haggerty on 10/11/13.
@@ -17,9 +17,7 @@
 
 #pragma mark - // DEFINITIONS (Public) //
 
-#define RULES_CLASS NSClassFromString(@"AKDebuggerRules_Sandbox")
-
-@interface AKDebuggerRules_Sandbox : NSObject <AKDebuggerRules>
+@interface AKDebuggerRules : NSObject <AKDebuggerRules>
 
 // RULES (General) //
 
@@ -27,13 +25,27 @@
 
 + (BOOL)printClassMethods;
 + (BOOL)printInstanceMethods;
-+ (BOOL)printSetupMethods;
+
++ (BOOL)printSetup;
 + (BOOL)printSetters;
 + (BOOL)printGetters;
++ (BOOL)printValidators;
++ (BOOL)printUnspecified;
+
 + (BOOL)printMethodNames;
++ (BOOL)printEmergencies;
++ (BOOL)printAlerts;
++ (BOOL)printFailures;
++ (BOOL)printErrors;
 + (BOOL)printWarnings;
-+ (BOOL)printInfoLogs;
-+ (BOOL)printTests;
++ (BOOL)printNotices;
++ (BOOL)printInformation;
++ (BOOL)printDebug;
+
+// RULES (Custom Categories) //
+
++ (NSSet *)customCategoriesToPrint;
++ (NSSet *)customCategoriesToSkip;
 
 // RULES (View Controllers) //
 
@@ -56,5 +68,9 @@
 
 + (BOOL)printCategories;
 + (NSSet *)categoriesToSkip;
+
+// DEBUGGING //
+
++ (BOOL)test;
 
 @end

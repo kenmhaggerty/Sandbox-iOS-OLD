@@ -10,33 +10,33 @@
 	<string>Sandbox</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>4C282CFA-F8FC-49C3-9B8B-2A4902E51938</key>
+		<key>23D6294FF433B578B3376B2E0BCB8E315D0C6036</key>
 		<string>https://github.com/kenmhaggerty/Sandbox.git</string>
-		<key>A41C5D6A-3E2C-42BA-B4EE-7F2BE1338657</key>
+		<key>EE2149F46CE9D12EEED852BC5841F1EB9896945C</key>
 		<string>https://bitbucket.org/eurekavalleyco/aksuperviewcontroller.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Sandbox.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>4C282CFA-F8FC-49C3-9B8B-2A4902E51938</key>
+		<key>23D6294FF433B578B3376B2E0BCB8E315D0C6036</key>
 		<string>..</string>
-		<key>A41C5D6A-3E2C-42BA-B4EE-7F2BE1338657</key>
+		<key>EE2149F46CE9D12EEED852BC5841F1EB9896945C</key>
 		<string>../../AKSuperViewController</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/kenmhaggerty/Sandbox.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>4C282CFA-F8FC-49C3-9B8B-2A4902E51938</string>
+	<string>23D6294FF433B578B3376B2E0BCB8E315D0C6036</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>A41C5D6A-3E2C-42BA-B4EE-7F2BE1338657</string>
+			<string>EE2149F46CE9D12EEED852BC5841F1EB9896945C</string>
 			<key>IDESourceControlWCCName</key>
 			<string>AKSuperViewController</string>
 		</dict>
@@ -44,7 +44,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>4C282CFA-F8FC-49C3-9B8B-2A4902E51938</string>
+			<string>23D6294FF433B578B3376B2E0BCB8E315D0C6036</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Sandbox</string>
 		</dict>

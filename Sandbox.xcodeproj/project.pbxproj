@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FA2480A183CEBE500351015 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA24809183CEBE500351015 /* TableViewController.m */; };
 		1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB7580180F46BC005BE376 /* AKDebugger.m */; };
-		1FCB7585180F46E3005BE376 /* AKDebuggerRules_Sandbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB7584180F46E3005BE376 /* AKDebuggerRules_Sandbox.m */; };
+		1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */; };
+		1FEB6EEC1A4C04D10049AFDD /* AKSystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EEB1A4C04D10049AFDD /* AKSystemInfo.m */; };
 		7D10BDF0160654FE00416C66 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BDEF160654FE00416C66 /* Default-568h@2x.png */; };
-		7D3AC9F316691B5A00594015 /* SandboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3AC9F216691B5A00594015 /* SandboxViewController.m */; };
+		7D3AC9F316691B5A00594015 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3AC9F216691B5A00594015 /* ViewController.m */; };
 		7D4278241551865E000240A5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4278231551865E000240A5 /* UIKit.framework */; };
 		7D4278261551865E000240A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4278251551865E000240A5 /* Foundation.framework */; };
 		7D4278281551865E000240A5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4278271551865E000240A5 /* CoreGraphics.framework */; };
@@ -24,14 +26,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1FCB757F180F46BC005BE376 /* AKDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKDebugger.h; path = ../../AKSuperViewController/AKSuperViewController/AKDebugger.h; sourceTree = "<group>"; };
-		1FCB7580180F46BC005BE376 /* AKDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKDebugger.m; path = ../../AKSuperViewController/AKSuperViewController/AKDebugger.m; sourceTree = "<group>"; };
-		1FCB7583180F46E3005BE376 /* AKDebuggerRules_Sandbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDebuggerRules_Sandbox.h; sourceTree = "<group>"; };
-		1FCB7584180F46E3005BE376 /* AKDebuggerRules_Sandbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDebuggerRules_Sandbox.m; sourceTree = "<group>"; };
+		1FA24808183CEBE500351015 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		1FA24809183CEBE500351015 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		1FCB757F180F46BC005BE376 /* AKDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKDebugger.h; path = ../../AKDebugger/AKDebugger.h; sourceTree = "<group>"; };
+		1FCB7580180F46BC005BE376 /* AKDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKDebugger.m; path = ../../AKDebugger/AKDebugger.m; sourceTree = "<group>"; };
+		1FEB6EE71A4BFFB70049AFDD /* AKDebuggerRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDebuggerRules.h; sourceTree = "<group>"; };
+		1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDebuggerRules.m; sourceTree = "<group>"; };
+		1FEB6EEA1A4C04D10049AFDD /* AKSystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSystemInfo.h; path = ../../AKSystemInfo/AKSystemInfo.h; sourceTree = "<group>"; };
+		1FEB6EEB1A4C04D10049AFDD /* AKSystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSystemInfo.m; path = ../../AKSystemInfo/AKSystemInfo.m; sourceTree = "<group>"; };
 		76200951BCB74F6BA4DD8144 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D10BDEF160654FE00416C66 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		7D3AC9F116691B5A00594015 /* SandboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxViewController.h; sourceTree = "<group>"; };
-		7D3AC9F216691B5A00594015 /* SandboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxViewController.m; sourceTree = "<group>"; };
+		7D3AC9F116691B5A00594015 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		7D3AC9F216691B5A00594015 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7D42781F1551865E000240A5 /* Sandbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sandbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D4278231551865E000240A5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7D4278251551865E000240A5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -70,10 +76,19 @@
 			children = (
 				1FCB757F180F46BC005BE376 /* AKDebugger.h */,
 				1FCB7580180F46BC005BE376 /* AKDebugger.m */,
-				1FCB7583180F46E3005BE376 /* AKDebuggerRules_Sandbox.h */,
-				1FCB7584180F46E3005BE376 /* AKDebuggerRules_Sandbox.m */,
+				1FEB6EE71A4BFFB70049AFDD /* AKDebuggerRules.h */,
+				1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */,
 			);
 			name = AKDebugger;
+			sourceTree = "<group>";
+		};
+		1FEB6EED1A4C04D60049AFDD /* AKSystemInfo */ = {
+			isa = PBXGroup;
+			children = (
+				1FEB6EEA1A4C04D10049AFDD /* AKSystemInfo.h */,
+				1FEB6EEB1A4C04D10049AFDD /* AKSystemInfo.m */,
+			);
+			name = AKSystemInfo;
 			sourceTree = "<group>";
 		};
 		7D4278141551865D000240A5 = {
@@ -112,11 +127,14 @@
 			isa = PBXGroup;
 			children = (
 				1FCB7582180F46D3005BE376 /* AKDebugger */,
+				1FEB6EED1A4C04D60049AFDD /* AKSystemInfo */,
 				7D4278321551865E000240A5 /* SandboxAppDelegate.h */,
 				7D4278331551865E000240A5 /* SandboxAppDelegate.m */,
 				7D4278351551865E000240A5 /* MainStoryboard.storyboard */,
-				7D3AC9F116691B5A00594015 /* SandboxViewController.h */,
-				7D3AC9F216691B5A00594015 /* SandboxViewController.m */,
+				7D3AC9F116691B5A00594015 /* ViewController.h */,
+				7D3AC9F216691B5A00594015 /* ViewController.m */,
+				1FA24808183CEBE500351015 /* TableViewController.h */,
+				1FA24809183CEBE500351015 /* TableViewController.m */,
 				7D42782A1551865E000240A5 /* Supporting Files */,
 			);
 			path = Sandbox;
@@ -162,7 +180,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Sandbox;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = MCMDI;
 			};
 			buildConfigurationList = 7D4278191551865D000240A5 /* Build configuration list for PBXProject "Sandbox" */;
@@ -235,9 +253,11 @@
 			files = (
 				7D4278301551865E000240A5 /* main.m in Sources */,
 				7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */,
-				7D3AC9F316691B5A00594015 /* SandboxViewController.m in Sources */,
-				1FCB7585180F46E3005BE376 /* AKDebuggerRules_Sandbox.m in Sources */,
+				1FEB6EEC1A4C04D10049AFDD /* AKSystemInfo.m in Sources */,
+				7D3AC9F316691B5A00594015 /* ViewController.m in Sources */,
 				1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */,
+				1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */,
+				1FA2480A183CEBE500351015 /* TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,9 +294,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -286,6 +308,7 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -308,11 +331,14 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;

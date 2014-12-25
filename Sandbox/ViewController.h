@@ -1,5 +1,5 @@
 //
-//  SandboxViewController.h
+//  ViewController.h
 //  Sandbox
 //
 //  Created by Ken M. Haggerty on 11/30/12.
@@ -16,5 +16,5 @@
 
 #pragma mark - // DEFINITIONS (Public) //
 
-@interface SandboxViewController : UIViewController
+@interface ViewController : UIViewController
 @end
