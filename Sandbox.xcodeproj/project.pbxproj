@@ -11,6 +11,12 @@
 		1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB7580180F46BC005BE376 /* AKDebugger.m */; };
 		1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */; };
 		1FEB6EEC1A4C04D10049AFDD /* AKSystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EEB1A4C04D10049AFDD /* AKSystemInfo.m */; };
+		1FEB6EF41A4C0BFC0049AFDD /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EEF1A4C0BFC0049AFDD /* CoreDataController.m */; };
+		1FEB6EF51A4C0BFC0049AFDD /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EF01A4C0BFC0049AFDD /* CoreDataModel.xcdatamodeld */; };
+		1FEB6EF61A4C0BFC0049AFDD /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EF31A4C0BFC0049AFDD /* DataManager.m */; };
+		1FEB6EF91A4C0CD70049AFDD /* SandboxPrivateInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EF81A4C0CD70049AFDD /* SandboxPrivateInfo.m */; };
+		1FEB6EFE1A4C1F260049AFDD /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EFD1A4C1F260049AFDD /* Book.m */; };
+		1FEB6F011A4C1F260049AFDD /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6F001A4C1F260049AFDD /* Author.m */; };
 		7D10BDF0160654FE00416C66 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BDEF160654FE00416C66 /* Default-568h@2x.png */; };
 		7D3AC9F316691B5A00594015 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3AC9F216691B5A00594015 /* ViewController.m */; };
 		7D4278241551865E000240A5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D4278231551865E000240A5 /* UIKit.framework */; };
@@ -34,6 +40,17 @@
 		1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDebuggerRules.m; sourceTree = "<group>"; };
 		1FEB6EEA1A4C04D10049AFDD /* AKSystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSystemInfo.h; path = ../../AKSystemInfo/AKSystemInfo.h; sourceTree = "<group>"; };
 		1FEB6EEB1A4C04D10049AFDD /* AKSystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSystemInfo.m; path = ../../AKSystemInfo/AKSystemInfo.m; sourceTree = "<group>"; };
+		1FEB6EEE1A4C0BFC0049AFDD /* CoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataController.h; sourceTree = "<group>"; };
+		1FEB6EEF1A4C0BFC0049AFDD /* CoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataController.m; sourceTree = "<group>"; };
+		1FEB6EF11A4C0BFC0049AFDD /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		1FEB6EF21A4C0BFC0049AFDD /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		1FEB6EF31A4C0BFC0049AFDD /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		1FEB6EF71A4C0CD70049AFDD /* SandboxPrivateInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxPrivateInfo.h; sourceTree = "<group>"; };
+		1FEB6EF81A4C0CD70049AFDD /* SandboxPrivateInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxPrivateInfo.m; sourceTree = "<group>"; };
+		1FEB6EFC1A4C1F260049AFDD /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
+		1FEB6EFD1A4C1F260049AFDD /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
+		1FEB6EFF1A4C1F260049AFDD /* Author.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Author.h; sourceTree = "<group>"; };
+		1FEB6F001A4C1F260049AFDD /* Author.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Author.m; sourceTree = "<group>"; };
 		76200951BCB74F6BA4DD8144 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D10BDEF160654FE00416C66 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7D3AC9F116691B5A00594015 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -91,6 +108,39 @@
 			name = AKSystemInfo;
 			sourceTree = "<group>";
 		};
+		1FEB6EFA1A4C0CDE0049AFDD /* SandboxPrivateInfo */ = {
+			isa = PBXGroup;
+			children = (
+				1FEB6EF71A4C0CD70049AFDD /* SandboxPrivateInfo.h */,
+				1FEB6EF81A4C0CD70049AFDD /* SandboxPrivateInfo.m */,
+			);
+			name = SandboxPrivateInfo;
+			sourceTree = "<group>";
+		};
+		1FEB6EFB1A4C0D550049AFDD /* Data Managers */ = {
+			isa = PBXGroup;
+			children = (
+				1FEB6EF21A4C0BFC0049AFDD /* DataManager.h */,
+				1FEB6EF31A4C0BFC0049AFDD /* DataManager.m */,
+				1FEB6EEE1A4C0BFC0049AFDD /* CoreDataController.h */,
+				1FEB6EEF1A4C0BFC0049AFDD /* CoreDataController.m */,
+				1FEB6EF01A4C0BFC0049AFDD /* CoreDataModel.xcdatamodeld */,
+				1FEB6F021A4C1F2E0049AFDD /* Core Data Objects */,
+			);
+			name = "Data Managers";
+			sourceTree = "<group>";
+		};
+		1FEB6F021A4C1F2E0049AFDD /* Core Data Objects */ = {
+			isa = PBXGroup;
+			children = (
+				1FEB6EFF1A4C1F260049AFDD /* Author.h */,
+				1FEB6F001A4C1F260049AFDD /* Author.m */,
+				1FEB6EFC1A4C1F260049AFDD /* Book.h */,
+				1FEB6EFD1A4C1F260049AFDD /* Book.m */,
+			);
+			name = "Core Data Objects";
+			sourceTree = "<group>";
+		};
 		7D4278141551865D000240A5 = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +178,7 @@
 			children = (
 				1FCB7582180F46D3005BE376 /* AKDebugger */,
 				1FEB6EED1A4C04D60049AFDD /* AKSystemInfo */,
+				1FEB6EFA1A4C0CDE0049AFDD /* SandboxPrivateInfo */,
 				7D4278321551865E000240A5 /* SandboxAppDelegate.h */,
 				7D4278331551865E000240A5 /* SandboxAppDelegate.m */,
 				7D4278351551865E000240A5 /* MainStoryboard.storyboard */,
@@ -135,6 +186,7 @@
 				7D3AC9F216691B5A00594015 /* ViewController.m */,
 				1FA24808183CEBE500351015 /* TableViewController.h */,
 				1FA24809183CEBE500351015 /* TableViewController.m */,
+				1FEB6EFB1A4C0D550049AFDD /* Data Managers */,
 				7D42782A1551865E000240A5 /* Supporting Files */,
 			);
 			path = Sandbox;
@@ -251,10 +303,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FEB6F011A4C1F260049AFDD /* Author.m in Sources */,
 				7D4278301551865E000240A5 /* main.m in Sources */,
+				1FEB6EF61A4C0BFC0049AFDD /* DataManager.m in Sources */,
+				1FEB6EF51A4C0BFC0049AFDD /* CoreDataModel.xcdatamodeld in Sources */,
 				7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */,
+				1FEB6EFE1A4C1F260049AFDD /* Book.m in Sources */,
 				1FEB6EEC1A4C04D10049AFDD /* AKSystemInfo.m in Sources */,
 				7D3AC9F316691B5A00594015 /* ViewController.m in Sources */,
+				1FEB6EF41A4C0BFC0049AFDD /* CoreDataController.m in Sources */,
+				1FEB6EF91A4C0CD70049AFDD /* SandboxPrivateInfo.m in Sources */,
 				1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */,
 				1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */,
 				1FA2480A183CEBE500351015 /* TableViewController.m in Sources */,
@@ -399,6 +457,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1FEB6EF01A4C0BFC0049AFDD /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1FEB6EF11A4C0BFC0049AFDD /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 1FEB6EF11A4C0BFC0049AFDD /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7D4278161551865D000240A5 /* Project object */;
 }
