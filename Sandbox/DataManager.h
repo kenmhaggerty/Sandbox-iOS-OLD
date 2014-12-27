@@ -13,6 +13,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "Author.h"
+//#import "Book.h"
+#import "Album.h"
 
 #pragma mark - // PROTOCOLS //
 
@@ -28,11 +30,13 @@
 
 // EXISTENCE //
 
-+ (BOOL)bookExistsWithTitle:(NSString *)title author:(Author *)author;
+//+ (BOOL)bookExistsWithTitle:(NSString *)title author:(Author *)author;
++ (BOOL)albumExistsWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author;
 
 // RETRIEVAL //
 
-+ (NSOrderedSet *)getAllBooks;
+//+ (NSOrderedSet *)getAllBooks;
++ (NSOrderedSet *)getAllAlbums;
 
 // EXISTENCE + RETRIEVAL //
 
@@ -40,7 +44,8 @@
 
 // CREATION //
 
-+ (Book *)createBookWithTitle:(NSString *)title author:(Author *)author;
+//+ (Book *)createBookWithTitle:(NSString *)title author:(Author *)author;
++ (Album *)createAlbumWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author;
 
 // DELETION //
 

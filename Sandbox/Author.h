@@ -13,7 +13,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Book;
+//@class Book;
+@class Album;
 
 #pragma mark - // PROTOCOLS //
 
@@ -23,13 +24,19 @@
 @property (nonatomic, retain) NSDate *editDate;
 @property (nonatomic, retain) NSString *lastName;
 @property (nonatomic, retain) NSString *firstName;
-@property (nonatomic, retain) NSSet *books;
+//@property (nonatomic, retain) NSSet *books;
+@property (nonatomic, retain) NSSet *albums;
 @end
 
 @interface Author (CoreDataGeneratedAccessors)
-// books //
-- (void)addBooksObject:(Book *)value;
-- (void)removeBooksObject:(Book *)value;
-- (void)addBooks:(NSSet *)values;
-- (void)removeBooks:(NSSet *)values;
+//// books //
+//- (void)addBooksObject:(Book *)value;
+//- (void)removeBooksObject:(Book *)value;
+//- (void)addBooks:(NSSet *)values;
+//- (void)removeBooks:(NSSet *)values;
+// albums //
+- (void)addAlbumsObject:(Album *)value;
+- (void)removeAlbumsObject:(Album *)value;
+- (void)addAlbums:(NSSet *)values;
+- (void)removeAlbums:(NSSet *)values;
 @end

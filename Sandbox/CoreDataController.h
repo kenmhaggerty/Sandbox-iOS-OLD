@@ -14,7 +14,8 @@
 #import <CoreData/CoreData.h>
 #import <UIKit/UIKit.h>
 #import "Author.h"
-#import "Book.h"
+//#import "Book.h"
+#import "Album.h"
 
 #pragma mark - // PROTOCOLS //
 
@@ -28,17 +29,20 @@
 
 // EXISTENCE //
 
-+ (BOOL)bookExistsWithTitle:(NSString *)title author:(Author *)author;
+//+ (BOOL)bookExistsWithTitle:(NSString *)title author:(Author *)author;
++ (BOOL)albumExistsWithTitle:(NSString *)title composer:(NSString*)composer author:(Author *)author;
 
 // RETRIEVAL //
 
 + (Author *)getAuthorWithLastName:(NSString *)lastName firstName:(NSString *)firstName;
-+ (NSOrderedSet *)getAllBooks;
+//+ (NSOrderedSet *)getAllBooks;
++ (NSOrderedSet *)getAllAlbums;
 
 // CREATION //
 
 + (Author *)createAuthorWithLastName:(NSString *)lastName firstName:(NSString *)firstName;
-+ (Book *)createBookWithTitle:(NSString *)title author:(Author *)author;
+//+ (Book *)createBookWithTitle:(NSString *)title author:(Author *)author;
++ (Album *)createAlbumWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author;
 
 // DELETION //
 

@@ -17,6 +17,8 @@
 #pragma mark - // DEFINITIONS (Private) //
 
 #define CORE_DATA_FILENAME @"coredata.sqlite"
+#define CORE_DATA_MODEL_NAME @"CoreDataModel"
+#define CORE_DATA_MODEL_EXTENSION @"momd"
 
 #define NSStringFromVariable(var) (@""#var)
 
@@ -52,12 +54,6 @@
     {
         _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         [_managedObjectContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-//        NSPersistentStoreCoordinator *coordinator = self.persistentStoreCoordinator;
-//        if (coordinator)
-//        {
-//            _managedObjectContext = [[NSManagedObjectContext alloc] init];
-//            [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-//        }
     }
     return _managedObjectContext;
 }
@@ -65,12 +61,19 @@
 - (NSManagedObjectModel *)managedObjectModel
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Core Data" message:nil];
-    
+
     if (!_managedObjectModel)
     {
-//        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Postbox" withExtension:@"momd"];
-//        _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-        _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:CORE_DATA_MODEL_NAME withExtension:CORE_DATA_MODEL_EXTENSION];
+        if (modelURL)
+        {
+            _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+        }
+        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategory:@"Core Data" message:@"modelURL is nil"];
+    }
+    for (NSString *version in _managedObjectModel.versionIdentifiers)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeDebug methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Version Identifier = %@", version]];
     }
     return _managedObjectModel;
 }
@@ -92,7 +95,8 @@
         NSError *error;
         NSManagedObjectModel *managedObjectModel = [self managedObjectModel];
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
-        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+        NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption : @YES, NSInferMappingModelAutomaticallyOption : @YES};
+        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
             /*
              Replace this implementation with code to handle the error appropriately.
              
@@ -184,7 +188,36 @@
 
 #pragma mark - // PUBLIC METHODS (Existence) //
 
-+ (BOOL)bookExistsWithTitle:(NSString *)title author:(Author *)author
+//+ (BOOL)bookExistsWithTitle:(NSString *)title author:(Author *)author
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Core Data" message:nil];
+//    
+//    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
+//    if (managedObjectContext)
+//    {
+//        __block NSUInteger count;
+//        __block NSError *error;
+//        [managedObjectContext performBlockAndWait:^{
+//            NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//            [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Book class]) inManagedObjectContext:managedObjectContext]];
+//            [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@) AND (%K == %@)", NSStringFromSelector(@selector(title)), title, NSStringFromSelector(@selector(author)), author]];
+//            count = [managedObjectContext countForFetchRequest:request error:&error];
+//        }];
+//        if (!error)
+//        {
+//            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@(s) with title %@ and author %@ %@", (unsigned long)count, NSStringFromClass([Book class]), title, author.firstName, author.lastName]];
+//            if (count)
+//            {
+//                return YES;
+//            }
+//        }
+//        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+//    }
+//    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategory:@"Core Data" message:@"managedObjectContext is nil"];
+//    return NO;
+//}
+
++ (BOOL)albumExistsWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Core Data" message:nil];
     
@@ -195,13 +228,13 @@
         __block NSError *error;
         [managedObjectContext performBlockAndWait:^{
             NSFetchRequest *request = [[NSFetchRequest alloc] init];
-            [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Book class]) inManagedObjectContext:managedObjectContext]];
-            [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@) AND (%K == %@)", NSStringFromSelector(@selector(title)), title, NSStringFromSelector(@selector(author)), author]];
+            [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Album class]) inManagedObjectContext:managedObjectContext]];
+            [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@) AND (%K == %@) AND (%K == %@)", NSStringFromSelector(@selector(title)), title, NSStringFromSelector(@selector(composer)), composer, NSStringFromSelector(@selector(author)), author]];
             count = [managedObjectContext countForFetchRequest:request error:&error];
         }];
         if (!error)
         {
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@(s) with title %@ and author %@ %@", (unsigned long)count, NSStringFromClass([Book class]), title, author.firstName, author.lastName]];
+            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@(s) with title %@, composer %@, and author %@ %@", (unsigned long)count, NSStringFromClass([Album class]), title, composer, author.firstName, author.lastName]];
             if (count)
             {
                 return YES;
@@ -242,25 +275,51 @@
     return nil;
 }
 
-+ (NSOrderedSet *)getAllBooks
+//+ (NSOrderedSet *)getAllBooks
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Core Data" message:nil];
+//    
+//    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
+//    if (managedObjectContext)
+//    {
+//        __block NSArray *foundBooks;
+//        __block NSError *error;
+//        [managedObjectContext performBlockAndWait:^{
+//            NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//            [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Book class]) inManagedObjectContext:managedObjectContext]];
+//            [request setSortDescriptors:[NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(editDate)) ascending:NO], nil]];
+//            foundBooks = [managedObjectContext executeFetchRequest:request error:&error];
+//        }];
+//        if (!error)
+//        {
+//            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@ object(s)", (unsigned long)foundBooks.count, NSStringFromClass([Book class])]];
+//            return [NSOrderedSet orderedSetWithArray:foundBooks];
+//        }
+//        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+//    }
+//    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategory:@"Core Data" message:@"managedObjectContext is nil"];
+//    return nil;
+//}
+
++ (NSOrderedSet *)getAllAlbums
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Core Data" message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
     if (managedObjectContext)
     {
-        __block NSArray *foundBooks;
+        __block NSArray *foundAlbums;
         __block NSError *error;
         [managedObjectContext performBlockAndWait:^{
             NSFetchRequest *request = [[NSFetchRequest alloc] init];
-            [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Book class]) inManagedObjectContext:managedObjectContext]];
+            [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Album class]) inManagedObjectContext:managedObjectContext]];
             [request setSortDescriptors:[NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(editDate)) ascending:NO], nil]];
-            foundBooks = [managedObjectContext executeFetchRequest:request error:&error];
+            foundAlbums = [managedObjectContext executeFetchRequest:request error:&error];
         }];
         if (!error)
         {
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@ object(s)", (unsigned long)foundBooks.count, NSStringFromClass([Book class])]];
-            return [NSOrderedSet orderedSetWithArray:foundBooks];
+            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@ object(s)", (unsigned long)foundAlbums.count, NSStringFromClass([Album class])]];
+            return [NSOrderedSet orderedSetWithArray:foundAlbums];
         }
         else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
     }
@@ -291,22 +350,44 @@
     return nil;
 }
 
-+ (Book *)createBookWithTitle:(NSString *)title author:(Author *)author
+//+ (Book *)createBookWithTitle:(NSString *)title author:(Author *)author
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:nil];
+//    
+//    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
+//    if (managedObjectContext)
+//    {
+//        __block Book *book;
+//        [managedObjectContext performBlockAndWait:^{
+//            book = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Book class]) inManagedObjectContext:managedObjectContext];
+//            [book setEditDate:[NSDate date]];
+//            [book setTitle:title];
+//            [book setAuthor:author];
+//        }];
+//        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"Created %@ \"%@\" (%@, %@)", NSStringFromClass([Book class]), title, author.lastName, author.firstName]];
+//        return book;
+//    }
+//    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:@"managedObjectContext is nil"];
+//    return nil;
+//}
+
++ (Album *)createAlbumWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
     if (managedObjectContext)
     {
-        __block Book *book;
+        __block Album *album;
         [managedObjectContext performBlockAndWait:^{
-            book = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Book class]) inManagedObjectContext:managedObjectContext];
-            [book setEditDate:[NSDate date]];
-            [book setTitle:title];
-            [book setAuthor:author];
+            album = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Album class]) inManagedObjectContext:managedObjectContext];
+            [album setEditDate:[NSDate date]];
+            [album setTitle:title];
+            [album setComposer:composer];
+            [album setAuthor:author];
         }];
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"Created %@ \"%@\" (%@, %@)", NSStringFromClass([Book class]), title, author.lastName, author.firstName]];
-        return book;
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"Created %@ \"%@\" by %@ (%@, %@)", NSStringFromClass([Album class]), title, composer, author.lastName, author.firstName]];
+        return album;
     }
     else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:@"managedObjectContext is nil"];
     return nil;

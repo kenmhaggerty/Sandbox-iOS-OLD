@@ -1,5 +1,5 @@
 //
-//  Author.m
+//  Album.m
 //  Sandbox
 //
 //  Created by Ken M. Haggerty on 12/25/14.
@@ -10,34 +10,32 @@
 
 #pragma mark - // IMPORTS (Private) //
 
-#import "Author.h"
-#import "AKDebugger.h"
-//#import "Book.h"
 #import "Album.h"
+#import "AKDebugger.h"
+#import "Author.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
-@interface Author ()
+@interface Album ()
 - (void)setup;
 - (void)teardown;
 @end
 
-@implementation Author
+@implementation Album
 
 #pragma mark - // SETTERS AND GETTERS //
 
+@dynamic composer;
 @dynamic editDate;
-@dynamic lastName;
-@dynamic firstName;
-//@dynamic books;
-@dynamic albums;
+@dynamic title;
+@dynamic author;
 
 #pragma mark - // INITS AND LOADS //
 
 //- (id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 //{
 //    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Core Data" message:nil];
-//    
+//
 //    self = [super initWithEntity:entity insertIntoManagedObjectContext:context];
 //    if (self)
 //    {
@@ -51,7 +49,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Core Data" message:nil];
     
-//    [super awakeFromFetch];
+    //    [super awakeFromFetch];
     [self setup];
 }
 
@@ -59,7 +57,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Core Data" message:nil];
     
-//    [super awakeFromInsert];
+    //    [super awakeFromInsert];
     [self setup];
 }
 
@@ -74,7 +72,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Core Data" message:nil];
     
-//    [super didTurnIntoFault];
+    //    [super didTurnIntoFault];
     [self teardown];
 }
 
@@ -88,7 +86,7 @@
 //- (void)dealloc
 //{
 //    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Core Data" message:nil];
-//    
+//
 //    [self teardown];
 //}
 

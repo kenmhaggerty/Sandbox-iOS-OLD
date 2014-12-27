@@ -38,29 +38,50 @@
 
 #pragma mark - // PUBLIC METHODS (Existence) //
 
-+ (BOOL)bookExistsWithTitle:(NSString *)title author:(Author *)author
+//+ (BOOL)bookExistsWithTitle:(NSString *)title author:(Author *)author
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
+//    
+//    return [CoreDataController bookExistsWithTitle:title author:author];
+//}
+
++ (BOOL)albumExistsWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
     
-    return [CoreDataController bookExistsWithTitle:title author:author];
+    return [CoreDataController albumExistsWithTitle:title composer:composer author:author];
 }
 
 #pragma mark - // PUBLIC METHODS (Retrieval) //
 
-+ (NSOrderedSet *)getAllBooks
+//+ (NSOrderedSet *)getAllBooks
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
+//    
+//    return [CoreDataController getAllBooks];
+//}
+
++ (NSOrderedSet *)getAllAlbums
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
     
-    return [CoreDataController getAllBooks];
+    return [CoreDataController getAllAlbums];
 }
 
 #pragma mark - // PUBLIC METHODS (Creation) //
 
-+ (Book *)createBookWithTitle:(NSString *)title author:(Author *)author
+//+ (Book *)createBookWithTitle:(NSString *)title author:(Author *)author
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Data Manager" message:nil];
+//    
+//    return [CoreDataController createBookWithTitle:title author:author];
+//}
+
++ (Album *)createAlbumWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Data Manager" message:nil];
     
-    return [CoreDataController createBookWithTitle:title author:author];
+    return [CoreDataController createAlbumWithTitle:title composer:composer author:author];
 }
 
 #pragma mark - // PUBLIC METHODS (Retrieval + Creation) //

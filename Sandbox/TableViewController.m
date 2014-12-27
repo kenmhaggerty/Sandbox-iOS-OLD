@@ -15,7 +15,8 @@
 #import "AKSystemInfo.h"
 #import "DataManager.h"
 #import "Author.h"
-#import "Book.h"
+//#import "Book.h"
+#import "Album.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
@@ -26,7 +27,7 @@
 
 @interface TableViewController ()
 @property (nonatomic, strong) NSMutableArray *data;
-@property (nonatomic, strong) UIAlertController *alertControllerAddBook;
+@property (nonatomic, strong) UIAlertController *alertControllerAddAlbum;
 @property (nonatomic, strong) UIAlertController *alertControllerError;
 - (void)setup;
 - (void)teardown;
@@ -38,46 +39,58 @@
 #pragma mark - // SETTERS AND GETTERS //
 
 @synthesize data = _data;
-@synthesize alertControllerAddBook = _alertControllerAddBook;
+@synthesize alertControllerAddAlbum = _alertControllerAddAlbum;
 @synthesize alertControllerError = _alertControllerError;
 
 - (NSMutableArray *)data
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:nil message:nil];
     
-    if (!_data) _data = [NSMutableArray arrayWithArray:[[DataManager getAllBooks] array]];
+    if (!_data)
+    {
+//        _data = [NSMutableArray arrayWithArray:[[DataManager getAllBooks] array]];
+        _data = [NSMutableArray arrayWithArray:[[DataManager getAllAlbums] array]];
+    }
     return _data;
 }
 
-- (UIAlertController *)alertControllerAddBook
+- (UIAlertController *)alertControllerAddAlbum
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:nil message:nil];
     
-    if (!_alertControllerAddBook)
+    if (!_alertControllerAddAlbum)
     {
-        _alertControllerAddBook = [UIAlertController alertControllerWithTitle:@"Book" message:@"Please enter book info:" preferredStyle:UIAlertControllerStyleAlert];
-        [_alertControllerAddBook addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        _alertControllerAddAlbum = [UIAlertController alertControllerWithTitle:@"Album" message:@"Please enter album info:" preferredStyle:UIAlertControllerStyleAlert];
+        [_alertControllerAddAlbum addTextFieldWithConfigurationHandler:^(UITextField *textField){
             [textField setPlaceholder:@"title"];
         }];
-        [_alertControllerAddBook addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        [_alertControllerAddAlbum addTextFieldWithConfigurationHandler:^(UITextField *textField){
+            [textField setPlaceholder:@"composer"];
+        }];
+        [_alertControllerAddAlbum addTextFieldWithConfigurationHandler:^(UITextField *textField){
             [textField setPlaceholder:@"author (last name)"];
         }];
-        [_alertControllerAddBook addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        [_alertControllerAddAlbum addTextFieldWithConfigurationHandler:^(UITextField *textField){
             [textField setPlaceholder:@"author (first name)"];
         }];
-        [_alertControllerAddBook addAction:[UIAlertAction actionWithTitle:@"Add Book" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-            NSString *title = ((UITextField *)[_alertControllerAddBook.textFields objectAtIndex:0]).text;
-            NSString *lastName = ((UITextField *)[_alertControllerAddBook.textFields objectAtIndex:1]).text;
-            NSString *firstName = ((UITextField *)[_alertControllerAddBook.textFields objectAtIndex:2]).text;
+        [_alertControllerAddAlbum addAction:[UIAlertAction actionWithTitle:@"Add Album" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            NSString *title = ((UITextField *)[_alertControllerAddAlbum.textFields objectAtIndex:0]).text;
+            NSString *composer = ((UITextField *)[_alertControllerAddAlbum.textFields objectAtIndex:1]).text;
+            NSString *lastName = ((UITextField *)[_alertControllerAddAlbum.textFields objectAtIndex:2]).text;
+            NSString *firstName = ((UITextField *)[_alertControllerAddAlbum.textFields objectAtIndex:3]).text;
+            if (title.length == 0) title = nil;
+            if (composer.length == 0) composer = nil;
+            if (lastName.length == 0) lastName = nil;
+            if (firstName.length == 0) firstName = nil;
             Author *author = [DataManager authorWithLastName:lastName firstName:firstName];
             if (author)
             {
-                Book *book = [DataManager createBookWithTitle:title author:author];
-                if (book)
+                Album *album = [DataManager createAlbumWithTitle:title composer:composer author:author];
+                if (album)
                 {
                     if ([DataManager save])
                     {
-                        [self.data insertObject:book atIndex:0];
+                        [self.data insertObject:album atIndex:0];
                         [self.tableView reloadData];
                     }
                     else
@@ -94,21 +107,21 @@
             {
                 [self presentViewController:self.alertControllerError animated:YES completion:nil];
             }
-            for (UITextField *textField in _alertControllerAddBook.textFields)
+            for (UITextField *textField in _alertControllerAddAlbum.textFields)
             {
                 [textField setText:nil];
             }
         }]];
-        [_alertControllerAddBook addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
-            [_alertControllerAddBook dismissViewControllerAnimated:YES completion:^{
-                for (UITextField *textField in _alertControllerAddBook.textFields)
+        [_alertControllerAddAlbum addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+            [_alertControllerAddAlbum dismissViewControllerAnimated:YES completion:^{
+                for (UITextField *textField in _alertControllerAddAlbum.textFields)
                 {
                     [textField setText:nil];
                 }
             }];
         }]];
     }
-    return _alertControllerAddBook;
+    return _alertControllerAddAlbum;
 }
 
 - (UIAlertController *)alertControllerError
@@ -117,7 +130,7 @@
     
     if (!_alertControllerError)
     {
-        _alertControllerError = [UIAlertController alertControllerWithTitle:@"Error" message:@"Could not add book." preferredStyle:UIAlertControllerStyleAlert];
+        _alertControllerError = [UIAlertController alertControllerWithTitle:@"Error" message:@"Could not add album." preferredStyle:UIAlertControllerStyleAlert];
         [_alertControllerError addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
             [_alertControllerError dismissViewControllerAnimated:YES completion:nil];
         }]];
@@ -235,13 +248,15 @@
     else cell = [tableView dequeueReusableCellWithIdentifier:UITABLEVIEWCELL_REUSE_IDENTIFIER forIndexPath:indexPath];
     if (cell)
     {
-        Book *book = [self.data objectAtIndex:indexPath.row];
-        if (book)
+        Album *album = [self.data objectAtIndex:indexPath.row];
+        if (album)
         {
-            [cell.textLabel setText:book.title];
-            if (book.author)
+            [cell.textLabel setText:album.title];
+            if (album.author)
             {
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@", book.author.firstName, book.author.lastName]];
+                NSString *author = album.author.lastName;
+                if (album.author.firstName) author = [NSString stringWithFormat:@"%@ %@", album.author.firstName, album.author.lastName];
+                [cell.detailTextLabel setText:author];
             }
             else
             {
@@ -277,17 +292,17 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        Book *book = [self.data objectAtIndex:indexPath.row];
+        Album *album = [self.data objectAtIndex:indexPath.row];
         [self.data removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        if ([DataManager deleteObject:book])
+        if ([DataManager deleteObject:album])
         {
             if (![DataManager save])
             {
                 [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategory:nil message:@"Could not save"];
             }
         }
-        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategory:nil message:[NSString stringWithFormat:@"Could not delete %@", NSStringFromClass([Book class])]];
+        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategory:nil message:[NSString stringWithFormat:@"Could not delete %@", NSStringFromClass([Album class])]];
     }
 }
 
@@ -311,7 +326,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:nil message:nil];
     
-    [self presentViewController:self.alertControllerAddBook animated:YES completion:nil];
+    [self presentViewController:self.alertControllerAddAlbum animated:YES completion:nil];
 }
 
 @end
