@@ -71,10 +71,6 @@
         }
         else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategory:@"Core Data" message:@"modelURL is nil"];
     }
-    for (NSString *version in _managedObjectModel.versionIdentifiers)
-    {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeDebug methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Version Identifier = %@", version]];
-    }
     return _managedObjectModel;
 }
 

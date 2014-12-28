@@ -17,11 +17,17 @@
 #import "Author.h"
 //#import "Book.h"
 #import "Album.h"
+#import "UIAlertController+Info.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
 #define CELL_LABEL_MISSING_BOOK @"(???)"
 #define CELL_LABEL_MISSING_AUTHOR @"(unknown author)"
+
+#define ALERT_INFO_KEY_TITLE @"title"
+#define ALERT_INFO_KEY_COMPOSER @"composer"
+#define ALERT_INFO_KEY_LASTNAME @"lastName"
+#define ALERT_INFO_KEY_FIRSTNAME @"firstName"
 
 #define UITABLEVIEWCELL_REUSE_IDENTIFIER @"cell"
 
@@ -73,11 +79,18 @@
         [_alertControllerAddAlbum addTextFieldWithConfigurationHandler:^(UITextField *textField){
             [textField setPlaceholder:@"author (first name)"];
         }];
+        [_alertControllerAddAlbum addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+            for (UITextField *textField in _alertControllerAddAlbum.textFields)
+            {
+                [textField setText:nil];
+            }
+        }]];
         [_alertControllerAddAlbum addAction:[UIAlertAction actionWithTitle:@"Add Album" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
             NSString *title = ((UITextField *)[_alertControllerAddAlbum.textFields objectAtIndex:0]).text;
             NSString *composer = ((UITextField *)[_alertControllerAddAlbum.textFields objectAtIndex:1]).text;
             NSString *lastName = ((UITextField *)[_alertControllerAddAlbum.textFields objectAtIndex:2]).text;
             NSString *firstName = ((UITextField *)[_alertControllerAddAlbum.textFields objectAtIndex:3]).text;
+            [self.alertControllerError setInfo:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:title, composer, lastName, firstName, nil] forKeys:[NSArray arrayWithObjects:ALERT_INFO_KEY_TITLE, ALERT_INFO_KEY_COMPOSER, ALERT_INFO_KEY_LASTNAME, ALERT_INFO_KEY_FIRSTNAME, nil]]];
             if (title.length == 0) title = nil;
             if (composer.length == 0) composer = nil;
             if (lastName.length == 0) lastName = nil;
@@ -112,14 +125,6 @@
                 [textField setText:nil];
             }
         }]];
-        [_alertControllerAddAlbum addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
-            [_alertControllerAddAlbum dismissViewControllerAnimated:YES completion:^{
-                for (UITextField *textField in _alertControllerAddAlbum.textFields)
-                {
-                    [textField setText:nil];
-                }
-            }];
-        }]];
     }
     return _alertControllerAddAlbum;
 }
@@ -135,6 +140,7 @@
             [_alertControllerError dismissViewControllerAnimated:YES completion:nil];
         }]];
     }
+    [_alertControllerError setMessage:[NSString stringWithFormat:@"Could not add album:\n\"%@\"\n%@", [_alertControllerError.info objectForKey:ALERT_INFO_KEY_TITLE], [_alertControllerError.info objectForKey:ALERT_INFO_KEY_COMPOSER]]];
     return _alertControllerError;
 }
 

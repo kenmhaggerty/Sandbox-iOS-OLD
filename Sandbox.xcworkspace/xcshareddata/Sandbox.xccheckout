@@ -10,8 +10,12 @@
 	<string>Sandbox</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>180AEB9035F8B2E3D53D07BA453CBB1CF1D26099</key>
+		<string>https://github.com/eurekavalleyco/AKDebugger.git</string>
 		<key>23D6294FF433B578B3376B2E0BCB8E315D0C6036</key>
 		<string>https://github.com/kenmhaggerty/Sandbox.git</string>
+		<key>249738F0A276B150378B589E80258D41888764CC</key>
+		<string>https://github.com/eurekavalleyco/AKSystemInfo.git</string>
 		<key>EE2149F46CE9D12EEED852BC5841F1EB9896945C</key>
 		<string>https://bitbucket.org/eurekavalleyco/aksuperviewcontroller.git</string>
 	</dict>
@@ -19,8 +23,12 @@
 	<string>Sandbox.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>180AEB9035F8B2E3D53D07BA453CBB1CF1D26099</key>
+		<string>../../AKDebugger</string>
 		<key>23D6294FF433B578B3376B2E0BCB8E315D0C6036</key>
 		<string>..</string>
+		<key>249738F0A276B150378B589E80258D41888764CC</key>
+		<string>../../AKSystemInfo</string>
 		<key>EE2149F46CE9D12EEED852BC5841F1EB9896945C</key>
 		<string>../../AKSuperViewController</string>
 	</dict>
@@ -36,9 +44,25 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>180AEB9035F8B2E3D53D07BA453CBB1CF1D26099</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AKDebugger</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>EE2149F46CE9D12EEED852BC5841F1EB9896945C</string>
 			<key>IDESourceControlWCCName</key>
 			<string>AKSuperViewController</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>249738F0A276B150378B589E80258D41888764CC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AKSystemInfo</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
