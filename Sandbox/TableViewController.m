@@ -38,6 +38,7 @@
 - (void)setup;
 - (void)teardown;
 - (IBAction)actionAdd:(id)sender;
+- (IBAction)actionTest:(id)sender;
 @end
 
 @implementation TableViewController
@@ -333,6 +334,34 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:nil message:nil];
     
     [self presentViewController:self.alertControllerAddAlbum animated:YES completion:nil];
+}
+
+- (IBAction)actionTest:(id)sender
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:nil message:nil];
+    
+    NSString *title1 = [NSString stringWithFormat:@"Untitled %lu", self.data.count];
+    NSString *title2 = [NSString stringWithFormat:@"Untitled %lu", self.data.count+1];
+    NSString *title3 = [NSString stringWithFormat:@"Untitled %lu", self.data.count+2];
+    NSString *composer = @"Britney Spears";
+    NSString *lastName = @"Spears";
+    NSString *firstName = @"Britney";
+    Author *author = [DataManager authorWithLastName:lastName firstName:firstName];
+    Album *album1 = [DataManager createAlbumWithTitle:title1 composer:composer author:author];
+    Album *album2 = [DataManager createAlbumWithTitle:title2 composer:composer author:author];
+    Album *album3 = [DataManager createAlbumWithTitle:title3 composer:composer author:author];
+    if ([DataManager save])
+    {
+        [self.data insertObjects:@[album1, album2] atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)]];
+        [self.data insertObject:album3 atIndex:self.data.count-1];
+        NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:[self.data indexOfObject:album1] inSection:0];
+        NSLog(@"indexPath1 = %li", indexPath1.row);
+        NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:[self.data indexOfObject:album2] inSection:0];
+        NSLog(@"indexPath2 = %li", indexPath2.row);
+        NSIndexPath *indexPath3 = [NSIndexPath indexPathForRow:[self.data indexOfObject:album3] inSection:0];
+        NSLog(@"indexPath3 = %li", indexPath3.row);
+        [self.tableView insertRowsAtIndexPaths:@[indexPath1, indexPath2, indexPath3] withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 
 @end
