@@ -12,44 +12,37 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "Author.h"
-//#import "Book.h"
-#import "Album.h"
 
 #pragma mark - // PROTOCOLS //
 
 #pragma mark - // DEFINITIONS (Public) //
 
+#define NOTIFICATION_CURRENTUSER_DID_CHANGE @"kNotificationCurrentUserDidChange"
+#define NOTIFICATION_MESSAGE_WAS_CREATED @"kNotificationMessageWasCreated"
+
 @interface DataManager : NSObject
 
 // GENERAL //
-
-+ (BOOL)save;
 
 // VALIDATION //
 
 // EXISTENCE //
 
-//+ (BOOL)bookExistsWithTitle:(NSString *)title author:(Author *)author;
-+ (BOOL)albumExistsWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author;
-
 // RETRIEVAL //
 
-//+ (NSOrderedSet *)getAllBooks;
-+ (NSOrderedSet *)getAllAlbums;
-
-// EXISTENCE + RETRIEVAL //
-
-+ (Author *)authorWithLastName:(NSString *)lastName firstName:(NSString *)firstName;
++ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient;
++ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender;
 
 // CREATION //
 
-//+ (Book *)createBookWithTitle:(NSString *)title author:(Author *)author;
-+ (Album *)createAlbumWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author;
++ (BOOL)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate;
+
+// EDITING //
+
++ (void)setCurrentUser:(NSString *)currentUser;
++ (NSString *)currentUser;
 
 // DELETION //
-
-+ (BOOL)deleteObject:(NSManagedObject *)object;
 
 // DEBUGGING //
 

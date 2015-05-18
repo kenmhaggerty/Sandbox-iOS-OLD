@@ -12,6 +12,7 @@
 
 #import "CoreDataController.h"
 #import "AKDebugger.h"
+#import "AKGenerics.h"
 #import "SandboxPrivateInfo.h"
 
 #pragma mark - // DEFINITIONS (Private) //
@@ -35,6 +36,8 @@
 + (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
 - (void)setup;
 - (void)teardown;
++ (BOOL)save;
++ (BOOL)deleteObject:(NSManagedObject *)object;
 
 @end
 
@@ -134,7 +137,7 @@
     {
         [self setup];
     }
-    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategory:@"Core Data" message:@"Could not initialize self"];
+    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategory:@"Core Data" message:[NSString stringWithFormat:@"Could not initialize %@", stringFromVariable(self)]];
     return self;
 }
 
@@ -147,269 +150,107 @@
 
 #pragma mark - // PUBLIC METHODS (General) //
 
-+ (BOOL)save
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:nil];
-    
-    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-    if (managedObjectContext)
-    {
-        __block NSError *error;
-        __block BOOL succeeded;
-        [managedObjectContext performBlockAndWait:^{
-            succeeded = [managedObjectContext save:&error];
-        }];
-        if (!error)
-        {
-            if (succeeded)
-            {
-                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:@"Save successful"];
-                return YES;
-            }
-            else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:@"Could not save"];
-        }
-        else
-        {
-            NSArray *detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
-            if ((detailedErrors) && (detailedErrors.count))
-            {
-                for (NSError *detailedError in detailedErrors) [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@", [detailedError userInfo]]];
-            }
-            else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@", [error userInfo]]];
-        }
-    }
-    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:@"managedObjectContext is nil"];
-    return NO;
-}
-
 #pragma mark - // PUBLIC METHODS (Existence) //
-
-//+ (BOOL)bookExistsWithTitle:(NSString *)title author:(Author *)author
-//{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Core Data" message:nil];
-//    
-//    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-//    if (managedObjectContext)
-//    {
-//        __block NSUInteger count;
-//        __block NSError *error;
-//        [managedObjectContext performBlockAndWait:^{
-//            NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//            [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Book class]) inManagedObjectContext:managedObjectContext]];
-//            [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@) AND (%K == %@)", NSStringFromSelector(@selector(title)), title, NSStringFromSelector(@selector(author)), author]];
-//            count = [managedObjectContext countForFetchRequest:request error:&error];
-//        }];
-//        if (!error)
-//        {
-//            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@(s) with title %@ and author %@ %@", (unsigned long)count, NSStringFromClass([Book class]), title, author.firstName, author.lastName]];
-//            if (count)
-//            {
-//                return YES;
-//            }
-//        }
-//        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
-//    }
-//    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategory:@"Core Data" message:@"managedObjectContext is nil"];
-//    return NO;
-//}
-
-+ (BOOL)albumExistsWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Core Data" message:nil];
-    
-    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-    if (managedObjectContext)
-    {
-        __block NSUInteger count;
-        __block NSError *error;
-        [managedObjectContext performBlockAndWait:^{
-            NSFetchRequest *request = [[NSFetchRequest alloc] init];
-            [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Album class]) inManagedObjectContext:managedObjectContext]];
-            [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@) AND (%K == %@) AND (%K == %@)", NSStringFromSelector(@selector(title)), title, NSStringFromSelector(@selector(composer)), composer, NSStringFromSelector(@selector(author)), author]];
-            count = [managedObjectContext countForFetchRequest:request error:&error];
-        }];
-        if (!error)
-        {
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@(s) with title %@, composer %@, and author %@ %@", (unsigned long)count, NSStringFromClass([Album class]), title, composer, author.firstName, author.lastName]];
-            if (count)
-            {
-                return YES;
-            }
-        }
-        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
-    }
-    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategory:@"Core Data" message:@"managedObjectContext is nil"];
-    return NO;
-}
 
 #pragma mark - // PUBLIC METHODS (Retrieval) //
 
-+ (Author *)getAuthorWithLastName:(NSString *)lastName firstName:(NSString *)firstName
++ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Core Data" message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-    if (managedObjectContext)
+    if (!managedObjectContext)
     {
-        __block NSArray *foundAuthors;
-        __block NSError *error;
-        [managedObjectContext performBlockAndWait:^{
-            NSFetchRequest *request = [[NSFetchRequest alloc] init];
-            [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Author class]) inManagedObjectContext:managedObjectContext]];
-            [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@) AND (%K == %@)", NSStringFromSelector(@selector(lastName)), lastName, NSStringFromSelector(@selector(firstName)), firstName]];
-            [request setSortDescriptors:[NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(editDate)) ascending:YES], nil]];
-            foundAuthors = [managedObjectContext executeFetchRequest:request error:&error];
-        }];
-        if (!error)
-        {
-            if (foundAuthors.count > 1) [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@ object(s) with name %@ %@; returning first object", (unsigned long)foundAuthors.count, NSStringFromClass([Author class]), firstName, lastName]];
-            return [foundAuthors firstObject];
-        }
-        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
+        return nil;
     }
-    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategory:@"Core Data" message:@"managedObjectContext is nil"];
-    return nil;
+    
+    __block NSArray *foundMessages;
+    __block NSError *error;
+    [managedObjectContext performBlockAndWait:^{
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Message class]) inManagedObjectContext:managedObjectContext]];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@)", NSStringFromSelector(@selector(recipient)), recipient]];
+        [request setSortDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(sendDate)) ascending:NO], nil]];
+        foundMessages = [managedObjectContext executeFetchRequest:request error:&error];
+    }];
+    if (error)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+        return nil;
+    }
+    
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@", (unsigned long)foundMessages.count, NSStringFromClass([Message class]), stringFromVariable(recipient), recipient]];
+    return [NSOrderedSet orderedSetWithArray:foundMessages];
 }
 
-//+ (NSOrderedSet *)getAllBooks
-//{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Core Data" message:nil];
-//    
-//    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-//    if (managedObjectContext)
-//    {
-//        __block NSArray *foundBooks;
-//        __block NSError *error;
-//        [managedObjectContext performBlockAndWait:^{
-//            NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//            [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Book class]) inManagedObjectContext:managedObjectContext]];
-//            [request setSortDescriptors:[NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(editDate)) ascending:NO], nil]];
-//            foundBooks = [managedObjectContext executeFetchRequest:request error:&error];
-//        }];
-//        if (!error)
-//        {
-//            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@ object(s)", (unsigned long)foundBooks.count, NSStringFromClass([Book class])]];
-//            return [NSOrderedSet orderedSetWithArray:foundBooks];
-//        }
-//        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
-//    }
-//    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategory:@"Core Data" message:@"managedObjectContext is nil"];
-//    return nil;
-//}
-
-+ (NSOrderedSet *)getAllAlbums
++ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Core Data" message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-    if (managedObjectContext)
+    if (!managedObjectContext)
     {
-        __block NSArray *foundAlbums;
-        __block NSError *error;
-        [managedObjectContext performBlockAndWait:^{
-            NSFetchRequest *request = [[NSFetchRequest alloc] init];
-            [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Album class]) inManagedObjectContext:managedObjectContext]];
-            [request setSortDescriptors:[NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(editDate)) ascending:NO], nil]];
-            foundAlbums = [managedObjectContext executeFetchRequest:request error:&error];
-        }];
-        if (!error)
-        {
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@ object(s)", (unsigned long)foundAlbums.count, NSStringFromClass([Album class])]];
-            return [NSOrderedSet orderedSetWithArray:foundAlbums];
-        }
-        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
+        return nil;
     }
-    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategory:@"Core Data" message:@"managedObjectContext is nil"];
-    return nil;
+    
+    __block NSArray *foundMessages;
+    __block NSError *error;
+    [managedObjectContext performBlockAndWait:^{
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Message class]) inManagedObjectContext:managedObjectContext]];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@)", NSStringFromSelector(@selector(sender)), sender]];
+        [request setSortDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(sendDate)) ascending:NO], nil]];
+        foundMessages = [managedObjectContext executeFetchRequest:request error:&error];
+    }];
+    if (error)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+        return nil;
+    }
+    
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategory:@"Core Data" message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@", (unsigned long)foundMessages.count, NSStringFromClass([Message class]), stringFromVariable(sender), sender]];
+    return [NSOrderedSet orderedSetWithArray:foundMessages];
 }
 
 #pragma mark - // PUBLIC METHODS (Creation) //
 
-+ (Author *)createAuthorWithLastName:(NSString *)lastName firstName:(NSString *)firstName
++ (Message *)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategory:@"Core Data" message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-    if (managedObjectContext)
+    if (!managedObjectContext)
     {
-        __block Author *author;
-        [managedObjectContext performBlockAndWait:^{
-            author = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Author class]) inManagedObjectContext:managedObjectContext];
-            [author setEditDate:[NSDate date]];
-            [author setLastName:lastName];
-            [author setFirstName:firstName];
-        }];
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"Created %@ (%@, %@)", NSStringFromClass([Author class]), lastName, firstName]];
-        return author;
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
+        return nil;
     }
-    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:@"managedObjectContext is nil"];
-    return nil;
-}
-
-//+ (Book *)createBookWithTitle:(NSString *)title author:(Author *)author
-//{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:nil];
-//    
-//    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-//    if (managedObjectContext)
-//    {
-//        __block Book *book;
-//        [managedObjectContext performBlockAndWait:^{
-//            book = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Book class]) inManagedObjectContext:managedObjectContext];
-//            [book setEditDate:[NSDate date]];
-//            [book setTitle:title];
-//            [book setAuthor:author];
-//        }];
-//        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"Created %@ \"%@\" (%@, %@)", NSStringFromClass([Book class]), title, author.lastName, author.firstName]];
-//        return book;
-//    }
-//    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:@"managedObjectContext is nil"];
-//    return nil;
-//}
-
-+ (Album *)createAlbumWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:nil];
     
-    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-    if (managedObjectContext)
+    __block Message *message;
+    [managedObjectContext performBlockAndWait:^{
+        message = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Message class]) inManagedObjectContext:managedObjectContext];
+        [message setSender:sender];
+        [message setRecipient:recipient];
+        [message setText:text];
+        [message setSendDate:sendDate];
+    }];
+    
+    if (![CoreDataController save])
     {
-        __block Album *album;
-        [managedObjectContext performBlockAndWait:^{
-            album = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Album class]) inManagedObjectContext:managedObjectContext];
-            [album setEditDate:[NSDate date]];
-            [album setTitle:title];
-            [album setComposer:composer];
-            [album setAuthor:author];
-        }];
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"Created %@ \"%@\" by %@ (%@, %@)", NSStringFromClass([Album class]), title, composer, author.lastName, author.firstName]];
-        return album;
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator customCategory:@"Core Data" message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(message)]];
+        if (![CoreDataController deleteObject:message])
+        {
+            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator customCategory:@"Core Data" message:[NSString stringWithFormat:@"Could not delete %@", stringFromVariable(message)]];
+        }
+        return nil;
     }
-    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:@"managedObjectContext is nil"];
-    return nil;
+    
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeCreator customCategory:@"Core Data" message:[NSString stringWithFormat:@"Created %@ with %@ %@ and %@ %@", NSStringFromClass([Message class]), stringFromVariable(sender), sender, stringFromVariable(recipient), recipient]];
+    return message;
 }
 
 #pragma mark - // PUBLIC METHODS (Deletion) //
-
-+ (BOOL)deleteObject:(NSManagedObject *)object
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:nil];
-    
-    if (object)
-    {
-        NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-        if (managedObjectContext)
-        {
-            [managedObjectContext performBlockAndWait:^{
-                [managedObjectContext deleteObject:object];
-            }];
-            return YES;
-        }
-        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:@"managedObjectContext is nil"];
-    }
-    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:@"object is nil"];
-    return NO;
-}
 
 #pragma mark - // PUBLIC METHODS (Debugging) //
 
@@ -460,6 +301,63 @@
 - (void)teardown
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Core Data" message:nil];
+}
+
++ (BOOL)save
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:nil];
+    
+    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
+    if (!managedObjectContext)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
+        return NO;
+    }
+    
+    __block NSError *error;
+    __block BOOL succeeded;
+    [managedObjectContext performBlockAndWait:^{
+        succeeded = [managedObjectContext save:&error];
+    }];
+    if (error)
+    {
+        NSArray *detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+        if (detailedErrors)
+        {
+            for (NSError *detailedError in detailedErrors)
+            {
+                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@", [detailedError userInfo]]];
+            }
+        }
+        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@", [error userInfo]]];
+        return NO;
+    }
+    
+    if (!succeeded)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:@"Could not save"];
+        return NO;
+    }
+    
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:@"Save successful"];
+    return YES;
+}
+
++ (BOOL)deleteObject:(NSManagedObject *)object
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:nil];
+    
+    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
+    if (!managedObjectContext)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
+        return NO;
+    }
+    
+    [managedObjectContext performBlockAndWait:^{
+        [managedObjectContext deleteObject:object];
+    }];
+    return YES;
 }
 
 @end

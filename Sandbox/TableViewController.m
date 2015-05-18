@@ -14,31 +14,24 @@
 #import "AKDebugger.h"
 #import "AKSystemInfo.h"
 #import "DataManager.h"
-#import "Author.h"
-//#import "Book.h"
-#import "Album.h"
+#import "Message.h"
 #import "UIAlertController+Info.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
-#define CELL_LABEL_MISSING_BOOK @"(???)"
-#define CELL_LABEL_MISSING_AUTHOR @"(unknown author)"
-
-#define ALERT_INFO_KEY_TITLE @"title"
-#define ALERT_INFO_KEY_COMPOSER @"composer"
-#define ALERT_INFO_KEY_LASTNAME @"lastName"
-#define ALERT_INFO_KEY_FIRSTNAME @"firstName"
+#define CELL_LABEL_MISSING_MESSAGE @"(???)"
+#define CELL_LABEL_MISSING_SENDER @"(unknown sender)"
+#define CELL_LABEL_MISSING_RECIPIENT @"(unknown recipient)"
 
 #define UITABLEVIEWCELL_REUSE_IDENTIFIER @"cell"
 
 @interface TableViewController ()
 @property (nonatomic, strong) NSMutableArray *data;
-@property (nonatomic, strong) UIAlertController *alertControllerAddAlbum;
+@property (nonatomic, strong) UIAlertController *alertControllerCreateMessage;
 @property (nonatomic, strong) UIAlertController *alertControllerError;
 - (void)setup;
 - (void)teardown;
-- (IBAction)actionAdd:(id)sender;
-- (IBAction)actionTest:(id)sender;
+- (IBAction)actionCreateMessage:(id)sender;
 @end
 
 @implementation TableViewController
@@ -46,7 +39,7 @@
 #pragma mark - // SETTERS AND GETTERS //
 
 @synthesize data = _data;
-@synthesize alertControllerAddAlbum = _alertControllerAddAlbum;
+@synthesize alertControllerCreateMessage = _alertControllerCreateMessage;
 @synthesize alertControllerError = _alertControllerError;
 
 - (NSMutableArray *)data
@@ -55,79 +48,62 @@
     
     if (!_data)
     {
-//        _data = [NSMutableArray arrayWithArray:[[DataManager getAllBooks] array]];
-        _data = [NSMutableArray arrayWithArray:[[DataManager getAllAlbums] array]];
+        _data = [NSMutableArray arrayWithArray:[[DataManager getMessagesSentToUser:<#(NSString *)#>] array]];
     }
     return _data;
 }
 
-- (UIAlertController *)alertControllerAddAlbum
+- (UIAlertController *)alertControllerCreateMessage
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:nil message:nil];
     
-    if (!_alertControllerAddAlbum)
+    if (!_alertControllerCreateMessage)
     {
-        _alertControllerAddAlbum = [UIAlertController alertControllerWithTitle:@"Album" message:@"Please enter album info:" preferredStyle:UIAlertControllerStyleAlert];
-        [_alertControllerAddAlbum addTextFieldWithConfigurationHandler:^(UITextField *textField){
-            [textField setPlaceholder:@"title"];
+        _alertControllerCreateMessage = [UIAlertController alertControllerWithTitle:@"Create Message" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [_alertControllerCreateMessage addTextFieldWithConfigurationHandler:^(UITextField *textField){
+            [textField setPlaceholder:@"recipient"];
         }];
-        [_alertControllerAddAlbum addTextFieldWithConfigurationHandler:^(UITextField *textField){
-            [textField setPlaceholder:@"composer"];
+        [_alertControllerCreateMessage addTextFieldWithConfigurationHandler:^(UITextField *textField){
+            [textField setPlaceholder:@"message"];
         }];
-        [_alertControllerAddAlbum addTextFieldWithConfigurationHandler:^(UITextField *textField){
-            [textField setPlaceholder:@"author (last name)"];
-        }];
-        [_alertControllerAddAlbum addTextFieldWithConfigurationHandler:^(UITextField *textField){
-            [textField setPlaceholder:@"author (first name)"];
-        }];
-        [_alertControllerAddAlbum addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
-            for (UITextField *textField in _alertControllerAddAlbum.textFields)
+        [_alertControllerCreateMessage addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+            for (UITextField *textField in _alertControllerCreateMessage.textFields)
             {
                 [textField setText:nil];
             }
         }]];
-        [_alertControllerAddAlbum addAction:[UIAlertAction actionWithTitle:@"Add Album" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-            NSString *title = ((UITextField *)[_alertControllerAddAlbum.textFields objectAtIndex:0]).text;
-            NSString *composer = ((UITextField *)[_alertControllerAddAlbum.textFields objectAtIndex:1]).text;
-            NSString *lastName = ((UITextField *)[_alertControllerAddAlbum.textFields objectAtIndex:2]).text;
-            NSString *firstName = ((UITextField *)[_alertControllerAddAlbum.textFields objectAtIndex:3]).text;
-            [self.alertControllerError setInfo:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:title, composer, lastName, firstName, nil] forKeys:[NSArray arrayWithObjects:ALERT_INFO_KEY_TITLE, ALERT_INFO_KEY_COMPOSER, ALERT_INFO_KEY_LASTNAME, ALERT_INFO_KEY_FIRSTNAME, nil]]];
-            if (title.length == 0) title = nil;
-            if (composer.length == 0) composer = nil;
-            if (lastName.length == 0) lastName = nil;
-            if (firstName.length == 0) firstName = nil;
-            Author *author = [DataManager authorWithLastName:lastName firstName:firstName];
-            if (author)
+        [_alertControllerCreateMessage addAction:[UIAlertAction actionWithTitle:@"Add Album" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            NSString *recipient = ((UITextField *)[_alertControllerCreateMessage.textFields objectAtIndex:0]).text;
+            NSString *text = ((UITextField *)[_alertControllerCreateMessage.textFields objectAtIndex:1]).text;
+            if (recipient.length == 0) recipient = nil;
+            if (text.length == 0) text = nil;
+            NSString *sender = [DataManager currentUser];
+            if (!sender)
             {
-                Album *album = [DataManager createAlbumWithTitle:title composer:composer author:author];
-                if (album)
-                {
-                    if ([DataManager save])
-                    {
-                        [self.data insertObject:album atIndex:0];
-                        [self.tableView reloadData];
-                    }
-                    else
-                    {
-                        [self presentViewController:self.alertControllerError animated:YES completion:nil];
-                    }
-                }
-                else
-                {
-                    [self presentViewController:self.alertControllerError animated:YES completion:nil];
-                }
+                
             }
-            else
+            
+            if (!recipient)
             {
-                [self presentViewController:self.alertControllerError animated:YES completion:nil];
+                
             }
-            for (UITextField *textField in _alertControllerAddAlbum.textFields)
+            
+            if (!text)
             {
-                [textField setText:nil];
+                
             }
+            
+            if (![DataManager createMessageWithText:text fromUser:sender toUser:recipient onDate:[NSDate date]])
+            {
+                
+            }
+            
+            [self.data insertObject:message atIndex:0];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }]];
     }
-    return _alertControllerAddAlbum;
+    return _alertControllerCreateMessage;
 }
 
 - (UIAlertController *)alertControllerError
@@ -329,39 +305,11 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:nil message:nil];
 }
 
-- (IBAction)actionAdd:(id)sender
+- (IBAction)actionCreateMessage:(id)sender
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:nil message:nil];
     
-    [self presentViewController:self.alertControllerAddAlbum animated:YES completion:nil];
-}
-
-- (IBAction)actionTest:(id)sender
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:nil message:nil];
-    
-    NSString *title1 = [NSString stringWithFormat:@"Untitled %lu", self.data.count];
-    NSString *title2 = [NSString stringWithFormat:@"Untitled %lu", self.data.count+1];
-    NSString *title3 = [NSString stringWithFormat:@"Untitled %lu", self.data.count+2];
-    NSString *composer = @"Britney Spears";
-    NSString *lastName = @"Spears";
-    NSString *firstName = @"Britney";
-    Author *author = [DataManager authorWithLastName:lastName firstName:firstName];
-    Album *album1 = [DataManager createAlbumWithTitle:title1 composer:composer author:author];
-    Album *album2 = [DataManager createAlbumWithTitle:title2 composer:composer author:author];
-    Album *album3 = [DataManager createAlbumWithTitle:title3 composer:composer author:author];
-    if ([DataManager save])
-    {
-        [self.data insertObjects:@[album1, album2] atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)]];
-        [self.data insertObject:album3 atIndex:self.data.count-1];
-        NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:[self.data indexOfObject:album1] inSection:0];
-        NSLog(@"indexPath1 = %li", indexPath1.row);
-        NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:[self.data indexOfObject:album2] inSection:0];
-        NSLog(@"indexPath2 = %li", indexPath2.row);
-        NSIndexPath *indexPath3 = [NSIndexPath indexPathForRow:[self.data indexOfObject:album3] inSection:0];
-        NSLog(@"indexPath3 = %li", indexPath3.row);
-        [self.tableView insertRowsAtIndexPaths:@[indexPath1, indexPath2, indexPath3] withRowAnimation:UITableViewRowAnimationFade];
-    }
+    [self presentViewController:self.alertControllerCreateMessage animated:YES completion:nil];
 }
 
 @end

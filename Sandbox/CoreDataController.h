@@ -13,9 +13,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import <UIKit/UIKit.h>
-#import "Author.h"
-//#import "Book.h"
-#import "Album.h"
+#import "Message.h"
 
 #pragma mark - // PROTOCOLS //
 
@@ -25,28 +23,18 @@
 
 // GENERAL //
 
-+ (BOOL)save;
-
 // EXISTENCE //
-
-//+ (BOOL)bookExistsWithTitle:(NSString *)title author:(Author *)author;
-+ (BOOL)albumExistsWithTitle:(NSString *)title composer:(NSString*)composer author:(Author *)author;
 
 // RETRIEVAL //
 
-+ (Author *)getAuthorWithLastName:(NSString *)lastName firstName:(NSString *)firstName;
-//+ (NSOrderedSet *)getAllBooks;
-+ (NSOrderedSet *)getAllAlbums;
++ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient;
++ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender;
 
 // CREATION //
 
-+ (Author *)createAuthorWithLastName:(NSString *)lastName firstName:(NSString *)firstName;
-//+ (Book *)createBookWithTitle:(NSString *)title author:(Author *)author;
-+ (Album *)createAlbumWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author;
++ (Message *)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate;
 
 // DELETION //
-
-+ (BOOL)deleteObject:(NSManagedObject *)object;
 
 // DEBUGGING //
 

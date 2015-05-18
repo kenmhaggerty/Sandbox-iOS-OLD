@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="S5d-O1-3gI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="7Zg-Ww-7PC">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
-        <!--Sandbox-->
+        <!--Inbox-->
         <scene sceneID="1BC-5y-hpA">
             <objects>
                 <tableViewController id="N2L-58-Dg6" customClass="TableViewController" sceneMemberID="viewController">
@@ -42,13 +42,8 @@
                             <outlet property="delegate" destination="N2L-58-Dg6" id="gPa-gU-Cn9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Sandbox" id="p2x-Vl-mSc">
-                        <barButtonItem key="leftBarButtonItem" title="Test" id="Agv-P2-YDB">
-                            <connections>
-                                <action selector="actionTest:" destination="N2L-58-Dg6" id="Wrn-Fe-JNH"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="TNI-FO-yg5">
+                    <navigationItem key="navigationItem" title="Inbox" id="p2x-Vl-mSc">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="TNI-FO-yg5">
                             <connections>
                                 <action selector="actionAdd:" destination="N2L-58-Dg6" id="YRC-cz-Qm4"/>
                             </connections>
@@ -58,12 +53,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TNV-Ro-FWl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="687.5" y="1453.5"/>
+            <point key="canvasLocation" x="720.5" y="1452.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Inbox-->
         <scene sceneID="7ci-vM-Hwd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S5d-O1-3gI" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Inbox" id="TMs-15-zI6"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="J4t-vk-99C">
@@ -78,6 +74,95 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3G-xG-kYL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="155" y="1453"/>
+        </scene>
+        <!--Outbox-->
+        <scene sceneID="aUQ-52-aX6">
+            <objects>
+                <tableViewController id="tHG-M3-4c7" customClass="TableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="6o3-gx-UGK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="2sh-Uq-EBq" detailTextLabel="yqA-UK-Sef" style="IBUITableViewCellStyleSubtitle" id="W2A-ZL-QfV">
+                                <rect key="frame" x="0.0" y="86" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W2A-ZL-QfV" id="icq-kx-q46">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2sh-Uq-EBq">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yqA-UK-Sef">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="tHG-M3-4c7" id="Yf1-ld-2kX"/>
+                            <outlet property="delegate" destination="tHG-M3-4c7" id="Kgd-9C-Qfn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Outbox" id="SO4-In-yjP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="b9s-QM-dwc">
+                            <connections>
+                                <action selector="actionAdd:" destination="tHG-M3-4c7" id="qUg-uz-z0z"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tjj-5r-4q1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="720.5" y="2247.5"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="EXi-VF-5ya">
+            <objects>
+                <tabBarController id="7Zg-Ww-7PC" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="NxF-8e-lnD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="S5d-O1-3gI" kind="relationship" relationship="viewControllers" id="v8h-fe-beC"/>
+                        <segue destination="oAH-0T-xrM" kind="relationship" relationship="viewControllers" id="Ciq-GX-erS"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Aue-5Y-oJo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-463" y="1918"/>
+        </scene>
+        <!--Outbox-->
+        <scene sceneID="KcG-9e-Xep">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oAH-0T-xrM" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Outbox" id="k2p-Sz-IaV"/>
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7Gp-ae-r4S">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="tHG-M3-4c7" kind="relationship" relationship="rootViewController" id="r8G-dC-81j"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CDt-z2-eax" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="154.5" y="2247.5"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

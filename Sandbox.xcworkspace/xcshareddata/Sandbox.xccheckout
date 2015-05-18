@@ -18,6 +18,8 @@
 		<string>https://github.com/eurekavalleyco/AKSystemInfo.git</string>
 		<key>EE2149F46CE9D12EEED852BC5841F1EB9896945C</key>
 		<string>https://bitbucket.org/eurekavalleyco/aksuperviewcontroller.git</string>
+		<key>FC7EB595F0165B4E071792DDEF137676A766E0F2</key>
+		<string>https://github.com/eurekavalleyco/AKGenerics.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Sandbox.xcworkspace</string>
@@ -31,6 +33,8 @@
 		<string>../../AKSystemInfo</string>
 		<key>EE2149F46CE9D12EEED852BC5841F1EB9896945C</key>
 		<string>../../AKSuperViewController</string>
+		<key>FC7EB595F0165B4E071792DDEF137676A766E0F2</key>
+		<string>../../AKGenerics</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/kenmhaggerty/Sandbox.git</string>
@@ -47,6 +51,14 @@
 			<string>180AEB9035F8B2E3D53D07BA453CBB1CF1D26099</string>
 			<key>IDESourceControlWCCName</key>
 			<string>AKDebugger</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FC7EB595F0165B4E071792DDEF137676A766E0F2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AKGenerics</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

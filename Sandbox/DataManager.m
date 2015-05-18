@@ -12,97 +12,111 @@
 
 #import "DataManager.h"
 #import "AKDebugger.h"
+#import "AKGenerics.h"
 #import "CoreDataController.h"
+#import "Message.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
 @interface DataManager ()
+@property (nonatomic, strong) NSString *currentUser;
++ (id)sharedManager;
+- (void)setup;
+- (void)teardown;
 @end
 
 @implementation DataManager
 
 #pragma mark - // SETTERS AND GETTERS //
 
+- (void)setCurrentUser:(NSString *)currentUser
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategory:@"Data Manager" message:nil];
+    
+    if ([currentUser isEqualToString:_currentUser]) return;
+    
+    _currentUser = currentUser;
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CURRENTUSER_DID_CHANGE object:self userInfo:[NSDictionary dictionaryWithObject:currentUser forKey:NOTIFICATION_OBJECT_KEY]];
+}
+
 #pragma mark - // INITS AND LOADS //
 
-#pragma mark - // PUBLIC METHODS (General) //
-
-+ (BOOL)save
+- (id)init
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Data Manager" message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Data Manager" message:nil];
     
-    return [CoreDataController save];
+    self = [super init];
+    if (self)
+    {
+        [self setup];
+    }
+    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategory:@"Data Manager" message:[NSString stringWithFormat:@"Could not initialize %@", stringFromVariable(self)]];
+    return self;
 }
+
+- (void)dealloc
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Data Manager" message:nil];
+    
+    [self teardown];
+}
+
+#pragma mark - // PUBLIC METHODS (General) //
 
 #pragma mark - // PUBLIC METHODS (Validation) //
 
 #pragma mark - // PUBLIC METHODS (Existence) //
 
-//+ (BOOL)bookExistsWithTitle:(NSString *)title author:(Author *)author
-//{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
-//    
-//    return [CoreDataController bookExistsWithTitle:title author:author];
-//}
-
-+ (BOOL)albumExistsWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
-    
-    return [CoreDataController albumExistsWithTitle:title composer:composer author:author];
-}
-
 #pragma mark - // PUBLIC METHODS (Retrieval) //
 
-//+ (NSOrderedSet *)getAllBooks
-//{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
-//    
-//    return [CoreDataController getAllBooks];
-//}
-
-+ (NSOrderedSet *)getAllAlbums
++ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
     
-    return [CoreDataController getAllAlbums];
+    return [CoreDataController getMessagesSentToUser:recipient];
+}
+
++ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
+    
+    return [CoreDataController getMessagesSentByUser:sender];
 }
 
 #pragma mark - // PUBLIC METHODS (Creation) //
 
-//+ (Book *)createBookWithTitle:(NSString *)title author:(Author *)author
-//{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Data Manager" message:nil];
-//    
-//    return [CoreDataController createBookWithTitle:title author:author];
-//}
-
-+ (Album *)createAlbumWithTitle:(NSString *)title composer:(NSString *)composer author:(Author *)author
++ (BOOL)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Data Manager" message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategory:@"Data Manager" message:nil];
     
-    return [CoreDataController createAlbumWithTitle:title composer:composer author:author];
+    Message *message = [CoreDataController createMessageWithText:text fromUser:sender toUser:recipient onDate:sendDate];
+    if (!message)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator customCategory:@"Data Manager" message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(message)]];
+        return NO;
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MESSAGE_WAS_CREATED object:message];
+    return YES;
 }
 
-#pragma mark - // PUBLIC METHODS (Retrieval + Creation) //
+#pragma mark - // PUBLIC METHODS (Editing) //
 
-+ (Author *)authorWithLastName:(NSString *)lastName firstName:(NSString *)firstName
++ (void)setCurrentUser:(NSString *)currentUser
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategory:@"Data Manager" message:nil];
+    
+    [[DataManager sharedManager] setCurrentUser:currentUser];
+}
+
++ (NSString *)currentUser
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
     
-    Author *author = [CoreDataController getAuthorWithLastName:lastName firstName:firstName];
-    if (!author) author = [CoreDataController createAuthorWithLastName:lastName firstName:firstName];
-    return author;
+    return [[DataManager sharedManager] currentUser];
 }
 
 #pragma mark - // PUBLIC METHODS (Deletion) //
-
-+ (BOOL)deleteObject:(NSManagedObject *)object
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Data Manager" message:nil];
-    
-    return [CoreDataController deleteObject:object];
-}
 
 #pragma mark - // PUBLIC METHODS (Debugging) //
 
@@ -111,5 +125,27 @@
 #pragma mark - // OVERWRITTEN METHODS //
 
 #pragma mark - // PRIVATE METHODS //
+
++ (id)sharedManager
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
+    
+    static dispatch_once_t once;
+    static DataManager *sharedManager;
+    dispatch_once(&once, ^{
+        sharedManager = [[DataManager alloc] init];
+    });
+    return sharedManager;
+}
+
+- (void)setup
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Data Manager" message:nil];
+}
+
+- (void)teardown
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Data Manager" message:nil];
+}
 
 @end

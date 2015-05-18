@@ -1,8 +1,8 @@
 //
-//  Album.m
+//  Message.m
 //  Sandbox
 //
-//  Created by Ken M. Haggerty on 12/25/14.
+//  Created by Ken M. Haggerty on 5/16/15.
 //  Copyright (c) 2014 MCMDI. All rights reserved.
 //
 
@@ -10,25 +10,25 @@
 
 #pragma mark - // IMPORTS (Private) //
 
-#import "Album.h"
+#import "Message.h"
 #import "AKDebugger.h"
-#import "Author.h"
+#import "AKGenerics.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
-@interface Album ()
+@interface Message ()
 - (void)setup;
 - (void)teardown;
 @end
 
-@implementation Album
+@implementation Message
 
 #pragma mark - // SETTERS AND GETTERS //
 
-@dynamic composer;
-@dynamic editDate;
-@dynamic title;
-@dynamic author;
+@dynamic recipient;
+@dynamic sendDate;
+@dynamic sender;
+@dynamic text;
 
 #pragma mark - // INITS AND LOADS //
 
@@ -72,14 +72,15 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Core Data" message:nil];
     
-    //    [super didTurnIntoFault];
     [self teardown];
+    //    [super didTurnIntoFault];
 }
 
 - (void)prepareForDeletion
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Core Data" message:nil];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICIATION_MESSAGE_WILL_BE_DELETED object:self];
     [super prepareForDeletion];
 }
 
