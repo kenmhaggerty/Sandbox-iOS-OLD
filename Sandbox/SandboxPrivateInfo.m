@@ -8,8 +8,6 @@
 
 #pragma mark - // NOTES (Private) //
 
-// [_] Add in security check from sender?
-
 #pragma mark - // IMPORTS (Private) //
 
 #import "SandboxPrivateInfo.h"
@@ -18,6 +16,9 @@
 #pragma mark - // DEFINITIONS (Private) //
 
 #define PRIVATE_DOCS @"Private Documents"
+
+#define PARSE_APPLICATION_ID @"T9CB69m4pAPrbNojY5Ua22klABxdSzmfK2SoAWY2"
+#define PARSE_CLIENT_KEY @"PN5sOUhOgGe1RXINImknIv8AdyUAu7zuQYJ9qur1"
 
 @interface SandboxPrivateInfo ()
 @property (nonatomic, strong) NSString *pathForPrivateDocs;
@@ -32,7 +33,7 @@
 
 #pragma mark - // INITS AND LOADS //
 
-#pragma mark - // PUBLIC METHODS (Getters) //
+#pragma mark - // PUBLIC METHODS (Local) //
 
 + (NSString *)pathForPrivateDocs
 {
@@ -63,6 +64,22 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Core Data" message:nil];
 
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+#pragma mark - // PUBLIC METHODS (Parse) //
+
++ (NSString *)parseApplicationId
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Parse" message:nil];
+    
+    return PARSE_APPLICATION_ID;
+}
+
++ (NSString *)parseClientKey
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Parse" message:nil];
+    
+    return PARSE_CLIENT_KEY;
 }
 
 #pragma mark - // DELEGATED METHODS //

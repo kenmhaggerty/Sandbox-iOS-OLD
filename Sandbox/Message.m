@@ -10,7 +10,7 @@
 
 #pragma mark - // IMPORTS (Private) //
 
-#import "Message.h"
+#import "Message+RW.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
 
@@ -25,10 +25,26 @@
 
 #pragma mark - // SETTERS AND GETTERS //
 
+@dynamic isRead;
+@dynamic messageId;
 @dynamic recipient;
 @dynamic sendDate;
 @dynamic sender;
 @dynamic text;
+
+- (void)setIsRead:(NSNumber *)isRead
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategory:@"Core Data" message:nil];
+    
+    NSNumber *primitiveIsRead = [self primitiveValueForKey:NSStringFromSelector(@selector(isRead))];
+    if ([primitiveIsRead isEqualToNumber:isRead]) return;
+    
+    [self willChangeValueForKey:NSStringFromSelector(@selector(isRead))];
+    [self setPrimitiveValue:isRead forKey:NSStringFromSelector(@selector(isRead))];
+    [self didChangeValueForKey:NSStringFromSelector(@selector(isRead))];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MESSAGE_ISREAD_DID_CHANGE object:self userInfo:[NSDictionary dictionaryWithObject:isRead forKey:NOTIFICATION_OBJECT_KEY]];
+}
 
 #pragma mark - // INITS AND LOADS //
 
@@ -80,7 +96,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Core Data" message:nil];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICIATION_MESSAGE_WILL_BE_DELETED object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MESSAGE_WILL_BE_DELETED object:self];
     [super prepareForDeletion];
 }
 

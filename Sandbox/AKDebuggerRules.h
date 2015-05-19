@@ -29,6 +29,7 @@
 + (BOOL)printSetup;
 + (BOOL)printSetters;
 + (BOOL)printGetters;
++ (BOOL)printCreators;
 + (BOOL)printValidators;
 + (BOOL)printUnspecified;
 

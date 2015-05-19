@@ -12,6 +12,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "Message.h"
 
 #pragma mark - // PROTOCOLS //
 
@@ -32,17 +33,29 @@
 
 + (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient;
 + (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender;
++ (Message *)getMessageWithId:(NSString *)messageId;
 
 // CREATION //
 
-+ (BOOL)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate;
++ (BOOL)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId andBroadcast:(BOOL)broadcast;
 
 // EDITING //
 
 + (void)setCurrentUser:(NSString *)currentUser;
 + (NSString *)currentUser;
++ (void)userDidReadMessage:(Message *)message andBroadcast:(BOOL)broadcast;
++ (void)incrementBadge;
++ (void)decrementBadge;
++ (void)setBadgeToCount:(NSUInteger)count;
 
 // DELETION //
+
++ (BOOL)deleteMessage:(Message *)message;
+
+// OBSERVATION  //
+
++ (void)addObserver:(id)observer selector:(SEL)selector name:(NSString *)name;
++ (void)removeObserver:(id)observer name:(NSString *)name;
 
 // DEBUGGING //
 

@@ -23,18 +23,25 @@
 
 // GENERAL //
 
++ (BOOL)save;
+
 // EXISTENCE //
+
++ (BOOL)messageExistsWithId:(NSString *)messageId;
 
 // RETRIEVAL //
 
 + (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient;
 + (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender;
++ (Message *)getMessageWithId:(NSString *)messageId;
 
 // CREATION //
 
-+ (Message *)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate;
++ (Message *)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId;
 
 // DELETION //
+
++ (BOOL)deleteObject:(NSManagedObject *)object;
 
 // DEBUGGING //
 

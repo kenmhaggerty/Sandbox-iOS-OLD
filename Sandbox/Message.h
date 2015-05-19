@@ -17,11 +17,14 @@
 
 #pragma mark - // DEFINITIONS (Public) //
 
-#define NOTIFICIATION_MESSAGE_WILL_BE_DELETED @"kNotificationMessageWillBeDeleted"
+#define NOTIFICATION_MESSAGE_ISREAD_DID_CHANGE @"kNotificationMessageIsReadDidChange"
+#define NOTIFICATION_MESSAGE_WILL_BE_DELETED @"kNotificationMessageWillBeDeleted"
 
 @interface Message : NSManagedObject
-@property (nonatomic, retain) NSString *recipient;
-@property (nonatomic, retain) NSDate *sendDate;
-@property (nonatomic, retain) NSString *sender;
-@property (nonatomic, retain) NSString *text;
+@property (nonatomic, retain, readonly) NSNumber *isRead;
+@property (nonatomic, retain, readonly) NSString *messageId;
+@property (nonatomic, retain, readonly) NSString *recipient;
+@property (nonatomic, retain, readonly) NSDate *sendDate;
+@property (nonatomic, retain, readonly) NSString *sender;
+@property (nonatomic, retain, readonly) NSString *text;
 @end

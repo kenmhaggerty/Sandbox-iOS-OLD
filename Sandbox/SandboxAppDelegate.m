@@ -12,8 +12,15 @@
 
 #import "SandboxAppDelegate.h"
 #import "AKDebugger.h"
+#import "SandboxPrivateInfo.h"
+#import <Parse/Parse.h>
+#import "DataManager.h"
 
 #pragma mark - // DEFINITIONS (Private) //
+
+@interface SandboxAppDelegate ()
++ (void)processRemoteNotification:(NSDictionary *)userInfo;
+@end
 
 @implementation SandboxAppDelegate
 
@@ -23,21 +30,44 @@
 
 #pragma mark - // INITS AND LOADS //
 
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:nil message:nil];
+    
+    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:nil message:nil];
+    
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:nil message:nil];
     
-//    [self setWindow:[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]];
-//    SandboxTableViewController *tableViewController = [[SandboxTableViewController alloc] init];
-//    [tableViewController setAppDelegate:self];
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tableViewController];
-//    self.window.rootViewController = nav;
-//    
-//    self.window.backgroundColor = [UIColor whiteColor];
-//    [self.window makeKeyAndVisible];
+    [Parse enableLocalDatastore];
+    [Parse setApplicationId:[SandboxPrivateInfo parseApplicationId] clientKey:[SandboxPrivateInfo parseClientKey]];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    // Override point for customization after application launch.
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
+    [application registerUserNotificationSettings:settings];
+    [application registerForRemoteNotifications];
+    
+    NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (notificationPayload) [SandboxAppDelegate processRemoteNotification:notificationPayload];
+    
     return YES;
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:nil message:nil];
+    
+    [SandboxAppDelegate processRemoteNotification:userInfo];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -56,20 +86,6 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:nil message:nil];
-    
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:nil message:nil];
-    
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:nil message:nil];
@@ -79,8 +95,51 @@
 
 #pragma mark - // PUBLIC FUNCTIONS //
 
-#pragma mark - // DELEGATED FUNCTIONS //
+#pragma mark - // DELEGATED FUNCTIONS (Parse) //
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:nil message:nil];
+    
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation saveInBackground];
+}
 
 #pragma mark - // PRIVATE FUNCTIONS //
+
++ (void)processRemoteNotification:(NSDictionary *)userInfo
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategory:nil message:nil];
+    
+    NSString *installationId = [userInfo objectForKey:@"installationId"];
+    if ([installationId isEqualToString:[[PFInstallation currentInstallation] objectId]]) return;
+    
+    NSString *pushType = [userInfo objectForKey:@"pushType"];
+    NSString *messageId = [userInfo objectForKey:NSStringFromSelector(@selector(messageId))];
+    if ([pushType isEqualToString:@"messageRead"])
+    {
+        Message *message = [DataManager getMessageWithId:messageId];
+        if (message) [DataManager userDidReadMessage:message andBroadcast:NO];
+    }
+    else if ([pushType isEqualToString:@"newMessage"])
+    {
+        NSString *sender = [userInfo objectForKey:NSStringFromSelector(@selector(sender))];
+        NSString *recipient = [DataManager currentUser];
+        NSString *text = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+        NSString *jsonDate = [[userInfo objectForKey:NSStringFromSelector(@selector(sendDate))] objectForKey:@"iso"];
+        NSDate *sendDate;
+        if (jsonDate)
+        {
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSz"];
+            sendDate = [dateFormat dateFromString:jsonDate];
+        }
+        if (sender && recipient && text && sendDate && messageId)
+        {
+            [DataManager createMessageWithText:text fromUser:sender toUser:[DataManager currentUser] onDate:sendDate withId:messageId andBroadcast:NO];
+        }
+    }
+}
 
 @end

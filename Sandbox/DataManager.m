@@ -13,16 +13,24 @@
 #import "DataManager.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
+#import "SandboxPrivateInfo.h"
 #import "CoreDataController.h"
-#import "Message.h"
+#import "Message+RW.h"
+#import <Parse/Parse.h>
 
 #pragma mark - // DEFINITIONS (Private) //
+
+#define USERNAME_KEY @"Username"
+#define DATA_FILENAME @"data.plist"
+#define CREDENTIALS_FILENAME @"local.credentials"
 
 @interface DataManager ()
 @property (nonatomic, strong) NSString *currentUser;
 + (id)sharedManager;
 - (void)setup;
 - (void)teardown;
++ (BOOL)save;
++ (NSString *)storedUsername;
 @end
 
 @implementation DataManager
@@ -36,7 +44,20 @@
     if ([currentUser isEqualToString:_currentUser]) return;
     
     _currentUser = currentUser;
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CURRENTUSER_DID_CHANGE object:self userInfo:[NSDictionary dictionaryWithObject:currentUser forKey:NOTIFICATION_OBJECT_KEY]];
+    if (![currentUser isEqualToString:[DataManager storedUsername]])
+    {
+        [DataManager save];
+    }
+    NSArray *channels = @[];
+    NSDictionary *userInfo;
+    if (currentUser)
+    {
+        channels = @[currentUser];
+        userInfo = [NSDictionary dictionaryWithObject:currentUser forKey:NOTIFICATION_OBJECT_KEY];
+    }
+    [[PFInstallation currentInstallation] setChannels:channels];
+    [[PFInstallation currentInstallation] saveInBackground];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CURRENTUSER_DID_CHANGE object:self userInfo:userInfo];
 }
 
 #pragma mark - // INITS AND LOADS //
@@ -83,20 +104,43 @@
     return [CoreDataController getMessagesSentByUser:sender];
 }
 
++ (Message *)getMessageWithId:(NSString *)messageId
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
+    
+    return [CoreDataController getMessageWithId:messageId];
+}
+
 #pragma mark - // PUBLIC METHODS (Creation) //
 
-+ (BOOL)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate
++ (BOOL)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId andBroadcast:(BOOL)broadcast
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategory:@"Data Manager" message:nil];
     
-    Message *message = [CoreDataController createMessageWithText:text fromUser:sender toUser:recipient onDate:sendDate];
+    if ([CoreDataController messageExistsWithId:messageId])
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeCreator customCategory:@"Data Manager" message:[NSString stringWithFormat:@"%@ already exists with %@ %@", stringFromVariable(message), stringFromVariable(messageId), messageId]];
+        return NO;
+    }
+    
+    Message *message = [CoreDataController createMessageWithText:text fromUser:sender toUser:recipient onDate:sendDate withId:messageId];
     if (!message)
     {
         [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator customCategory:@"Data Manager" message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(message)]];
         return NO;
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MESSAGE_WAS_CREATED object:message];
+    if (broadcast)
+    {
+        PFPush *push = [[PFPush alloc] init];
+        messageId = message.messageId;
+        NSString *installationId = [PFInstallation currentInstallation].objectId;
+        [push setData:@{@"pushType":@"newMessage", @"messageId":messageId, @"installationId":installationId, @"sender":sender, @"alert":text, @"sendDate":sendDate}];
+        [push setChannel:recipient];
+        [push sendPushInBackground];
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MESSAGE_WAS_CREATED object:[DataManager sharedManager] userInfo:[NSDictionary dictionaryWithObject:message forKey:NOTIFICATION_OBJECT_KEY]];
     return YES;
 }
 
@@ -113,10 +157,98 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Data Manager" message:nil];
     
-    return [[DataManager sharedManager] currentUser];
+    NSString *currentUser = [[DataManager sharedManager] currentUser];
+    if (!currentUser)
+    {
+        currentUser = [DataManager storedUsername];
+        if (currentUser)
+        {
+            [DataManager setCurrentUser:currentUser];
+        }
+    }
+    return currentUser;
+}
+
++ (void)userDidReadMessage:(Message *)message andBroadcast:(BOOL)broadcast
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Data Manager" message:nil];
+    
+    if ([message.isRead boolValue]) return;
+    
+    [message setIsRead:[NSNumber numberWithBool:YES]];
+    if (![CoreDataController save])
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator customCategory:@"Core Data" message:[NSString stringWithFormat:@"Could not save %@", stringFromVariable(message)]];
+        return;
+    }
+    
+    if (broadcast)
+    {
+        PFPush *push = [[PFPush alloc] init];
+        NSString *installationId = [PFInstallation currentInstallation].objectId;
+        [push setData:@{@"pushType":@"messageRead",@"messageId":message.messageId, @"installationId":installationId}];
+        [push setChannel:message.sender];
+        [push sendPushInBackground];
+    }
+}
+
++ (void)incrementBadge
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategory:@"Data Manager" message:nil];
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber]+1];
+}
+
++ (void)decrementBadge
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategory:@"Data Manager" message:nil];
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber]-1];
+}
+
++ (void)setBadgeToCount:(NSUInteger)count
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategory:@"Data Manager" message:nil];
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
 }
 
 #pragma mark - // PUBLIC METHODS (Deletion) //
+
++ (BOOL)deleteMessage:(Message *)message
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Data Manager" message:nil];
+    
+    if (![CoreDataController deleteObject:message])
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategory:@"Core Data" message:[NSString stringWithFormat:@"Could not delete %@", stringFromVariable(message)]];
+        return NO;
+    }
+    
+    if (![CoreDataController save])
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator customCategory:@"Core Data" message:[NSString stringWithFormat:@"Could not save %@", stringFromVariable(message)]];
+        return NO;
+    }
+    
+    return YES;
+}
+
+#pragma mark - // PUBLIC METHODS (Observation) //
+
++ (void)addObserver:(id)observer selector:(SEL)selector name:(NSString *)name
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Data Manager" message:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:selector name:name object:[DataManager sharedManager]];
+}
+
++ (void)removeObserver:(id)observer name:(NSString *)name
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Data Manager" message:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:name object:[DataManager sharedManager]];
+}
 
 #pragma mark - // PUBLIC METHODS (Debugging) //
 
@@ -146,6 +278,101 @@
 - (void)teardown
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategory:@"Data Manager" message:nil];
+}
+
++ (BOOL)save
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategory:@"Accounts" message:nil];
+    
+    NSString *pathForPrivateDocs = [SandboxPrivateInfo pathForPrivateDocs];
+    if (!pathForPrivateDocs)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategory:@"Accounts" message:[NSString stringWithFormat:@"Could not obtain %@", stringFromVariable(pathForPrivateDocs)]];
+        return NO;
+    }
+    
+    NSString *dataPath = [pathForPrivateDocs stringByAppendingPathComponent:CREDENTIALS_FILENAME];
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
+    if (!defaultManager)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategory:@"Accounts" message:[NSString stringWithFormat:@"Could not obtain %@", stringFromVariable(defaultManager)]];
+        return NO;
+    }
+    
+    if (![defaultManager fileExistsAtPath:dataPath])
+    {
+        NSError *error;
+        if (![defaultManager createDirectoryAtPath:dataPath withIntermediateDirectories:YES attributes:nil error:&error])
+        {
+            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategory:@"Accounts" message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+            return NO;
+        }
+        
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategory:@"Accounts" message:@"Created directory"];
+    }
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:[[DataManager sharedManager] currentUser] forKey:USERNAME_KEY];
+    [archiver finishEncoding];
+    return [data writeToFile:[dataPath stringByAppendingPathComponent:DATA_FILENAME] atomically:YES];
+}
+
++ (NSString *)storedUsername
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Accounts" message:nil];
+    
+    NSString *pathForPrivateDocs = [SandboxPrivateInfo pathForPrivateDocs];
+    if (!pathForPrivateDocs)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategory:@"Accounts" message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(pathForPrivateDocs)]];
+        return nil;
+    }
+    
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *files = [defaultManager contentsOfDirectoryAtPath:pathForPrivateDocs error:&error];
+    if (error)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategory:@"Accounts" message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+        return nil;
+    }
+    
+    if (!files)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategory:@"Accounts" message:@"No saved files"];
+        return nil;
+    }
+    
+    NSMutableArray *arrayOfUsernames = [[NSMutableArray alloc] init];
+    for (NSString *file in files)
+    {
+        if ([file.lastPathComponent isEqualToString:CREDENTIALS_FILENAME])
+        {
+            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeDebug methodType:AKMethodTypeGetter customCategory:@"Accounts" message:@"Found credentials file"];
+            NSString *dataPath = [[pathForPrivateDocs stringByAppendingPathComponent:file] stringByAppendingPathComponent:DATA_FILENAME];
+            if ([defaultManager fileExistsAtPath:dataPath])
+            {
+                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeDebug methodType:AKMethodTypeGetter customCategory:@"Accounts" message:[NSString stringWithFormat:@"Found %@", stringFromVariable(dataPath)]];
+                NSData *codedData = [[NSData alloc] initWithContentsOfFile:dataPath];
+                if (codedData)
+                {
+                    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeDebug methodType:AKMethodTypeGetter customCategory:@"Accounts" message:[NSString stringWithFormat:@"Found %@", stringFromVariable(codedData)]];
+                    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:codedData];
+                    NSString *username = [unarchiver decodeObjectForKey:USERNAME_KEY];
+                    [unarchiver finishDecoding];
+                    if (username)
+                    {
+                        [arrayOfUsernames addObject:username];
+                    }
+                    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategory:@"Accounts" message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(username)]];
+                }
+                else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategory:@"Accounts" message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(codedData)]];
+            }
+            else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategory:@"Accounts" message:[NSString stringWithFormat:@"%@ does not exist", DATA_FILENAME]];
+        }
+    }
+    if (arrayOfUsernames.count > 1) [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategory:@"Accounts" message:[NSString stringWithFormat:@"Found %lu usernames; returning last object", (unsigned long)arrayOfUsernames.count]];
+    return [arrayOfUsernames firstObject];
 }
 
 @end

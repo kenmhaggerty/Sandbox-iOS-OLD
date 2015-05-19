@@ -18,9 +18,14 @@
 
 @interface SandboxPrivateInfo : NSObject
 
-// GETTERS //
+// LOCAL //
 
 + (NSString *)pathForPrivateDocs;
 + (NSURL *)applicationDocumentsDirectory;
+
+// PARSE //
+
++ (NSString *)parseApplicationId;
++ (NSString *)parseClientKey;
 
 @end
