@@ -25,6 +25,8 @@
 #define PRINT_SETTERS YES
 #define PRINT_GETTERS YES
 #define PRINT_CREATORS YES
+#define PRINT_DELETORS YES
+#define PRINT_ACTIONS YES
 #define PRINT_VALIDATORS YES
 #define PRINT_UNSPECIFIED YES
 
@@ -124,6 +126,20 @@
     if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
     
     return PRINT_CREATORS;
+}
+
++ (BOOL)printDeletors
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return PRINT_DELETORS;
+}
+
++ (BOOL)printActions
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return PRINT_ACTIONS;
 }
 
 + (BOOL)printValidators

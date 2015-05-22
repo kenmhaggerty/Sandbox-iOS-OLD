@@ -30,6 +30,8 @@
 + (BOOL)printSetters;
 + (BOOL)printGetters;
 + (BOOL)printCreators;
++ (BOOL)printDeletors;
++ (BOOL)printActions;
 + (BOOL)printValidators;
 + (BOOL)printUnspecified;
 

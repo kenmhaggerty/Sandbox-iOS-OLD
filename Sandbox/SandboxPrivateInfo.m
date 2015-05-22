@@ -37,7 +37,7 @@
 
 + (NSString *)pathForPrivateDocs
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Accounts" message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS] message:nil];
     
     SandboxPrivateInfo *sharedInfo = [SandboxPrivateInfo sharedInfo];
     NSString *pathForPrivateDocs = [sharedInfo pathForPrivateDocs];
@@ -50,7 +50,7 @@
             NSError *error;
             if (![[NSFileManager defaultManager] createDirectoryAtPath:pathForPrivateDocs withIntermediateDirectories:YES attributes:nil error:&error])
             {
-                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategory:nil message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:nil message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
                 pathForPrivateDocs = nil;
             }
         }
@@ -61,7 +61,7 @@
 
 + (NSURL *)applicationDocumentsDirectory
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:@"Core Data" message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
 
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
@@ -90,7 +90,7 @@
 
 + (SandboxPrivateInfo *)sharedInfo
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategory:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
     
     static SandboxPrivateInfo *sharedInfo = nil;
     static dispatch_once_t onceToken;
