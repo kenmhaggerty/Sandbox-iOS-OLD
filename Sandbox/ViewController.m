@@ -232,7 +232,7 @@
     if (![sender isEqual:self.syncViewController]) return;
     
     [self setTimerIsActive:NO];
-    [self cancelSyncViewWithPrimaryText:nil secondaryText:nil completionType:SyncViewCancelled alertController:nil delay:0.18*6 completionBlock:nil];
+    [self cancelSyncViewWithPrimaryText:nil secondaryText:nil animated:YES completionType:SyncViewCancelled alertController:nil delay:0.18*6 completionBlock:nil];
 }
 
 #pragma mark - // OVERWRITTEN METHODS //
@@ -266,7 +266,7 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:nil message:nil];
     
     [self startTimer];
-    [self startSyncViewWithPrimaryText:nil secondaryText:nil progressView:YES cancelButton:YES];
+    [self startSyncViewWithPrimaryText:nil secondaryText:nil progressView:YES cancelButton:YES animated:YES];
 }
 
 - (void)startTimer
@@ -283,14 +283,14 @@
     
     if (!self.timerIsActive)
     {
-        [self cancelSyncViewWithPrimaryText:nil secondaryText:nil completionType:SyncViewCancelled alertController:nil delay:0.18*10 completionBlock:nil];
+        [self cancelSyncViewWithPrimaryText:nil secondaryText:nil animated:YES completionType:SyncViewCancelled alertController:nil delay:0.18*10 completionBlock:nil];
         return;
     }
     
     NSUInteger tickValue = [ticks integerValue];
     if (tickValue == (int)(TICKS_PER_SEC*SYNC_TIME))
     {
-        [self cancelSyncViewWithPrimaryText:@"Done" secondaryText:nil completionType:SyncViewComplete alertController:nil delay:0.18*10 completionBlock:nil];
+        [self cancelSyncViewWithPrimaryText:@"Done" secondaryText:nil animated:YES completionType:SyncViewComplete alertController:nil delay:0.18*10 completionBlock:nil];
         return;
     }
     
