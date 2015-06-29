@@ -16,6 +16,7 @@
 #import "AKSystemInfo.h"
 #import "AlertTableViewController.h"
 #import "UIViewController+Syncing.h"
+#import "Reachability.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
@@ -38,13 +39,20 @@
 @property (nonatomic, strong) UIAlertController *alertControllerDismiss;
 @property (nonatomic, strong) UIAlertAction *alertActionDismiss;
 @property (nonatomic) BOOL timerIsActive;
+@property (nonatomic, strong) Reachability *reachability;
+@property (nonatomic, strong) IBOutlet UILabel *labelWiFi;
+@property (nonatomic, strong) IBOutlet UILabel *labelWWAN;
+@property (nonatomic, strong) IBOutlet UILabel *labelInternet;
 - (void)setup;
 - (void)teardown;
 - (IBAction)actionTest:(id)sender;
 - (IBAction)actionSync:(id)sender;
+- (IBAction)actionRefresh:(id)sender;
 - (void)startTimer;
 - (void)tick:(NSNumber *)ticks;
 - (void)timerDidTick:(NSNotification *)notification;
+- (void)setLabels;
+- (void)internetStatusDidChange:(NSNotification *)notification;
 @end
 
 @implementation ViewController
@@ -55,6 +63,10 @@
 @synthesize alertControllerDismiss = _alertControllerDismiss;
 @synthesize alertActionDismiss = _alertActionDismiss;
 @synthesize timerIsActive = _timerIsActive;
+@synthesize reachability = _reachability;
+@synthesize labelWiFi = _labelWiFi;
+@synthesize labelWWAN = _labelWWAN;
+@synthesize labelInternet = _labelInternet;
 
 - (AlertTableViewController *)alertTableViewController
 {
@@ -93,6 +105,17 @@
     return _alertActionDismiss;
 }
 
+- (Reachability *)reachability
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
+    
+    if (_reachability) return _reachability;
+    
+    _reachability = [Reachability reachabilityWithHostName:@"google.com"];
+    [_reachability startNotifier];
+    return _reachability;
+}
+
 #pragma mark - // INITS AND LOADS //
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -120,6 +143,8 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
     
     [super viewDidLoad];
+    
+    [self setLabels];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -245,6 +270,7 @@
     
     [self setTimerIsActive:NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(timerDidTick:) name:NOTIFICATION_TICK object:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetStatusDidChange:) name:kReachabilityChangedNotification object:self.reachability];
 }
 
 - (void)teardown
@@ -252,6 +278,7 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_TICK object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:self.reachability];
 }
 
 - (IBAction)actionTest:(id)sender
@@ -267,6 +294,13 @@
     
     [self startTimer];
     [self startSyncViewWithPrimaryText:nil secondaryText:nil progressView:YES cancelButton:YES animated:YES];
+}
+
+- (IBAction)actionRefresh:(id)sender
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:nil message:nil];
+    
+    [self setLabels];
 }
 
 - (void)startTimer
@@ -306,6 +340,22 @@
     [self setSyncViewSecondaryText:[NSString stringWithFormat:@"(%i / %i)", tickValue, (int)(TICKS_PER_SEC*SYNC_TIME)]];
     float progress = ((float)tickValue)/(TICKS_PER_SEC*SYNC_TIME);
     [self setSyncViewProgress:progress animated:YES];
+}
+
+- (void)setLabels
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategories:@[AKD_UI] message:nil];
+    
+    [self.labelWiFi setText:[AKGenerics textForBool:self.reachability.isReachableViaWiFi yesText:@"ON" noText:@"OFF"]];
+    [self.labelWWAN setText:[AKGenerics textForBool:self.reachability.isReachableViaWWAN yesText:@"ON" noText:@"OFF"]];
+    [self.labelInternet setText:[AKGenerics textForBool:self.reachability.isReachable yesText:@"ON" noText:@"OFF"]];
+}
+
+- (void)internetStatusDidChange:(NSNotification *)notification
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
+    
+    [self setLabels];
 }
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D0FFABF458E6035F5BF095E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B5602FF0F1B253E66B2ED6 /* libPods.a */; };
 		1FA2480A183CEBE500351015 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA24809183CEBE500351015 /* TableViewController.m */; };
 		1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB7580180F46BC005BE376 /* AKDebugger.m */; };
 		1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */; };
@@ -77,6 +78,7 @@
 		1FECF60F1B080B600021D883 /* CoreDataModel_0,0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel_0,0.xcdatamodel"; sourceTree = "<group>"; };
 		1FECF6151B080BB10021D883 /* AKGenerics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKGenerics.h; path = ../../AKGenerics/AKGenerics.h; sourceTree = "<group>"; };
 		1FECF6161B080BB10021D883 /* AKGenerics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKGenerics.m; path = ../../AKGenerics/AKGenerics.m; sourceTree = "<group>"; };
+		73B5602FF0F1B253E66B2ED6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D10BDEF160654FE00416C66 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7D3AC9F116691B5A00594015 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		7D3AC9F216691B5A00594015 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -126,7 +128,8 @@
 		7DDA09761B180A5400157479 /* SyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SyncViewController.h; path = "../../UIViewController+Syncing/SyncViewController.h"; sourceTree = "<group>"; };
 		7DDA09771B180A5400157479 /* SyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyncViewController.m; path = "../../UIViewController+Syncing/SyncViewController.m"; sourceTree = "<group>"; };
 		7DFFAC5A164F058D00B58EE4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		D0DCE30BC2FE48D292900CA3 /* Pods/Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		B26A26A8E8CA2A6DDC8BFD85 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F7CFEBCA72EF496C695A3A3E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +155,7 @@
 				7D4278241551865E000240A5 /* UIKit.framework in Frameworks */,
 				7D4278261551865E000240A5 /* Foundation.framework in Frameworks */,
 				7D4278281551865E000240A5 /* CoreGraphics.framework in Frameworks */,
+				0D0FFABF458E6035F5BF095E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +233,15 @@
 			name = AKGenerics;
 			sourceTree = "<group>";
 		};
+		467F20F8E0D5D0D5F38DCC2A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B26A26A8E8CA2A6DDC8BFD85 /* Pods.debug.xcconfig */,
+				F7CFEBCA72EF496C695A3A3E /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		7D4278141551865D000240A5 = {
 			isa = PBXGroup;
 			children = (
@@ -236,7 +249,7 @@
 				7D4278291551865E000240A5 /* Sandbox */,
 				7D4278221551865E000240A5 /* Frameworks */,
 				7D4278201551865E000240A5 /* Products */,
-				D0DCE30BC2FE48D292900CA3 /* Pods/Pods.xcconfig */,
+				467F20F8E0D5D0D5F38DCC2A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -269,6 +282,7 @@
 				7D9513D61B0A873800E508E8 /* libsqlite3.dylib */,
 				7DB435691B1252C900BAA7A2 /* Parse.framework */,
 				7D9513D41B0A872E00E508E8 /* libz.dylib */,
+				73B5602FF0F1B253E66B2ED6 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -450,7 +464,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -576,7 +590,7 @@
 		};
 		7D42783E1551865E000240A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0DCE30BC2FE48D292900CA3 /* Pods/Pods.xcconfig */;
+			baseConfigurationReference = B26A26A8E8CA2A6DDC8BFD85 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "/Users/MCMDI/Dropbox/01_SHARED/02_EUREKAVALLEYCO/Xcode/Frameworks/parse-library-1.7.4";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -591,7 +605,7 @@
 		};
 		7D42783F1551865E000240A5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0DCE30BC2FE48D292900CA3 /* Pods/Pods.xcconfig */;
+			baseConfigurationReference = F7CFEBCA72EF496C695A3A3E /* Pods.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "/Users/MCMDI/Dropbox/01_SHARED/02_EUREKAVALLEYCO/Xcode/Frameworks/parse-library-1.7.4";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
