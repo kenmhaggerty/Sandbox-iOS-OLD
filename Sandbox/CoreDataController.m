@@ -25,8 +25,6 @@
 #define CORE_DATA_MODEL_NAME @"CoreDataModel"
 #define CORE_DATA_MODEL_EXTENSION @"momd"
 
-#define NSStringFromVariable(var) (@""#var)
-
 @interface CoreDataController ()
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
