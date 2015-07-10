@@ -12,7 +12,7 @@
 
 #import "SandboxAppDelegate.h"
 #import "AKDebugger.h"
-#import "SandboxPrivateInfo.h"
+#import "AKPrivateInfo.h"
 #import <Parse/Parse.h>
 #import "DataManager.h"
 
@@ -49,7 +49,7 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
     
     [Parse enableLocalDatastore];
-    [Parse setApplicationId:[SandboxPrivateInfo parseApplicationId] clientKey:[SandboxPrivateInfo parseClientKey]];
+    [Parse setApplicationId:[AKPrivateInfo parseApplicationId] clientKey:[AKPrivateInfo parseClientKey]];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);

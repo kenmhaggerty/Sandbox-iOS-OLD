@@ -13,7 +13,7 @@
 #import "CoreDataController.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
-#import "SandboxPrivateInfo.h"
+#import "AKPrivateInfo.h"
 #import "Message+RW.h"
 
 #pragma mark - // DEFINITIONS (Private) //
@@ -98,7 +98,7 @@
             });
             return _persistentStoreCoordinator;
         }
-        NSURL *storeURL = [[SandboxPrivateInfo applicationDocumentsDirectory] URLByAppendingPathComponent:CORE_DATA_FILENAME];
+        NSURL *storeURL = [[AKPrivateInfo applicationDocumentsDirectory] URLByAppendingPathComponent:CORE_DATA_FILENAME];
         NSError *error;
         NSManagedObjectModel *managedObjectModel = [self managedObjectModel];
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];

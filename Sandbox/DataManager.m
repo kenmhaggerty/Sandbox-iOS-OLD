@@ -13,7 +13,7 @@
 #import "DataManager.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
-#import "SandboxPrivateInfo.h"
+#import "AKPrivateInfo.h"
 #import "CoreDataController.h"
 #import "Message+RW.h"
 #import <Parse/Parse.h>
@@ -284,7 +284,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_ACCOUNTS] message:nil];
     
-    NSString *pathForPrivateDocs = [SandboxPrivateInfo pathForPrivateDocs];
+    NSString *pathForPrivateDocs = [AKPrivateInfo pathForPrivateDocs];
     if (!pathForPrivateDocs)
     {
         [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategories:@[AKD_ACCOUNTS] message:[NSString stringWithFormat:@"Could not obtain %@", stringFromVariable(pathForPrivateDocs)]];
@@ -321,7 +321,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS] message:nil];
     
-    NSString *pathForPrivateDocs = [SandboxPrivateInfo pathForPrivateDocs];
+    NSString *pathForPrivateDocs = [AKPrivateInfo pathForPrivateDocs];
     if (!pathForPrivateDocs)
     {
         [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(pathForPrivateDocs)]];
