@@ -16,11 +16,9 @@
 #import "AKSystemInfo.h"
 #import "AlertTableViewController.h"
 #import "UIViewController+Syncing.h"
+#import "AlertSwitchViewController.h" // temp
 
 #pragma mark - // DEFINITIONS (Private) //
-
-#define ALERT_CONTROLLER_TITLE @"Hello World!"
-#define ALERT_CONTROLLER_MESSAGE @"Choose one of the following options:"
 
 #define ALERT_ACTION_DISMISS_TITLE @"Dismiss"
 #define ALERT_ACTION_OK_TITLE @"OK"
@@ -33,24 +31,39 @@
 #define NOTIFICATION_TICK @"kNotificationTick"
 #define NOTIFICATION_TIMER_DID_STOP @"kNotificationTimerDidStop"
 
-@interface ViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate, SwitchDelegate, SyncViewDelegate>
 @property (nonatomic, strong) AlertTableViewController *alertTableViewController;
+@property (nonatomic, strong) AlertSwitchViewController *alertSwitchViewController;
 @property (nonatomic, strong) UIAlertController *alertControllerDismiss;
 @property (nonatomic, strong) UIAlertAction *alertActionDismiss;
 @property (nonatomic) BOOL timerIsActive;
 @property (nonatomic, strong) IBOutlet UILabel *labelWiFi;
 @property (nonatomic, strong) IBOutlet UILabel *labelWWAN;
 @property (nonatomic, strong) IBOutlet UILabel *labelInternet;
+
+// GENERAL //
+
 - (void)setup;
 - (void)teardown;
-- (IBAction)actionTest:(id)sender;
+
+// RESPONDERS //
+
+- (void)timerDidTick:(NSNotification *)notification;
+- (void)internetStatusDidChange:(NSNotification *)notification;
+
+// ACTIONS //
+
+- (IBAction)actionAlertTableViewController:(id)sender;
+- (IBAction)actionAlertSwitchViewController:(id)sender;
 - (IBAction)actionSync:(id)sender;
 - (IBAction)actionRefresh:(id)sender;
+
+// OTHER //
+
 - (void)startTimer;
 - (void)tick:(NSNumber *)ticks;
-- (void)timerDidTick:(NSNotification *)notification;
 - (void)setLabels;
-- (void)internetStatusDidChange:(NSNotification *)notification;
+
 @end
 
 @implementation ViewController
@@ -58,6 +71,7 @@
 #pragma mark - // SETTERS AND GETTERS //
 
 @synthesize alertTableViewController = _alertTableViewController;
+@synthesize alertSwitchViewController = _alertSwitchViewController;
 @synthesize alertControllerDismiss = _alertControllerDismiss;
 @synthesize alertActionDismiss = _alertActionDismiss;
 @synthesize timerIsActive = _timerIsActive;
@@ -69,25 +83,39 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_UI] message:nil];
     
-    if (!_alertTableViewController)
-    {
-        _alertTableViewController = [AlertTableViewController alertControllerWithTitle:ALERT_CONTROLLER_TITLE message:ALERT_CONTROLLER_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
-        [_alertTableViewController addAction:self.alertActionDismiss];
-        [_alertTableViewController setDataSource:self];
-        [_alertTableViewController setDelegate:self];
-    }
+    if (_alertTableViewController) return _alertTableViewController;
+    
+    _alertTableViewController = [AlertTableViewController alertControllerWithTitle:@"AlertTableViewController" message:@"Choose one of the following options:" preferredStyle:UIAlertControllerStyleAlert];
+    [_alertTableViewController.tableView setDataSource:self];
+    [_alertTableViewController.tableView setDelegate:self];
+    [_alertTableViewController addAction:self.alertActionDismiss];
     return _alertTableViewController;
+}
+
+- (AlertSwitchViewController *)alertSwitchViewController
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_UI] message:nil];
+    
+    if (_alertSwitchViewController) return _alertSwitchViewController;
+    
+    _alertSwitchViewController = [AlertSwitchViewController alertControllerWithTitle:@"AlertSwitchViewController" message:@"You can toggle the following options:" preferredStyle:UIAlertControllerStyleAlert];
+    for (int i = 0; i < 10; i++)
+    {
+        [_alertSwitchViewController addSwitchWithText:[NSString stringWithFormat:@"Switch %i", i+1] on:NO];
+    }
+    [_alertSwitchViewController setDelegate:self];
+    [_alertSwitchViewController addAction:self.alertActionDismiss];
+    return _alertSwitchViewController;
 }
 
 - (UIAlertController *)alertControllerDismiss
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
     
-    if (!_alertControllerDismiss)
-    {
-        _alertControllerDismiss = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [_alertControllerDismiss addAction:self.alertActionDismiss];
-    }
+    if (_alertControllerDismiss) return _alertControllerDismiss;
+    
+    _alertControllerDismiss = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [_alertControllerDismiss addAction:self.alertActionDismiss];
     return _alertControllerDismiss;
 }
 
@@ -95,10 +123,9 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
     
-    if (!_alertActionDismiss)
-    {
-        _alertActionDismiss = [UIAlertAction actionWithTitle:ALERT_ACTION_DISMISS_TITLE style:UIAlertActionStyleCancel handler:nil];
-    }
+    if (_alertActionDismiss) return _alertActionDismiss;
+    
+    _alertActionDismiss = [UIAlertAction actionWithTitle:ALERT_ACTION_DISMISS_TITLE style:UIAlertActionStyleCancel handler:nil];
     return _alertActionDismiss;
 }
 
@@ -234,6 +261,15 @@
     }
 }
 
+#pragma mark - // DELEGATED METHODS (SwitchDelegate) //
+
+- (IBAction)actionSwitchDidToggle:(UISwitch *)sender
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:@[AKD_UI] message:nil];
+    
+    // do something
+}
+
 #pragma mark - // DELEGATED METHODS (SyncViewDelegate) //
 
 - (void)syncViewCancelButtonWasTapped:(SyncViewController *)sender
@@ -248,7 +284,7 @@
 
 #pragma mark - // OVERWRITTEN METHODS //
 
-#pragma mark - // PRIVATE METHODS //
+#pragma mark - // PRIVATE METHODS (General) //
 
 - (void)setup
 {
@@ -267,11 +303,39 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_INTERNETSTATUS_DID_CHANGE object:nil];
 }
 
-- (IBAction)actionTest:(id)sender
+#pragma mark - // PRIVATE METHODS (Responders) //
+
+- (void)timerDidTick:(NSNotification *)notification
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
+    
+    NSUInteger tickValue = [[notification.userInfo objectForKey:NOTIFICATION_OBJECT_KEY] integerValue];
+    [self setSyncViewSecondaryText:[NSString stringWithFormat:@"(%lu / %i)", (unsigned long)tickValue, (int)(TICKS_PER_SEC*SYNC_TIME)]];
+    float progress = ((float)tickValue)/(TICKS_PER_SEC*SYNC_TIME);
+    [self setSyncViewProgress:progress animated:YES];
+}
+
+- (void)internetStatusDidChange:(NSNotification *)notification
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
+    
+    [self setLabels];
+}
+
+#pragma mark - // PRIVATE METHODS (Actions) //
+
+- (IBAction)actionAlertTableViewController:(id)sender
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:nil message:nil];
     
     [self presentViewController:self.alertTableViewController animated:YES completion:nil];
+}
+
+- (IBAction)actionAlertSwitchViewController:(id)sender
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:nil message:nil];
+    
+    [self presentViewController:self.alertSwitchViewController animated:YES completion:nil];
 }
 
 - (IBAction)actionSync:(id)sender
@@ -288,6 +352,8 @@
     
     [self setLabels];
 }
+
+#pragma mark - // PRIVATE METHODS (Other) //
 
 - (void)startTimer
 {
@@ -318,16 +384,6 @@
     [self performSelector:@selector(tick:) withObject:[NSNumber numberWithInteger:++tickValue] afterDelay:1.0/(float)TICKS_PER_SEC];
 }
 
-- (void)timerDidTick:(NSNotification *)notification
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
-    
-    NSUInteger tickValue = [[notification.userInfo objectForKey:NOTIFICATION_OBJECT_KEY] integerValue];
-    [self setSyncViewSecondaryText:[NSString stringWithFormat:@"(%i / %i)", tickValue, (int)(TICKS_PER_SEC*SYNC_TIME)]];
-    float progress = ((float)tickValue)/(TICKS_PER_SEC*SYNC_TIME);
-    [self setSyncViewProgress:progress animated:YES];
-}
-
 - (void)setLabels
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategories:@[AKD_UI] message:nil];
@@ -335,13 +391,6 @@
     [self.labelWiFi setText:[AKGenerics textForBool:[AKSystemInfo isReachableViaWiFi] yesText:@"ON" noText:@"OFF"]];
     [self.labelWWAN setText:[AKGenerics textForBool:[AKSystemInfo isReachableViaWWAN] yesText:@"ON" noText:@"OFF"]];
     [self.labelInternet setText:[AKGenerics textForBool:[AKSystemInfo isReachable] yesText:@"ON" noText:@"OFF"]];
-}
-
-- (void)internetStatusDidChange:(NSNotification *)notification
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
-    
-    [self setLabels];
 }
 
 @end

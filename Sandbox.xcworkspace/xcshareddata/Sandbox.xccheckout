@@ -16,6 +16,10 @@
 		<string>https://github.com/kenmhaggerty/Sandbox.git</string>
 		<key>249738F0A276B150378B589E80258D41888764CC</key>
 		<string>https://github.com/eurekavalleyco/AKSystemInfo.git</string>
+		<key>5B9F097DADE1B5E7FB1C37820AFC0BA849ACDCDA</key>
+		<string>https://github.com/kenmhaggerty/UIViewController-Syncing.git</string>
+		<key>CB50C2B1EDC1676F7BB3EEB6D9FF9C7802E91EA8</key>
+		<string>https://github.com/eurekavalleyco/AlertTableViewController.git</string>
 		<key>EE2149F46CE9D12EEED852BC5841F1EB9896945C</key>
 		<string>https://bitbucket.org/eurekavalleyco/aksuperviewcontroller.git</string>
 		<key>FC7EB595F0165B4E071792DDEF137676A766E0F2</key>
@@ -31,6 +35,10 @@
 		<string>..</string>
 		<key>249738F0A276B150378B589E80258D41888764CC</key>
 		<string>../../AKSystemInfo</string>
+		<key>5B9F097DADE1B5E7FB1C37820AFC0BA849ACDCDA</key>
+		<string>../../UIViewController+Syncing</string>
+		<key>CB50C2B1EDC1676F7BB3EEB6D9FF9C7802E91EA8</key>
+		<string>../../AlertTableViewController</string>
 		<key>EE2149F46CE9D12EEED852BC5841F1EB9896945C</key>
 		<string>../../AKSuperViewController</string>
 		<key>FC7EB595F0165B4E071792DDEF137676A766E0F2</key>
@@ -80,9 +88,25 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CB50C2B1EDC1676F7BB3EEB6D9FF9C7802E91EA8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AlertTableViewController</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>23D6294FF433B578B3376B2E0BCB8E315D0C6036</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Sandbox</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5B9F097DADE1B5E7FB1C37820AFC0BA849ACDCDA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>UIViewController+Syncing</string>
 		</dict>
 	</array>
 </dict>

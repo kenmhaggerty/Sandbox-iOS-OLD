@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="7Zg-Ww-7PC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="7Zg-Ww-7PC">
     <dependencies>
         <deployment version="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -196,10 +196,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LJb-Vw-5hR">
-                                <rect key="frame" x="108" y="221" width="159" height="225"/>
+                                <rect key="frame" x="91" y="202" width="194" height="263"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DDR-oP-OQZ">
-                                        <rect key="frame" x="80" y="84" width="80" height="95"/>
+                                        <rect key="frame" x="97" y="122" width="97" height="95"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OFF" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cl6-Cr-7WG">
                                                 <rect key="frame" x="8" y="66" width="33" height="21"/>
@@ -235,22 +235,22 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ue6-SV-QUF">
-                                        <rect key="frame" x="0.0" y="84" width="80" height="95"/>
+                                        <rect key="frame" x="0.0" y="122" width="97" height="95"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Internet:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TuM-EK-wWD">
-                                                <rect key="frame" x="8" y="66" width="64" height="21"/>
+                                                <rect key="frame" x="25" y="66" width="64" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WWAN:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kEM-RO-B45">
-                                                <rect key="frame" x="12" y="37" width="60" height="21"/>
+                                                <rect key="frame" x="29" y="37" width="60" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wi-Fi:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rRT-2P-YEy">
-                                                <rect key="frame" x="27" y="8" width="45" height="21"/>
+                                                <rect key="frame" x="44" y="8" width="45" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
@@ -270,8 +270,8 @@
                                             <constraint firstAttribute="trailingMargin" secondItem="kEM-RO-B45" secondAttribute="trailing" id="yPs-i1-Ew1"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h26-Mc-Vap">
-                                        <rect key="frame" x="54" y="187" width="53" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h26-Mc-Vap">
+                                        <rect key="frame" x="70" y="225" width="53" height="30"/>
                                         <state key="normal" title="Refresh">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -280,7 +280,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKY-DV-q0m">
-                                        <rect key="frame" x="62" y="46" width="35" height="30"/>
+                                        <rect key="frame" x="79" y="84" width="35" height="30"/>
                                         <state key="normal" title="Sync">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -289,12 +289,21 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EOl-kS-hjU">
-                                        <rect key="frame" x="65" y="8" width="30" height="30"/>
-                                        <state key="normal" title="Test">
+                                        <rect key="frame" x="13" y="8" width="167" height="30"/>
+                                        <state key="normal" title="AlertTableViewController">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="actionTest:" destination="Xgk-eR-cPh" eventType="touchUpInside" id="yvc-pe-LWJ"/>
+                                            <action selector="actionAlertTableViewController:" destination="Xgk-eR-cPh" eventType="touchUpInside" id="gqp-07-Hdy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iM5-sX-LWN">
+                                        <rect key="frame" x="8" y="46" width="178" height="30"/>
+                                        <state key="normal" title="AlertSwitchViewController">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="actionAlertSwitchViewController:" destination="Xgk-eR-cPh" eventType="touchUpInside" id="T0W-dH-WMa"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -311,15 +320,22 @@
                                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="EOl-kS-hjU" secondAttribute="trailing" id="G8P-Jj-c9x"/>
                                     <constraint firstAttribute="centerX" secondItem="UKY-DV-q0m" secondAttribute="centerX" id="OaX-xg-7dJ"/>
                                     <constraint firstItem="DDR-oP-OQZ" firstAttribute="leading" secondItem="Ue6-SV-QUF" secondAttribute="trailing" id="QmW-0H-LT4"/>
+                                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="iM5-sX-LWN" secondAttribute="trailing" id="SYL-ev-aHc"/>
+                                    <constraint firstItem="UKY-DV-q0m" firstAttribute="top" secondItem="iM5-sX-LWN" secondAttribute="bottom" constant="8" id="WhN-r2-WuG"/>
+                                    <constraint firstItem="iM5-sX-LWN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="LJb-Vw-5hR" secondAttribute="topMargin" id="YfI-Pg-ihD"/>
                                     <constraint firstItem="EOl-kS-hjU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LJb-Vw-5hR" secondAttribute="leadingMargin" id="ZgY-8K-hRH"/>
                                     <constraint firstAttribute="centerX" secondItem="EOl-kS-hjU" secondAttribute="centerX" id="aTY-OA-r9u"/>
                                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="h26-Mc-Vap" secondAttribute="trailing" id="bW3-gD-NWK"/>
+                                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="iM5-sX-LWN" secondAttribute="bottom" id="bin-BG-5QK"/>
                                     <constraint firstItem="Ue6-SV-QUF" firstAttribute="width" secondItem="LJb-Vw-5hR" secondAttribute="width" multiplier="0.5" id="dXL-OH-00D"/>
+                                    <constraint firstAttribute="centerX" secondItem="iM5-sX-LWN" secondAttribute="centerX" id="eyq-B5-Vnk"/>
                                     <constraint firstItem="Ue6-SV-QUF" firstAttribute="leading" secondItem="LJb-Vw-5hR" secondAttribute="leading" id="h3F-D0-yaR"/>
                                     <constraint firstItem="DDR-oP-OQZ" firstAttribute="width" secondItem="LJb-Vw-5hR" secondAttribute="width" multiplier="0.5" id="i4R-7B-5zf"/>
+                                    <constraint firstItem="iM5-sX-LWN" firstAttribute="top" secondItem="EOl-kS-hjU" secondAttribute="bottom" constant="8" id="inO-6t-mfz"/>
                                     <constraint firstItem="UKY-DV-q0m" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LJb-Vw-5hR" secondAttribute="leadingMargin" id="kA2-pu-ojE"/>
                                     <constraint firstItem="EOl-kS-hjU" firstAttribute="top" secondItem="LJb-Vw-5hR" secondAttribute="topMargin" id="lds-1R-WML"/>
-                                    <constraint firstItem="UKY-DV-q0m" firstAttribute="top" secondItem="EOl-kS-hjU" secondAttribute="bottom" constant="8" id="mO2-li-cTV"/>
+                                    <constraint firstItem="UKY-DV-q0m" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EOl-kS-hjU" secondAttribute="bottom" constant="8" id="mO2-li-cTV"/>
+                                    <constraint firstItem="iM5-sX-LWN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LJb-Vw-5hR" secondAttribute="leadingMargin" id="wfK-PG-lvN"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="h26-Mc-Vap" secondAttribute="bottom" id="yTr-2F-fee"/>
                                 </constraints>
                             </view>
