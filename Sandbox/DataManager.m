@@ -16,7 +16,6 @@
 #import "AKPrivateInfo.h"
 #import "CoreDataController.h"
 #import "Message+RW.h"
-#import <Parse/Parse.h>
 
 #pragma mark - // DEFINITIONS (Private) //
 
