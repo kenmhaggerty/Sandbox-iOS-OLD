@@ -32,6 +32,8 @@
 		7D4278301551865E000240A5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D42782F1551865E000240A5 /* main.m */; };
 		7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4278331551865E000240A5 /* SandboxAppDelegate.m */; };
 		7D4278371551865E000240A5 /* Sandbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D4278351551865E000240A5 /* Sandbox.storyboard */; };
+		7D66AE301B69769E00105E61 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D66AE2F1B69769E00105E61 /* Launch Screen.xib */; };
+		7D66AE321B6976BA00105E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D66AE311B6976BA00105E61 /* Media.xcassets */; };
 		7D9513C71B0A86D900E508E8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D9513C61B0A86D900E508E8 /* AudioToolbox.framework */; };
 		7D9513C91B0A86E000E508E8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D9513C81B0A86E000E508E8 /* CFNetwork.framework */; };
 		7D9513CB1B0A86E900E508E8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D9513CA1B0A86E900E508E8 /* CoreLocation.framework */; };
@@ -103,6 +105,8 @@
 		7D4278321551865E000240A5 /* SandboxAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SandboxAppDelegate.h; sourceTree = "<group>"; };
 		7D4278331551865E000240A5 /* SandboxAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SandboxAppDelegate.m; sourceTree = "<group>"; };
 		7D4278361551865E000240A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Sandbox.storyboard; sourceTree = "<group>"; };
+		7D66AE2F1B69769E00105E61 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		7D66AE311B6976BA00105E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		7D9513C61B0A86D900E508E8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7D9513C81B0A86E000E508E8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7D9513CA1B0A86E900E508E8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -328,9 +332,7 @@
 				1FA24809183CEBE500351015 /* TableViewController.m */,
 				7D3AC9F116691B5A00594015 /* ViewController.h */,
 				7D3AC9F216691B5A00594015 /* ViewController.m */,
-				7DB435731B13627000BAA7A2 /* AlertTableViewController */,
-				1F11C86C1B50DE6F0031B985 /* AlertSwitchViewController */,
-				7DDA09731B17E69A00157479 /* UIViewController+Syncing */,
+				7D66AE331B6976C000105E61 /* Assets */,
 				1FEB6EFB1A4C0D550049AFDD /* Data Managers */,
 				7D42782A1551865E000240A5 /* Supporting Files */,
 			);
@@ -354,8 +356,20 @@
 				1FCB7582180F46D3005BE376 /* AKDebugger */,
 				1FEB6EED1A4C04D60049AFDD /* AKSystemInfo */,
 				1FECF6181B080BB40021D883 /* AKGenerics */,
+				7DB435731B13627000BAA7A2 /* AlertTableViewController */,
+				1F11C86C1B50DE6F0031B985 /* AlertSwitchViewController */,
+				7DDA09731B17E69A00157479 /* UIViewController+Syncing */,
 			);
 			name = IMPORTED;
+			sourceTree = "<group>";
+		};
+		7D66AE331B6976C000105E61 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				7D66AE2F1B69769E00105E61 /* Launch Screen.xib */,
+				7D66AE311B6976BA00105E61 /* Media.xcassets */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		7DB435731B13627000BAA7A2 /* AlertTableViewController */ = {
@@ -461,10 +475,12 @@
 				7D42782E1551865E000240A5 /* InfoPlist.strings in Resources */,
 				7D4278371551865E000240A5 /* Sandbox.storyboard in Resources */,
 				7DDA096D1B17E69600157479 /* syncview_exclamation@2x.png in Resources */,
+				7D66AE301B69769E00105E61 /* Launch Screen.xib in Resources */,
 				1F11C8681B505ABF0031B985 /* AKSwitchView.xib in Resources */,
 				7DDA096A1B17E69600157479 /* syncview_check.png in Resources */,
 				7DDA096C1B17E69600157479 /* syncview_exclamation.png in Resources */,
 				7DDA096B1B17E69600157479 /* syncview_check@2x.png in Resources */,
+				7D66AE321B6976BA00105E61 /* Media.xcassets in Resources */,
 				7D10BDF0160654FE00416C66 /* Default-568h@2x.png in Resources */,
 				7DDA09711B17E69600157479 /* syncview_x@2x.png in Resources */,
 				7DDA09701B17E69600157479 /* syncview_x.png in Resources */,
