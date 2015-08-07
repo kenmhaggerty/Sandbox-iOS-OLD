@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0D0FFABF458E6035F5BF095E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B5602FF0F1B253E66B2ED6 /* libPods.a */; };
-		1F11C85E1B5034BC0031B985 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11C85C1B5034BC0031B985 /* Bolts.framework */; };
-		1F11C85F1B5034BC0031B985 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11C85D1B5034BC0031B985 /* Parse.framework */; };
 		1F11C8661B505AA80031B985 /* AKSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11C8651B505AA80031B985 /* AKSwitchView.m */; };
 		1F11C8681B505ABF0031B985 /* AKSwitchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F11C8671B505ABF0031B985 /* AKSwitchView.xib */; };
 		1F11C86B1B50DE680031B985 /* AlertSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11C86A1B50DE680031B985 /* AlertSwitchViewController.m */; };
@@ -34,6 +32,8 @@
 		7D4278371551865E000240A5 /* Sandbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D4278351551865E000240A5 /* Sandbox.storyboard */; };
 		7D66AE301B69769E00105E61 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D66AE2F1B69769E00105E61 /* Launch Screen.xib */; };
 		7D66AE321B6976BA00105E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D66AE311B6976BA00105E61 /* Media.xcassets */; };
+		7D66AF1C1B74F20400105E61 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D66AF1A1B74F20400105E61 /* Bolts.framework */; };
+		7D66AF1D1B74F20400105E61 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D66AF1B1B74F20400105E61 /* Parse.framework */; };
 		7D9513C71B0A86D900E508E8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D9513C61B0A86D900E508E8 /* AudioToolbox.framework */; };
 		7D9513C91B0A86E000E508E8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D9513C81B0A86E000E508E8 /* CFNetwork.framework */; };
 		7D9513CB1B0A86E900E508E8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D9513CA1B0A86E900E508E8 /* CoreLocation.framework */; };
@@ -63,8 +63,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1F11C85C1B5034BC0031B985 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		1F11C85D1B5034BC0031B985 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		1F11C8641B505AA80031B985 /* AKSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSwitchView.h; path = ../../AlertSwitchViewController/AKSwitchView.h; sourceTree = "<group>"; };
 		1F11C8651B505AA80031B985 /* AKSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSwitchView.m; path = ../../AlertSwitchViewController/AKSwitchView.m; sourceTree = "<group>"; };
 		1F11C8671B505ABF0031B985 /* AKSwitchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AKSwitchView.xib; path = ../../AlertSwitchViewController/AKSwitchView.xib; sourceTree = "<group>"; };
@@ -107,6 +105,8 @@
 		7D4278361551865E000240A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Sandbox.storyboard; sourceTree = "<group>"; };
 		7D66AE2F1B69769E00105E61 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		7D66AE311B6976BA00105E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		7D66AF1A1B74F20400105E61 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		7D66AF1B1B74F20400105E61 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		7D9513C61B0A86D900E508E8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7D9513C81B0A86E000E508E8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7D9513CA1B0A86E900E508E8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -162,10 +162,10 @@
 				7D9513C71B0A86D900E508E8 /* AudioToolbox.framework in Frameworks */,
 				7DFFAC5B164F058D00B58EE4 /* CoreData.framework in Frameworks */,
 				7DD538A6158C100800E63E29 /* QuartzCore.framework in Frameworks */,
-				1F11C85F1B5034BC0031B985 /* Parse.framework in Frameworks */,
+				7D66AF1D1B74F20400105E61 /* Parse.framework in Frameworks */,
 				7D4278241551865E000240A5 /* UIKit.framework in Frameworks */,
 				7D4278261551865E000240A5 /* Foundation.framework in Frameworks */,
-				1F11C85E1B5034BC0031B985 /* Bolts.framework in Frameworks */,
+				7D66AF1C1B74F20400105E61 /* Bolts.framework in Frameworks */,
 				7D4278281551865E000240A5 /* CoreGraphics.framework in Frameworks */,
 				0D0FFABF458E6035F5BF095E /* libPods.a in Frameworks */,
 			);
@@ -227,12 +227,8 @@
 		1FEB6EFB1A4C0D550049AFDD /* Data Managers */ = {
 			isa = PBXGroup;
 			children = (
-				1FEB6EF21A4C0BFC0049AFDD /* DataManager.h */,
-				1FEB6EF31A4C0BFC0049AFDD /* DataManager.m */,
-				1FEB6EEE1A4C0BFC0049AFDD /* CoreDataController.h */,
-				1FEB6EEF1A4C0BFC0049AFDD /* CoreDataController.m */,
-				1FECF60E1B080B600021D883 /* CoreDataModel.xcdatamodeld */,
-				1FEB6F021A4C1F2E0049AFDD /* Core Data Objects */,
+				7D66AF1F1B74F27400105E61 /* DataManager */,
+				7D66AF1E1B74F26900105E61 /* CoreDataController */,
 			);
 			name = "Data Managers";
 			sourceTree = "<group>";
@@ -311,8 +307,8 @@
 				7D9513D21B0A872500E508E8 /* SystemConfiguration.framework */,
 				7D4278231551865E000240A5 /* UIKit.framework */,
 				7D9513D61B0A873800E508E8 /* libsqlite3.dylib */,
-				1F11C85C1B5034BC0031B985 /* Bolts.framework */,
-				1F11C85D1B5034BC0031B985 /* Parse.framework */,
+				7D66AF1A1B74F20400105E61 /* Bolts.framework */,
+				7D66AF1B1B74F20400105E61 /* Parse.framework */,
 				7D9513D41B0A872E00E508E8 /* libz.dylib */,
 				73B5602FF0F1B253E66B2ED6 /* libPods.a */,
 			);
@@ -370,6 +366,26 @@
 				7D66AE311B6976BA00105E61 /* Media.xcassets */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		7D66AF1E1B74F26900105E61 /* CoreDataController */ = {
+			isa = PBXGroup;
+			children = (
+				1FEB6EEE1A4C0BFC0049AFDD /* CoreDataController.h */,
+				1FEB6EEF1A4C0BFC0049AFDD /* CoreDataController.m */,
+				1FECF60E1B080B600021D883 /* CoreDataModel.xcdatamodeld */,
+				1FEB6F021A4C1F2E0049AFDD /* Core Data Objects */,
+			);
+			name = CoreDataController;
+			sourceTree = "<group>";
+		};
+		7D66AF1F1B74F27400105E61 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				1FEB6EF21A4C0BFC0049AFDD /* DataManager.h */,
+				1FEB6EF31A4C0BFC0049AFDD /* DataManager.m */,
+			);
+			name = DataManager;
 			sourceTree = "<group>";
 		};
 		7DB435731B13627000BAA7A2 /* AlertTableViewController */ = {
