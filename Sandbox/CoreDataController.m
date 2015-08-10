@@ -162,6 +162,8 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
     
+    if (!messageId) return NO;
+    
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
     __block NSUInteger count;
     __block NSError *error;
@@ -291,7 +293,6 @@
     [managedObjectContext performBlockAndWait:^{
         message = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Message class]) inManagedObjectContext:managedObjectContext];
         if (messageId) [message setMessageId:messageId];
-        else [message setMessageId:[AKGenerics randomStringWithCharacters:MESSAGE_ID_CHARACTERS length:MESSAGE_ID_LENGTH]];
         [message setSender:sender];
         [message setRecipient:recipient];
         [message setText:text];
