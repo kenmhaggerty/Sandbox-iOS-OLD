@@ -14,14 +14,16 @@
 #import "AKDebugger.h"
 #import "AKGenerics.h"
 #import "AKSystemInfo.h"
+#import "AppInfo.h"
 #import "DataManager.h"
+#import "CentralDispatch.h"
 #import "Message.h"
 #import "UIAlertController+Info.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
-#define BUTTON_TEXT_LOGIN @"Sign In"
-#define BUTTON_TEXT_LOGOUT @"Sign Out"
+#define ALERT_INFO_RECIPIENT @"recipient"
+#define ALERT_INFO_MESSAGE @"message"
 
 #define CELL_LABEL_MISSING_MESSAGE @"(???)"
 #define CELL_LABEL_MISSING_SENDER @"(unknown sender)"
@@ -35,9 +37,8 @@
 
 @property (nonatomic, strong) NSMutableArray *data;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *buttonSignInOrOut;
-@property (nonatomic, strong) UIAlertController *alertControllerSignIn;
 @property (nonatomic, strong) UIAlertController *alertControllerCreateMessage;
-@property (nonatomic, strong) UIAlertController *alertControllerError;
+@property (nonatomic, strong) UIAlertController *alertControllerDismiss;
 - (void)setup;
 - (void)teardown;
 - (BOOL)isInbox;
@@ -47,8 +48,8 @@
 
 // OBSERVERS //
 
-- (void)addObserversToDataManager;
-- (void)removeObserversFromDataManager;
+- (void)addObserversToCentralDispatch;
+- (void)removeObserversFromCentralDispatch;
 - (void)addObserversToMessage:(Message *)message;
 - (void)removeObserversFromMessage:(Message *)message;
 
@@ -67,9 +68,8 @@
 
 @synthesize data = _data;
 @synthesize buttonSignInOrOut = _buttonSignInOrOut;
-@synthesize alertControllerSignIn = _alertControllerSignIn;
 @synthesize alertControllerCreateMessage = _alertControllerCreateMessage;
-@synthesize alertControllerError = _alertControllerError;
+@synthesize alertControllerDismiss = _alertControllerDismiss;
 
 - (void)setData:(NSMutableArray *)data
 {
@@ -97,143 +97,92 @@
     
     if (!_data)
     {
-        if (self.isInbox) [self setData:[[NSMutableArray alloc] initWithArray:[[DataManager getMessagesSentToUser:[DataManager currentUser]] array]]];
-        else if (self.isOutbox) [self setData:[[NSMutableArray alloc] initWithArray:[[DataManager getMessagesSentByUser:[DataManager currentUser]] array]]];
+        if (self.isInbox) [self setData:[[NSMutableArray alloc] initWithArray:[[DataManager getMessagesSentToUser:[CentralDispatch currentUser]] array]]];
+        else if (self.isOutbox) [self setData:[[NSMutableArray alloc] initWithArray:[[DataManager getMessagesSentByUser:[CentralDispatch currentUser]] array]]];
     }
     return _data;
-}
-
-- (UIAlertController *)alertControllerSignIn
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
-    
-    if (!_alertControllerSignIn)
-    {
-        _alertControllerSignIn = [UIAlertController alertControllerWithTitle:BUTTON_TEXT_LOGIN message:@"Please enter a unique username:" preferredStyle:UIAlertControllerStyleAlert];
-        [_alertControllerSignIn addTextFieldWithConfigurationHandler:^(UITextField *textField){
-            [textField setPlaceholder:@"username"];
-        }];
-        [_alertControllerSignIn addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
-            for (UITextField *textField in _alertControllerSignIn.textFields)
-            {
-                [textField setText:nil];
-            }
-        }]];
-        [_alertControllerSignIn addAction:[UIAlertAction actionWithTitle:BUTTON_TEXT_LOGIN style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-            NSString *username = ((UITextField *)[_alertControllerSignIn.textFields objectAtIndex:0]).text;
-            if (username.length == 0) username = nil;
-            if (!username)
-            {
-                [self.alertControllerError setTitle:@"Error"];
-                [self.alertControllerError setMessage:[NSString stringWithFormat:@"No %@ was specified.", stringFromVariable(username)]];
-                [self presentViewController:self.alertControllerError animated:YES completion:nil];
-                return;
-            }
-            
-            [DataManager setCurrentUser:username];
-            for (UITextField *textField in _alertControllerSignIn.textFields)
-            {
-                [textField setText:nil];
-            }
-            
-            if (_alertControllerSignIn.info)
-            {
-                NSString *recipient = [_alertControllerSignIn.info objectForKey:NSStringFromSelector(@selector(recipient))];
-                NSString *text = [_alertControllerSignIn.info objectForKey:NSStringFromSelector(@selector(text))];
-                if (![DataManager createMessageWithText:text fromUser:username toUser:recipient onDate:[NSDate date] withId:nil andBroadcast:YES])
-                {
-                    [self.alertControllerError setMessage:@"Error"];
-                    [self.alertControllerError setMessage:@"Could not send message. Check that your are connected to the Internet and try again."];
-                    [self presentViewController:self.alertControllerError animated:YES completion:nil];
-                    return;
-                }
-                [_alertControllerSignIn setInfo:nil];
-            }
-        }]];
-    }
-    return _alertControllerSignIn;
 }
 
 - (UIAlertController *)alertControllerCreateMessage
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
     
-    if (!_alertControllerCreateMessage)
+    if (_alertControllerCreateMessage)
     {
-        _alertControllerCreateMessage = [UIAlertController alertControllerWithTitle:@"Create Message" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [_alertControllerCreateMessage addTextFieldWithConfigurationHandler:^(UITextField *textField){
-            [textField setPlaceholder:@"recipient"];
-        }];
-        [_alertControllerCreateMessage addTextFieldWithConfigurationHandler:^(UITextField *textField){
-            [textField setPlaceholder:@"message"];
-        }];
-        [_alertControllerCreateMessage addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
-            for (UITextField *textField in _alertControllerCreateMessage.textFields)
-            {
-                [textField setText:nil];
-            }
-        }]];
-        [_alertControllerCreateMessage addAction:[UIAlertAction actionWithTitle:@"Send" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-            NSString *recipient = ((UITextField *)[_alertControllerCreateMessage.textFields objectAtIndex:0]).text;
-            NSString *text = ((UITextField *)[_alertControllerCreateMessage.textFields objectAtIndex:1]).text;
-            if (recipient.length == 0) recipient = nil;
-            if (text.length == 0) text = nil;
-            NSString *sender = [DataManager currentUser];
-            
-            if (!recipient)
-            {
-                [_alertControllerCreateMessage setMessage:@"Error"];
-                [_alertControllerCreateMessage setMessage:@"Please specify a recipient for your message."];
-                [self presentViewController:_alertControllerCreateMessage animated:YES completion:nil];
-                return;
-            }
-            
-            if (!text)
-            {
-                [_alertControllerCreateMessage setMessage:@"Error"];
-                [_alertControllerCreateMessage setMessage:@"Cannot send an empty message. Please enter your message."];
-                [self presentViewController:_alertControllerCreateMessage animated:YES completion:nil];
-                return;
-            }
-            
-            if (!sender)
-            {
-                [self.alertControllerSignIn setMessage:BUTTON_TEXT_LOGIN];
-                [self.alertControllerSignIn setMessage:@"Please sign in to send your message."];
-                [self.alertControllerSignIn setInfo:[NSDictionary dictionaryWithObjects:@[recipient, text] forKeys:[NSArray arrayWithObjects:stringFromVariable(recipient), stringFromVariable(text), nil]]];
-                [self presentViewController:self.alertControllerSignIn animated:YES completion:nil];
-                return;
-            }
-            
-            if (![DataManager createMessageWithText:text fromUser:sender toUser:recipient onDate:[NSDate date] withId:nil andBroadcast:YES])
-            {
-                [self.alertControllerError setMessage:@"Error"];
-                [self.alertControllerError setMessage:@"Could not send message. Check that your are connected to the Internet and try again."];
-                [self presentViewController:self.alertControllerError animated:YES completion:nil];
-                return;
-            }
-            
-            for (UITextField *textField in _alertControllerCreateMessage.textFields)
-            {
-                [textField setText:nil];
-            }
-        }]];
+        [((UITextField *)[_alertControllerCreateMessage.textFields objectAtIndex:0]) setText:[_alertControllerCreateMessage.info objectForKey:ALERT_INFO_RECIPIENT]];
+        [((UITextField *)[_alertControllerCreateMessage.textFields objectAtIndex:1]) setText:[_alertControllerCreateMessage.info objectForKey:ALERT_INFO_MESSAGE]];
+        [_alertControllerCreateMessage setMessage:[NSString stringWithFormat:@"from %@", [CentralDispatch currentUsername]]];
+        return _alertControllerCreateMessage;
     }
+    
+    _alertControllerCreateMessage = [UIAlertController alertControllerWithTitle:@"Create Message" message:[NSString stringWithFormat:@"from %@", [CentralDispatch currentUsername]] preferredStyle:UIAlertControllerStyleAlert];
+    [_alertControllerCreateMessage addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        [textField setPlaceholder:@"recipient"];
+    }];
+    [_alertControllerCreateMessage addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        [textField setPlaceholder:@"message"];
+    }];
+    [_alertControllerCreateMessage addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+        [_alertControllerCreateMessage setInfo:nil];
+        [AKGenerics clearAllTextFieldsInAlertController:_alertControllerCreateMessage];
+    }]];
+    [_alertControllerCreateMessage addAction:[UIAlertAction actionWithTitle:@"Send" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        NSString *recipient = ((UITextField *)[_alertControllerCreateMessage.textFields objectAtIndex:0]).text;
+        if (recipient.length == 0) recipient = nil;
+        NSString *message = ((UITextField *)[_alertControllerCreateMessage.textFields objectAtIndex:1]).text;
+        if (message.length == 0) message = nil;
+        NSMutableDictionary *info = [NSMutableDictionary dictionary];
+        if (recipient) [info setObject:recipient forKey:ALERT_INFO_RECIPIENT];
+        if (message) [info setObject:message forKey:ALERT_INFO_MESSAGE];
+        [_alertControllerCreateMessage setInfo:info];
+        
+        if (![CentralDispatch currentUser])
+        {
+            [self.alertControllerDismiss setTitle:@"Could Not Send Message"];
+            [self.alertControllerDismiss setMessage:@"Please sign in to send your message:"];
+            [self presentViewController:self.alertControllerDismiss animated:YES completion:nil];
+            return;
+        }
+        
+        if (!recipient)
+        {
+            [_alertControllerCreateMessage setTitle:@"Error"];
+            [_alertControllerCreateMessage setMessage:@"Please specify a recipient for your message:"];
+            [self presentViewController:_alertControllerCreateMessage animated:YES completion:nil];
+            return;
+        }
+        
+        if (!message)
+        {
+            [_alertControllerCreateMessage setTitle:@"Error"];
+            [_alertControllerCreateMessage setMessage:@"Cannot send an empty message. Please enter your message:"];
+            [self presentViewController:_alertControllerCreateMessage animated:YES completion:nil];
+            return;
+        }
+        
+        if (![DataManager sendMessageWithText:message toUser:recipient])
+        {
+            [_alertControllerCreateMessage setTitle:@"Could Not Send Message"];
+            [_alertControllerCreateMessage setMessage:@"Please make sure that your are connected to the Internet."];
+            [self presentViewController:_alertControllerCreateMessage animated:YES completion:nil];
+            return;
+        }
+        
+        [_alertControllerCreateMessage setInfo:nil];
+        [AKGenerics clearAllTextFieldsInAlertController:_alertControllerCreateMessage];
+    }]];
     return _alertControllerCreateMessage;
 }
 
-- (UIAlertController *)alertControllerError
+- (UIAlertController *)alertControllerDismiss
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
     
-    if (!_alertControllerError)
-    {
-        _alertControllerError = [UIAlertController alertControllerWithTitle:@"Error" message:@"Could not perform action." preferredStyle:UIAlertControllerStyleAlert];
-        [_alertControllerError addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
-            [_alertControllerError dismissViewControllerAnimated:YES completion:nil];
-        }]];
-    }
-    return _alertControllerError;
+    if (_alertControllerDismiss) return _alertControllerDismiss;
+    
+    _alertControllerDismiss = [UIAlertController alertControllerWithTitle:@"Error" message:@"Could not perform action." preferredStyle:UIAlertControllerStyleAlert];
+    [_alertControllerDismiss addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
+    return _alertControllerDismiss;
 }
 
 #pragma mark - // INITS AND LOADS //
@@ -270,11 +219,6 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    if ([DataManager currentUser])
-    {
-        [self.tableView reloadData];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -282,6 +226,15 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
     
     [super viewWillAppear:animated];
+    
+    if ([CentralDispatch currentUser])
+    {
+        [self.buttonSignInOrOut setTitle:TEXT_LOGOUT];
+    }
+    else
+    {
+        [self.buttonSignInOrOut setTitle:TEXT_LOGIN];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -400,7 +353,7 @@
         Message *message = [self.data objectAtIndex:indexPath.row];
         if (![message.isRead boolValue])
         {
-            [DataManager userDidReadMessage:message andBroadcast:YES];
+            [DataManager userDidReadMessage:message];
             [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         }
     }
@@ -415,14 +368,14 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
     
-    [self addObserversToDataManager];
+    [self addObserversToCentralDispatch];
 }
 
 - (void)teardown
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
     
-    [self removeObserversFromDataManager];
+    [self removeObserversFromCentralDispatch];
 }
 
 - (BOOL)isInbox
@@ -453,13 +406,13 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
     
-    if ([DataManager currentUser])
+    if ([CentralDispatch currentUser])
     {
-        [DataManager setCurrentUser:nil];
+        [CentralDispatch presentLogout];
     }
     else
     {
-        [self presentViewController:self.alertControllerSignIn animated:YES completion:nil];
+        [CentralDispatch presentLogin];
     }
 }
 
@@ -472,20 +425,20 @@
 
 #pragma mark - // PRIVATE METHODS (Observers) //
 
-- (void)addObserversToDataManager
+- (void)addObserversToCentralDispatch
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
     
-    [DataManager addObserver:self selector:@selector(currentUserDidChange:) name:NOTIFICATION_CURRENTUSER_DID_CHANGE];
-    [DataManager addObserver:self selector:@selector(messageWasCreated:) name:NOTIFICATION_MESSAGE_WAS_CREATED];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(currentUserDidChange:) name:NOTIFICATION_CURRENTUSER_DID_CHANGE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageWasCreated:) name:NOTIFICATION_MESSAGE_WAS_CREATED object:nil];
 }
 
-- (void)removeObserversFromDataManager
+- (void)removeObserversFromCentralDispatch
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
     
-    [DataManager removeObserver:self name:NOTIFICATION_CURRENTUSER_DID_CHANGE];
-    [DataManager removeObserver:self name:NOTIFICATION_MESSAGE_WAS_CREATED];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_CURRENTUSER_DID_CHANGE object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_MESSAGE_WAS_CREATED object:nil];
 }
 
 - (void)addObserversToMessage:(Message *)message
@@ -510,15 +463,13 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
     
-    NSString *username;
-    if (notification.userInfo) username = [notification.userInfo objectForKey:NOTIFICATION_OBJECT_KEY];
-    if (username)
+    if ([CentralDispatch currentUser])
     {
-        [self.buttonSignInOrOut setTitle:BUTTON_TEXT_LOGOUT];
+        [self.buttonSignInOrOut setTitle:TEXT_LOGOUT];
     }
     else
     {
-        [self.buttonSignInOrOut setTitle:BUTTON_TEXT_LOGIN];
+        [self.buttonSignInOrOut setTitle:TEXT_LOGIN];
     }
     [self setData:nil];
     [self.tableView reloadData];
@@ -529,7 +480,7 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
     
     Message *message = [notification.userInfo objectForKey:NOTIFICATION_OBJECT_KEY];
-    if ((self.isInbox && [message.recipient isEqualToString:[DataManager currentUser]]) || (self.isOutbox && [message.sender isEqualToString:[DataManager currentUser]]))
+    if ((self.isInbox && [message.recipient isEqualToString:[CentralDispatch currentUsername]]) || (self.isOutbox && [message.sender isEqualToString:[CentralDispatch currentUsername]]))
     {
         [self addObserversToMessage:message];
         NSUInteger index = 0;
@@ -545,13 +496,12 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
     
     Message *message = notification.object;
-    if ([self.data containsObject:message])
-    {
-        NSUInteger index = [self.data indexOfObject:message];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        if (self.isInbox && ([message.isRead boolValue])) [DataManager decrementBadge];
-    }
+    if (![self.data containsObject:message]) return;
+    
+    NSUInteger index = [self.data indexOfObject:message];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    if (self.isInbox && ([message.isRead boolValue])) [DataManager decrementBadge];
 }
 
 - (void)messageWillBeDeleted:(NSNotification *)notification
@@ -559,15 +509,14 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
     
     Message *message = notification.object;
-    if ([self.data containsObject:message])
-    {
-        [self removeObserversFromMessage:message];
-        NSUInteger index = [self.data indexOfObject:message];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [self.data removeObjectAtIndex:index];
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        if (self.isInbox && (![message.isRead boolValue])) [DataManager decrementBadge];
-    }
+    if (![self.data containsObject:message]) return;
+    
+    [self removeObserversFromMessage:message];
+    NSUInteger index = [self.data indexOfObject:message];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    [self.data removeObjectAtIndex:index];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    if (self.isInbox && (![message.isRead boolValue])) [DataManager decrementBadge];
 }
 
 @end

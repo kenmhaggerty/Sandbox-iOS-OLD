@@ -18,9 +18,6 @@
 
 #pragma mark - // DEFINITIONS (Public) //
 
-#define NOTIFICATION_CURRENTUSER_DID_CHANGE @"kNotificationCurrentUserDidChange"
-#define NOTIFICATION_MESSAGE_WAS_CREATED @"kNotificationMessageWasCreated"
-
 @interface DataManager : NSObject
 
 // GENERAL //
@@ -37,25 +34,18 @@
 
 // CREATION //
 
-+ (BOOL)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId andBroadcast:(BOOL)broadcast;
++ (BOOL)sendMessageWithText:(NSString *)text toUser:(NSString *)recipient;
 
 // EDITING //
 
-+ (void)setCurrentUser:(NSString *)currentUser;
-+ (NSString *)currentUser;
-+ (void)userDidReadMessage:(Message *)message andBroadcast:(BOOL)broadcast;
++ (void)userDidReadMessage:(Message *)message;
 + (void)incrementBadge;
 + (void)decrementBadge;
 + (void)setBadgeToCount:(NSUInteger)count;
 
 // DELETION //
 
-+ (BOOL)deleteMessage:(Message *)message;
-
-// OBSERVATION  //
-
-+ (void)addObserver:(id)observer selector:(SEL)selector name:(NSString *)name;
-+ (void)removeObserver:(id)observer name:(NSString *)name;
++ (void)deleteMessage:(Message *)message;
 
 // DEBUGGING //
 

@@ -12,14 +12,13 @@
 
 #import "SandboxAppDelegate.h"
 #import "AKDebugger.h"
-#import "AKPrivateInfo.h"
-#import <Parse/Parse.h>
-#import "DataManager.h"
+#import "AKGenerics.h"
+#import "ParseController.h"
+#import "CentralDispatch.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
 @interface SandboxAppDelegate ()
-+ (void)processRemoteNotification:(NSDictionary *)userInfo;
 @end
 
 @implementation SandboxAppDelegate
@@ -48,31 +47,15 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
     
-    [Parse enableLocalDatastore];
-    [Parse setApplicationId:[AKPrivateInfo parseApplicationId] clientKey:[AKPrivateInfo parseClientKey]];
-    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    [ParseController setupApplication:application withLaunchOptions:launchOptions];
     
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
     
-    if (application.applicationState != UIApplicationStateBackground)
-    {
-        // Track an app open here if we launch with a push, unless
-        // "content_available" was used to trigger a background push (introduced
-        // in iOS 7). In that case, we skip tracking here to avoid double
-        // counting the app-open.
-        BOOL preBackgroundPush = ![application respondsToSelector:@selector(backgroundRefreshStatus)];
-        BOOL oldPushHandlerOnly = ![self respondsToSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)];
-        BOOL noPushPayload = ![launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-        if (preBackgroundPush || oldPushHandlerOnly || noPushPayload) {
-            [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-        }
-    }
-    
     NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (notificationPayload) [SandboxAppDelegate processRemoteNotification:notificationPayload];
+    if (notificationPayload) [CentralDispatch processRemoteNotification:notificationPayload];
     
     return YES;
 }
@@ -85,10 +68,10 @@
     {
         // The application was just brought from the background to the foreground,
         // so we consider the app as having been "opened by a push notification."
-        [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+        [ParseController trackAppOpenedWithRemoteNotificationPayload:userInfo];
     }
     
-    [SandboxAppDelegate processRemoteNotification:userInfo];
+    [CentralDispatch processRemoteNotification:userInfo];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -122,45 +105,9 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
     
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation setDeviceTokenFromData:deviceToken];
-    [currentInstallation saveInBackground];
+    [ParseController setDeviceTokenFromData:deviceToken];
 }
 
 #pragma mark - // PRIVATE FUNCTIONS //
-
-+ (void)processRemoteNotification:(NSDictionary *)userInfo
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:nil message:nil];
-    
-    NSString *installationId = [userInfo objectForKey:@"installationId"];
-    if ([installationId isEqualToString:[[PFInstallation currentInstallation] objectId]]) return;
-    
-    NSString *pushType = [userInfo objectForKey:@"pushType"];
-    NSString *messageId = [userInfo objectForKey:NSStringFromSelector(@selector(messageId))];
-    if ([pushType isEqualToString:@"messageRead"])
-    {
-        Message *message = [DataManager getMessageWithId:messageId];
-        if (message) [DataManager userDidReadMessage:message andBroadcast:NO];
-    }
-    else if ([pushType isEqualToString:@"newMessage"])
-    {
-        NSString *sender = [userInfo objectForKey:NSStringFromSelector(@selector(sender))];
-        NSString *recipient = [DataManager currentUser];
-        NSString *text = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
-        NSString *jsonDate = [[userInfo objectForKey:NSStringFromSelector(@selector(sendDate))] objectForKey:@"iso"];
-        NSDate *sendDate;
-        if (jsonDate)
-        {
-            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSz"];
-            sendDate = [dateFormat dateFromString:jsonDate];
-        }
-        if (sender && recipient && text && sendDate && messageId)
-        {
-            [DataManager createMessageWithText:text fromUser:sender toUser:[DataManager currentUser] onDate:sendDate withId:messageId andBroadcast:NO];
-        }
-    }
-}
 
 @end
