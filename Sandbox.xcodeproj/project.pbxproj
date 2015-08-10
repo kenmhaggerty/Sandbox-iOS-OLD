@@ -35,6 +35,11 @@
 		7D66AF1C1B74F20400105E61 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D66AF1A1B74F20400105E61 /* Bolts.framework */; };
 		7D66AF1D1B74F20400105E61 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D66AF1B1B74F20400105E61 /* Parse.framework */; };
 		7D66AF251B74F31500105E61 /* ParseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF241B74F31500105E61 /* ParseController.m */; };
+		7D66AF2A1B74F75A00105E61 /* CentralDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF291B74F75A00105E61 /* CentralDispatch.m */; };
+		7D66AF2D1B75041400105E61 /* SyncEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF2C1B75041400105E61 /* SyncEngine.m */; };
+		7D66AF381B7535B200105E61 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF371B7535B200105E61 /* LoginManager.m */; };
+		7D66AF441B76884200105E61 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF431B76884200105E61 /* RootViewController.m */; };
+		7D66AF481B77A12200105E61 /* AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF471B77A12200105E61 /* AppInfo.m */; };
 		7D9513C71B0A86D900E508E8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D9513C61B0A86D900E508E8 /* AudioToolbox.framework */; };
 		7D9513C91B0A86E000E508E8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D9513C81B0A86E000E508E8 /* CFNetwork.framework */; };
 		7D9513CB1B0A86E900E508E8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D9513CA1B0A86E900E508E8 /* CoreLocation.framework */; };
@@ -110,6 +115,21 @@
 		7D66AF1B1B74F20400105E61 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		7D66AF231B74F31500105E61 /* ParseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseController.h; sourceTree = "<group>"; };
 		7D66AF241B74F31500105E61 /* ParseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseController.m; sourceTree = "<group>"; };
+		7D66AF281B74F75A00105E61 /* CentralDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CentralDispatch.h; sourceTree = "<group>"; };
+		7D66AF291B74F75A00105E61 /* CentralDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CentralDispatch.m; sourceTree = "<group>"; };
+		7D66AF2B1B75041400105E61 /* SyncEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncEngine.h; sourceTree = "<group>"; };
+		7D66AF2C1B75041400105E61 /* SyncEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncEngine.m; sourceTree = "<group>"; };
+		7D66AF301B751AEE00105E61 /* DataManager+PRIVATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DataManager+PRIVATE.h"; sourceTree = "<group>"; };
+		7D66AF361B7535B200105E61 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
+		7D66AF371B7535B200105E61 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
+		7D66AF3A1B75490200105E61 /* ParseController+PRIVATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ParseController+PRIVATE.h"; sourceTree = "<group>"; };
+		7D66AF421B76884200105E61 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		7D66AF431B76884200105E61 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		7D66AF461B77A12200105E61 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
+		7D66AF471B77A12200105E61 /* AppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfo.m; sourceTree = "<group>"; };
+		7D66AF4D1B77A85300105E61 /* LoginManager+Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LoginManager+Delegate.h"; sourceTree = "<group>"; };
+		7D66AF501B77A93600105E61 /* SyncEngine+Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SyncEngine+Delegate.h"; sourceTree = "<group>"; };
+		7D66AF561B77ABDD00105E61 /* CentralDispatch+PRIVATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CentralDispatch+PRIVATE.h"; sourceTree = "<group>"; };
 		7D9513C61B0A86D900E508E8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7D9513C81B0A86E000E508E8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7D9513CA1B0A86E900E508E8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -230,8 +250,10 @@
 		1FEB6EFB1A4C0D550049AFDD /* Data Managers */ = {
 			isa = PBXGroup;
 			children = (
+				7D66AF391B7535B500105E61 /* LoginManager */,
 				7D66AF1F1B74F27400105E61 /* DataManager */,
 				7D66AF1E1B74F26900105E61 /* CoreDataController */,
+				7D66AF2E1B75041700105E61 /* SyncEngine */,
 				7D66AF261B74F31900105E61 /* ParseController */,
 			);
 			name = "Data Managers";
@@ -324,16 +346,14 @@
 			children = (
 				7D66AE2E1B694E3500105E61 /* IMPORTED */,
 				1FEB6EFA1A4C0CDE0049AFDD /* AKPrivateInfo */,
+				7D66AF491B77A12500105E61 /* AppInfo */,
 				1FEB6F0D1A4F9F550049AFDD /* UIAlertController+Info */,
 				7D4278321551865E000240A5 /* SandboxAppDelegate.h */,
 				7D4278331551865E000240A5 /* SandboxAppDelegate.m */,
-				7D4278351551865E000240A5 /* Sandbox.storyboard */,
-				1FA24808183CEBE500351015 /* TableViewController.h */,
-				1FA24809183CEBE500351015 /* TableViewController.m */,
-				7D3AC9F116691B5A00594015 /* ViewController.h */,
-				7D3AC9F216691B5A00594015 /* ViewController.m */,
-				7D66AE331B6976C000105E61 /* Assets */,
+				7D66AF2F1B750B7A00105E61 /* CentralDispatch */,
+				7D66AF271B74F73E00105E61 /* View Controllers */,
 				1FEB6EFB1A4C0D550049AFDD /* Data Managers */,
+				7D66AE331B6976C000105E61 /* Assets */,
 				7D42782A1551865E000240A5 /* Supporting Files */,
 			);
 			path = Sandbox;
@@ -387,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				1FEB6EF21A4C0BFC0049AFDD /* DataManager.h */,
+				7D66AF301B751AEE00105E61 /* DataManager+PRIVATE.h */,
 				1FEB6EF31A4C0BFC0049AFDD /* DataManager.m */,
 			);
 			name = DataManager;
@@ -396,9 +417,87 @@
 			isa = PBXGroup;
 			children = (
 				7D66AF231B74F31500105E61 /* ParseController.h */,
+				7D66AF3A1B75490200105E61 /* ParseController+PRIVATE.h */,
 				7D66AF241B74F31500105E61 /* ParseController.m */,
 			);
 			name = ParseController;
+			sourceTree = "<group>";
+		};
+		7D66AF271B74F73E00105E61 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7D4278351551865E000240A5 /* Sandbox.storyboard */,
+				7D66AF451B76884700105E61 /* RootViewController */,
+				7D66AF3E1B76877C00105E61 /* ViewController */,
+				7D66AF3D1B76877500105E61 /* TableViewController */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		7D66AF2E1B75041700105E61 /* SyncEngine */ = {
+			isa = PBXGroup;
+			children = (
+				7D66AF2B1B75041400105E61 /* SyncEngine.h */,
+				7D66AF501B77A93600105E61 /* SyncEngine+Delegate.h */,
+				7D66AF2C1B75041400105E61 /* SyncEngine.m */,
+			);
+			name = SyncEngine;
+			sourceTree = "<group>";
+		};
+		7D66AF2F1B750B7A00105E61 /* CentralDispatch */ = {
+			isa = PBXGroup;
+			children = (
+				7D66AF281B74F75A00105E61 /* CentralDispatch.h */,
+				7D66AF561B77ABDD00105E61 /* CentralDispatch+PRIVATE.h */,
+				7D66AF291B74F75A00105E61 /* CentralDispatch.m */,
+			);
+			name = CentralDispatch;
+			sourceTree = "<group>";
+		};
+		7D66AF391B7535B500105E61 /* LoginManager */ = {
+			isa = PBXGroup;
+			children = (
+				7D66AF361B7535B200105E61 /* LoginManager.h */,
+				7D66AF4D1B77A85300105E61 /* LoginManager+Delegate.h */,
+				7D66AF371B7535B200105E61 /* LoginManager.m */,
+			);
+			name = LoginManager;
+			sourceTree = "<group>";
+		};
+		7D66AF3D1B76877500105E61 /* TableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1FA24808183CEBE500351015 /* TableViewController.h */,
+				1FA24809183CEBE500351015 /* TableViewController.m */,
+			);
+			name = TableViewController;
+			sourceTree = "<group>";
+		};
+		7D66AF3E1B76877C00105E61 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7D3AC9F116691B5A00594015 /* ViewController.h */,
+				7D3AC9F216691B5A00594015 /* ViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		7D66AF451B76884700105E61 /* RootViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7D66AF421B76884200105E61 /* RootViewController.h */,
+				7D66AF431B76884200105E61 /* RootViewController.m */,
+			);
+			name = RootViewController;
+			sourceTree = "<group>";
+		};
+		7D66AF491B77A12500105E61 /* AppInfo */ = {
+			isa = PBXGroup;
+			children = (
+				7D66AF461B77A12200105E61 /* AppInfo.h */,
+				7D66AF471B77A12200105E61 /* AppInfo.m */,
+			);
+			name = AppInfo;
 			sourceTree = "<group>";
 		};
 		7DB435731B13627000BAA7A2 /* AlertTableViewController */ = {
@@ -559,6 +658,7 @@
 			files = (
 				7D4278301551865E000240A5 /* main.m in Sources */,
 				1FEB6F0C1A4F9F520049AFDD /* UIAlertController+Info.m in Sources */,
+				7D66AF441B76884200105E61 /* RootViewController.m in Sources */,
 				7DB435701B13626B00BAA7A2 /* AlertTableViewController.m in Sources */,
 				7DB435671B12516F00BAA7A2 /* AKSystemInfo.m in Sources */,
 				1FECF6171B080BB10021D883 /* AKGenerics.m in Sources */,
@@ -566,6 +666,7 @@
 				7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */,
 				1FEB6F061A4E76950049AFDD /* Message.m in Sources */,
 				7DDA09721B17E69600157479 /* UIViewController+Syncing.m in Sources */,
+				7D66AF481B77A12200105E61 /* AppInfo.m in Sources */,
 				7DDA09791B180A5400157479 /* SyncViewController.m in Sources */,
 				1F11C86B1B50DE680031B985 /* AlertSwitchViewController.m in Sources */,
 				7D3AC9F316691B5A00594015 /* ViewController.m in Sources */,
@@ -573,8 +674,11 @@
 				1FEB6EF41A4C0BFC0049AFDD /* CoreDataController.m in Sources */,
 				1FEB6EF91A4C0CD70049AFDD /* AKPrivateInfo.m in Sources */,
 				7D66AF251B74F31500105E61 /* ParseController.m in Sources */,
+				7D66AF2D1B75041400105E61 /* SyncEngine.m in Sources */,
 				1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */,
+				7D66AF2A1B74F75A00105E61 /* CentralDispatch.m in Sources */,
 				1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */,
+				7D66AF381B7535B200105E61 /* LoginManager.m in Sources */,
 				1FA2480A183CEBE500351015 /* TableViewController.m in Sources */,
 				1FECF6101B080B600021D883 /* CoreDataModel.xcdatamodeld in Sources */,
 			);
