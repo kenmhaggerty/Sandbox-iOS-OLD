@@ -130,6 +130,7 @@
 		7D66AF4D1B77A85300105E61 /* LoginManager+Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LoginManager+Delegate.h"; sourceTree = "<group>"; };
 		7D66AF501B77A93600105E61 /* SyncEngine+Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SyncEngine+Delegate.h"; sourceTree = "<group>"; };
 		7D66AF561B77ABDD00105E61 /* CentralDispatch+PRIVATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CentralDispatch+PRIVATE.h"; sourceTree = "<group>"; };
+		7D66AF591B7BE61F00105E61 /* CoreDataModel_0,3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel_0,3.xcdatamodel"; sourceTree = "<group>"; };
 		7D9513C61B0A86D900E508E8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7D9513C81B0A86E000E508E8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7D9513CA1B0A86E900E508E8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -835,6 +836,7 @@
 		1FECF60E1B080B600021D883 /* CoreDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				7D66AF591B7BE61F00105E61 /* CoreDataModel_0,3.xcdatamodel */,
 				7D9513DE1B0A8A9000E508E8 /* CoreDataModel_0,1.xcdatamodel */,
 				7D9513E01B0BC1C700E508E8 /* CoreDataModel_0,2.xcdatamodel */,
 				1FECF60F1B080B600021D883 /* CoreDataModel_0,0.xcdatamodel */,
