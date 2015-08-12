@@ -54,10 +54,6 @@
 + (NSDictionary *)parseInfoForMessage:(Message *)message;
 + (NSString *)userForAccount:(PFUser *)account;
 
-// QUERIES //
-
-+ (PFQuery *)parseQueryForMessageWithId:(NSString *)messageId;
-
 @end
 
 @implementation SyncEngine
