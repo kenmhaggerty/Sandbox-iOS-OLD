@@ -23,8 +23,10 @@
 #define PARSE_CLASS_MESSAGE @"Message"
 
 #define PARSE_KEY_MESSAGE_ID @"objectId"
-#define PARSE_KEY_MESSAGE_SENDER @"sender"
-#define PARSE_KEY_MESSAGE_RECIPIENT @"recipient"
+#define PARSE_KEY_MESSAGE_SENDERID @"senderId"
+#define PARSE_KEY_MESSAGE_SENDERUSERNAME @"senderUsername"
+#define PARSE_KEY_MESSAGE_RECIPIENTID @"recipientId"
+#define PARSE_KEY_MESSAGE_RECIPIENTUSERNAME @"recipientUsername"
 #define PARSE_KEY_MESSAGE_TEXT @"text"
 #define PARSE_KEY_MESSAGE_SENDDATE @"sendDate"
 #define PARSE_KEY_MESSAGE_ISREAD @"isRead"
@@ -276,11 +278,13 @@
     }
     
     NSMutableDictionary *parseInfo = [NSMutableDictionary dictionary];
-    if (message.sender) [parseInfo setObject:message.sender forKey:PARSE_KEY_MESSAGE_SENDER];
-    if (message.recipient) [parseInfo setObject:message.recipient forKey:PARSE_KEY_MESSAGE_RECIPIENT];
-    if (message.text) [parseInfo setObject:message.text forKey:PARSE_KEY_MESSAGE_TEXT];
-    if (message.sendDate) [parseInfo setObject:message.sendDate forKey:PARSE_KEY_MESSAGE_SENDDATE];
-    if (message.isRead) [parseInfo setObject:message.isRead forKey:PARSE_KEY_MESSAGE_ISREAD];
+    [parseInfo setObject:[ParseController getAccountIdForUsername:message.sender] forKey:PARSE_KEY_MESSAGE_SENDERID];
+    [parseInfo setObject:message.sender forKey:PARSE_KEY_MESSAGE_SENDERUSERNAME];
+    [parseInfo setObject:[ParseController getAccountIdForUsername:message.recipient] forKey:PARSE_KEY_MESSAGE_RECIPIENTID];
+    [parseInfo setObject:message.recipient forKey:PARSE_KEY_MESSAGE_RECIPIENTUSERNAME];
+    [parseInfo setObject:message.text forKey:PARSE_KEY_MESSAGE_TEXT];
+    [parseInfo setObject:message.sendDate forKey:PARSE_KEY_MESSAGE_SENDDATE];
+    [parseInfo setObject:message.isRead forKey:PARSE_KEY_MESSAGE_ISREAD];
     return parseInfo;
 }
 

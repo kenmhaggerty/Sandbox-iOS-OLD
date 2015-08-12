@@ -20,6 +20,9 @@
 
 #define PARSE_KEY_INSTALLATIONS @"installations"
 
+#define PARSE_FUNCTION_GETACCOUNTIDFORUSERNAME @"getAccountIdForUsername"
+#define PARSE_FUNCTION_GETACCOUNTIDFORUSERNAME_USERNAME @"username"
+
 @interface ParseController ()
 @property (nonatomic, strong) PFInstallation *currentInstallation;
 @property (nonatomic, strong) PFUser *currentAccount;
@@ -205,6 +208,19 @@
 }
 
 #pragma mark - // PUBLIC METHODS (Account) //
+
++ (NSString *)getAccountIdForUsername:(NSString *)username
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE, AKD_ACCOUNTS] message:nil];
+    
+    NSError *error;
+    NSString *accountId = [PFCloud callFunction:PARSE_FUNCTION_GETACCOUNTIDFORUSERNAME withParameters:@{PARSE_FUNCTION_GETACCOUNTIDFORUSERNAME_USERNAME:username} error:&error];
+    if (error)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE, AKD_ACCOUNTS] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+    }
+    return accountId;
+}
 
 + (BOOL)createAccountWithEmail:(NSString *)email password:(NSString *)password
 {

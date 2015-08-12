@@ -39,6 +39,7 @@
 
 // ACCOUNT //
 
++ (NSString *)getAccountIdForUsername:(NSString *)username;
 + (BOOL)createAccountWithEmail:(NSString *)email password:(NSString *)password;
 + (BOOL)logInWithEmail:(NSString *)email password:(NSString *)password;
 + (void)logOut;
