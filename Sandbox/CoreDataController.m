@@ -32,12 +32,18 @@
 
 // GENERAL //
 
+- (void)setup;
+- (void)teardown;
+
+// CONVENIENCE //
+
 + (id)sharedController;
 + (NSManagedObjectContext *)managedObjectContext;
 + (NSManagedObjectModel *)managedObjectModel;
 + (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
-- (void)setup;
-- (void)teardown;
+
+// CORE DATA //
+
 + (BOOL)progressivelyMigrateURL:(NSURL *)sourceStoreURL ofType:(NSString *)type toModel:(NSManagedObjectModel *)finalModel error:(NSError **)error;
 + (NSManagedObjectModel *)sourceModelForSourceMetadata:(NSDictionary *)sourceMetadata;
 + (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error;
@@ -87,47 +93,48 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
     
-    if (!_persistentStoreCoordinator)
+    if (_persistentStoreCoordinator) return _persistentStoreCoordinator;
+    
+    if (![NSThread isMainThread])
     {
-        if (![NSThread isMainThread])
-        {
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                (void)[self persistentStoreCoordinator];
-            });
-            return _persistentStoreCoordinator;
-        }
-        NSURL *storeURL = [[AKPrivateInfo applicationDocumentsDirectory] URLByAppendingPathComponent:CORE_DATA_FILENAME];
-        NSError *error;
-        NSManagedObjectModel *managedObjectModel = [self managedObjectModel];
-        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
-        NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption : @YES, NSInferMappingModelAutomaticallyOption : @YES};
-        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-             
-             Typical reasons for an error here include:
-             * The persistent store is not accessible;
-             * The schema for the persistent store is incompatible with current managed object model.
-             Check the error message to determine what the actual problem was.
-             
-             
-             If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
-             
-             If you encounter schema incompatibility errors during development, you can reduce their frequency by:
-             * Simply deleting the existing store:
-             [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-             
-             * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-             [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
-             
-             Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-             
-             */
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
-            abort();
-        }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            (void)[self persistentStoreCoordinator];
+        });
+        return _persistentStoreCoordinator;
+    }
+    
+    NSManagedObjectModel *managedObjectModel = [self managedObjectModel];
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
+    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption : @YES, NSInferMappingModelAutomaticallyOption : @YES};
+    NSURL *storeURL = [[AKPrivateInfo applicationDocumentsDirectory] URLByAppendingPathComponent:CORE_DATA_FILENAME];
+    NSError *error;
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         
+         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+         
+         Typical reasons for an error here include:
+         * The persistent store is not accessible;
+         * The schema for the persistent store is incompatible with current managed object model.
+         Check the error message to determine what the actual problem was.
+         
+         
+         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
+         
+         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
+         * Simply deleting the existing store:
+         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
+         
+         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
+         [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+         
+         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
+         
+         */
+        
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+        abort();
     }
     return _persistentStoreCoordinator;
 }
@@ -155,6 +162,46 @@
 }
 
 #pragma mark - // PUBLIC METHODS (General) //
+
++ (BOOL)save
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:nil];
+    
+    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
+    if (!managedObjectContext)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
+        return NO;
+    }
+    
+    __block NSError *error;
+    __block BOOL succeeded;
+    [managedObjectContext performBlockAndWait:^{
+        succeeded = [managedObjectContext save:&error];
+    }];
+    if (error)
+    {
+        NSArray *detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+        if (detailedErrors)
+        {
+            for (NSError *detailedError in detailedErrors)
+            {
+                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@", [detailedError userInfo]]];
+            }
+        }
+        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@", [error userInfo]]];
+        return NO;
+    }
+    
+    if (!succeeded)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:@"Could not save"];
+        return NO;
+    }
+    
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:@"Save successful"];
+    return YES;
+}
 
 #pragma mark - // PUBLIC METHODS (Existence) //
 
@@ -340,6 +387,18 @@
 
 #pragma mark - // PRIVATE METHODS (General) //
 
+- (void)setup
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+}
+
+- (void)teardown
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+}
+
+#pragma mark - // PRIVATE METHODS (Convenience) //
+
 + (id)sharedController
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
@@ -373,55 +432,7 @@
     return [[CoreDataController sharedController] persistentStoreCoordinator];
 }
 
-- (void)setup
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
-}
-
-- (void)teardown
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
-}
-
-+ (BOOL)save
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:nil];
-    
-    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-    if (!managedObjectContext)
-    {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
-        return NO;
-    }
-    
-    __block NSError *error;
-    __block BOOL succeeded;
-    [managedObjectContext performBlockAndWait:^{
-        succeeded = [managedObjectContext save:&error];
-    }];
-    if (error)
-    {
-        NSArray *detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
-        if (detailedErrors)
-        {
-            for (NSError *detailedError in detailedErrors)
-            {
-                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@", [detailedError userInfo]]];
-            }
-        }
-        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@", [error userInfo]]];
-        return NO;
-    }
-    
-    if (!succeeded)
-    {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:@"Could not save"];
-        return NO;
-    }
-    
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:@"Save successful"];
-    return YES;
-}
+#pragma mark - // PRIVATE METHODS (Core Data) //
 
 + (BOOL)progressivelyMigrateURL:(NSURL *)sourceStoreURL ofType:(NSString *)type toModel:(NSManagedObjectModel *)finalModel error:(NSError **)error
 {
