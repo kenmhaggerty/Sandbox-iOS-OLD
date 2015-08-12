@@ -53,7 +53,7 @@
 
 // DELETORS //
 
-+ (void)removeInstallationForObjectWithQuery:(PFQuery *)query;
++ (void)removeCurrentInstallationFromObject:(PFObject *)object;
 
 // PUSH NOTIFICATIONS //
 

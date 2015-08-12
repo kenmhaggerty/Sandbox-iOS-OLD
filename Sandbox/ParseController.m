@@ -274,36 +274,13 @@
 
 #pragma mark - // PUBLIC METHODS (Deletors) //
 
-+ (void)removeInstallationForObjectWithQuery:(PFQuery *)query
++ (void)removeCurrentInstallationFromObject:(PFObject *)object
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeDeletor customCategories:@[AKD_PARSE] message:nil];
     
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
-        if (error)
-        {
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
-        }
-        if (!objects)
-        {
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not fetch %@", stringFromVariable(object)]];
-            return;
-        }
-        
-        if (!objects.count)
-        {
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"Found no %@ for %@", stringFromVariable(objects), stringFromVariable(query)]];
-            return;
-        }
-        
-        if (objects.count > 1)
-        {
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"Found %lu %@ for %@; using first object", objects.count, stringFromVariable(objects), stringFromVariable(query)]];
-        }
-        PFObject *object = [objects firstObject];
-        PFRelation *installations = [object relationForKey:PARSE_KEY_INSTALLATIONS];
-        [installations removeObject:[ParseController currentInstallation]];
-        [object saveEventually];
-    }];
+    PFRelation *installations = [object relationForKey:PARSE_KEY_INSTALLATIONS];
+    [installations removeObject:[ParseController currentInstallation]];
+    [object saveEventually];
 }
 
 #pragma mark - // PUBLIC METHODS (Push Notifications) //

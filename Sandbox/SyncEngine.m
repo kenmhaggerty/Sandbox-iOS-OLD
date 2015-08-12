@@ -166,8 +166,10 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeDeletor customCategories:@[AKD_DATA, AKD_PARSE] message:nil];
     
-    PFQuery *messageQuery = [SyncEngine parseQueryForMessageWithId:messageId];
-    [ParseController removeInstallationForObjectWithQuery:messageQuery];
+    PFObject *message = [PFQuery getObjectOfClass:PARSE_CLASS_MESSAGE objectId:messageId];
+    if (!message) return;
+    
+    [ParseController removeCurrentInstallationFromObject:message];
 }
 
 #pragma mark - // CATEGORY METHODS (Delegate) //
@@ -293,18 +295,6 @@
     if (!account) return nil;
     
     return account.username;
-}
-
-#pragma mark - // PRIVATE METHODS (Queries) //
-
-+ (PFQuery *)parseQueryForMessageWithId:(NSString *)messageId
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE] message:nil];
-    
-    PFQuery *query = [PFQuery queryWithClassName:PARSE_CLASS_MESSAGE];
-    [query whereKey:PARSE_KEY_MESSAGE_ID equalTo:messageId];
-    [query orderByAscending:NSStringFromSelector(@selector(createdAt))];
-    return query;
 }
 
 @end
