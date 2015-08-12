@@ -35,6 +35,7 @@
 // MESSAGE //
 
 + (BOOL)sendMessage:(Message *)message;
++ (void)messageWasRead:(NSString *)messageId;
 + (void)messageWasDeleted:(NSString *)messageId;
 
 @end

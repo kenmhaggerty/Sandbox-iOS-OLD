@@ -160,6 +160,17 @@
     return YES;
 }
 
++ (void)messageWasRead:(NSString *)messageId
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_DATA] message:nil];
+    
+    PFObject *message = [PFQuery getObjectOfClass:PARSE_CLASS_MESSAGE objectId:messageId];
+    if (!message) return;
+    
+    [message setObject:@YES forKey:PARSE_KEY_MESSAGE_ISREAD];
+    [message saveEventually];
+}
+
 + (void)messageWasDeleted:(NSString *)messageId
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeDeletor customCategories:@[AKD_DATA, AKD_PARSE] message:nil];
