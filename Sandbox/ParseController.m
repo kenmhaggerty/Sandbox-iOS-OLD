@@ -56,24 +56,19 @@
     {
         [channels addObject:PUSHNOTIFICATION_RECIPIENT_GLOBAL];
     }
-    NSString *currentUsername = [[ParseController sharedController] currentAccount].username;
-    if (currentUsername && ![channels containsObject:currentUsername])
+    if (![AKGenerics object:channels isEqualToObject:currentInstallation.channels])
     {
-        [channels addObject:currentUsername];
-    }
-    
-    if ([AKGenerics object:channels isEqualToObject:currentInstallation.channels]) return;
-    
-    [currentInstallation setChannels:channels];
-    NSError *error;
-    BOOL success = [currentInstallation save:&error];
-    if (error)
-    {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
-    }
-    if (!success)
-    {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), stringFromVariable(currentInstallation)]];
+        [currentInstallation setChannels:channels];
+        NSError *error;
+        BOOL success = [currentInstallation save:&error];
+        if (error)
+        {
+            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        }
+        if (!success)
+        {
+            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), stringFromVariable(currentInstallation)]];
+        }
     }
     
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
@@ -96,7 +91,37 @@
     
     if ([AKGenerics object:currentAccount isEqualToObject:_currentAccount]) return;
     
+    NSString *oldAccountId = _currentAccount.objectId;
+    NSString *newAccountId = currentAccount.objectId;
     _currentAccount = currentAccount;
+    
+    if (![AKGenerics object:oldAccountId isEqualToObject:newAccountId])
+    {
+        PFInstallation *currentInstallation = [ParseController currentInstallation];
+        NSMutableArray *channels = [NSMutableArray arrayWithArray:currentInstallation.channels];
+        if (oldAccountId && [channels containsObject:oldAccountId])
+        {
+            [channels removeObject:oldAccountId];
+        }
+        if (newAccountId && ![channels containsObject:newAccountId])
+        {
+            [channels addObject:newAccountId];
+        }
+        if (![AKGenerics object:channels isEqualToObject:currentInstallation.channels])
+        {
+            [currentInstallation setChannels:channels];
+            NSError *error;
+            BOOL success = [currentInstallation save:&error];
+            if (error)
+            {
+                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+            }
+            if (!success)
+            {
+                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), stringFromVariable(currentInstallation)]];
+            }
+        }
+    }
     
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     if (currentAccount) [userInfo setObject:currentAccount forKey:NOTIFICATION_OBJECT_KEY];
