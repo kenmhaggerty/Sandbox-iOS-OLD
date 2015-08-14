@@ -34,7 +34,7 @@
 
 // CREATORS //
 
-+ (Message *)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId;
++ (Message *)createMessageWithText:(NSString *)text fromUser:(User *)sender toUser:(User *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId;
 
 @end
 
@@ -109,7 +109,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:nil message:nil];
     
-    return [SyncEngine sendMessage:[DataManager createMessageWithText:text fromUser:[CentralDispatch currentUsername] toUser:recipient onDate:[NSDate date] withId:nil]];
+    return [SyncEngine sendMessage:[DataManager createMessageWithText:text fromUser:[CentralDispatch currentUser] toUser:[CoreDataController userWithUserId:[SyncEngine getAccountIdForUsername:recipient] username:recipient] onDate:[NSDate date] withId:nil]];
 }
 
 #pragma mark - // PUBLIC METHODS (Editing) //
@@ -174,7 +174,7 @@
 
 #pragma mark - // CATEGORY METHODS (Private) //
 
-+ (BOOL)saveMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
++ (BOOL)saveMessageWithText:(NSString *)text fromUser:(User *)sender toUser:(User *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_DATA] message:nil];
     
@@ -220,7 +220,7 @@
 
 #pragma mark - // PRIVATE METHODS (Creators) //
 
-+ (Message *)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
++ (Message *)createMessageWithText:(NSString *)text fromUser:(User *)sender toUser:(User *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_DATA] message:nil];
     

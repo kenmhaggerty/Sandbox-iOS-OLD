@@ -112,6 +112,13 @@
     return [SyncEngine userForAccount:[ParseController currentAccount]];
 }
 
++ (NSString *)getAccountIdForUsername:(NSString *)username
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS] message:nil];
+    
+    return [ParseController getAccountIdForUsername:username];
+}
+
 + (BOOL)createAccountWithEmail:(NSString *)email password:(NSString *)password
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_ACCOUNTS] message:nil];
@@ -212,7 +219,7 @@
         NSString *recipient = [CentralDispatch currentUsername];
         NSString *text = [info objectForKey:PUSHNOTIFICATION_KEY_TEXT];
         NSDate *sendDate = [info objectForKey:PUSHNOTIFICATION_KEY_SENDDATE];
-        [DataManager saveMessageWithText:text fromUser:sender toUser:recipient onDate:sendDate withId:messageId];
+        [DataManager saveMessageWithText:text fromUser:[CoreDataController userWithUserId:[ParseController getAccountIdForUsername:sender] username:sender] toUser:[CoreDataController userWithUserId:[ParseController getAccountIdForUsername:recipient] username:recipient] onDate:sendDate withId:messageId];
     }
 }
 
