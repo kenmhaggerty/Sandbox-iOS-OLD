@@ -98,7 +98,7 @@
 
 #pragma mark - // PUBLIC METHODS (Account) //
 
-+ (NSString *)currentUser
++ (User *)currentUser
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS] message:nil];
     

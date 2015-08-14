@@ -14,6 +14,7 @@
 #import <CoreData/CoreData.h>
 #import <UIKit/UIKit.h>
 #import "Message.h"
+#import "User.h"
 
 #pragma mark - // PROTOCOLS //
 
@@ -31,13 +32,19 @@
 
 // RETRIEVAL //
 
-+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient;
-+ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender;
++ (User *)getUserWithUserId:(NSString *)userId;
+//+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient;
+//+ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender;
 + (Message *)getMessageWithId:(NSString *)messageId;
 
 // CREATION //
 
-+ (Message *)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId;
++ (User *)createUserWithUserId:(NSString *)userId username:(NSString *)username;
++ (Message *)createMessageWithText:(NSString *)text fromUser:(User *)sender toUser:(User *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId;
+
+// CONVENIENCE //
+
++ (User *)userWithUserId:(NSString *)userId username:(NSString *)username;
 
 // DELETION //
 

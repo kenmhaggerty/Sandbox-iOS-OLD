@@ -11,6 +11,7 @@
 #pragma mark - // IMPORTS (Public) //
 
 #import <Foundation/Foundation.h>
+#import "User.h"
 #import "Message.h"
 
 #pragma mark - // PROTOCOLS //
@@ -27,7 +28,7 @@
 
 // ACCOUNT //
 
-+ (NSString *)currentUser;
++ (User *)currentUser;
 + (BOOL)createAccountWithEmail:(NSString *)email password:(NSString *)password;
 + (BOOL)logInWithEmail:(NSString *)email password:(NSString *)password;
 + (void)logOut;

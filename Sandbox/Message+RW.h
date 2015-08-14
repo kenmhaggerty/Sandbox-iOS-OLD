@@ -19,8 +19,8 @@
 @interface Message ()
 @property (nonatomic, retain, readwrite) NSNumber *isRead;
 @property (nonatomic, retain, readwrite) NSString *messageId;
-@property (nonatomic, retain, readwrite) NSString *recipient;
 @property (nonatomic, retain, readwrite) NSDate *sendDate;
-@property (nonatomic, retain, readwrite) NSString *sender;
 @property (nonatomic, retain, readwrite) NSString *text;
+@property (nonatomic, retain, readwrite) User *recipient;
+@property (nonatomic, retain, readwrite) User *sender;
 @end

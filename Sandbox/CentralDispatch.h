@@ -11,6 +11,7 @@
 #pragma mark - // IMPORTS (Public) //
 
 #import <Foundation/Foundation.h>
+#import "User.h"
 
 #pragma mark - // PROTOCOLS //
 
@@ -24,7 +25,7 @@
 
 // ACCOUNT //
 
-+ (NSString *)currentUser;
++ (User *)currentUser;
 + (NSString *)currentUsername;
 
 // LOGIN //

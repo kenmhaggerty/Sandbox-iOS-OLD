@@ -54,7 +54,7 @@
 // TRANSLATORS //
 
 + (NSDictionary *)parseInfoForMessage:(Message *)message;
-+ (NSString *)userForAccount:(PFUser *)account;
++ (User *)userForAccount:(PFUser *)account;
 
 @end
 
@@ -105,7 +105,7 @@
 
 #pragma mark - // PUBLIC METHODS (Account) //
 
-+ (NSString *)currentUser
++ (User *)currentUser
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS] message:nil];
     
@@ -289,23 +289,23 @@
     }
     
     NSMutableDictionary *parseInfo = [NSMutableDictionary dictionary];
-    [parseInfo setObject:[ParseController getAccountIdForUsername:message.sender] forKey:PARSE_KEY_MESSAGE_SENDERID];
-    [parseInfo setObject:message.sender forKey:PARSE_KEY_MESSAGE_SENDERUSERNAME];
-    [parseInfo setObject:[ParseController getAccountIdForUsername:message.recipient] forKey:PARSE_KEY_MESSAGE_RECIPIENTID];
-    [parseInfo setObject:message.recipient forKey:PARSE_KEY_MESSAGE_RECIPIENTUSERNAME];
+    [parseInfo setObject:message.sender.userId forKey:PARSE_KEY_MESSAGE_SENDERID];
+    [parseInfo setObject:message.sender.username forKey:PARSE_KEY_MESSAGE_SENDERUSERNAME];
+    [parseInfo setObject:message.recipient.userId forKey:PARSE_KEY_MESSAGE_RECIPIENTID];
+    [parseInfo setObject:message.recipient.username forKey:PARSE_KEY_MESSAGE_RECIPIENTUSERNAME];
     [parseInfo setObject:message.text forKey:PARSE_KEY_MESSAGE_TEXT];
     [parseInfo setObject:message.sendDate forKey:PARSE_KEY_MESSAGE_SENDDATE];
     [parseInfo setObject:message.isRead forKey:PARSE_KEY_MESSAGE_ISREAD];
     return parseInfo;
 }
 
-+ (NSString *)userForAccount:(PFUser *)account
++ (User *)userForAccount:(PFUser *)account
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_DATA, AKD_ACCOUNTS] message:nil];
     
     if (!account) return nil;
     
-    return account.username;
+    return [CoreDataController userWithUserId:account.objectId username:account.username];
 }
 
 @end

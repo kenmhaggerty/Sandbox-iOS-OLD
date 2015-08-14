@@ -15,6 +15,7 @@
 #import "AKGenerics.h"
 #import "AKPrivateInfo.h"
 #import "Message+RW.h"
+#import "User+RW.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
@@ -23,7 +24,8 @@
 
 #define CORE_DATA_FILENAME @"coredata.sqlite"
 #define CORE_DATA_MODEL_NAME @"CoreDataModel"
-#define CORE_DATA_MODEL_EXTENSION @"momd"
+#define CORE_DATA_MODEL_DIRECTORY_EXTENSION @"momd"
+#define CORE_DATA_MODEL_FILE_EXTENSION @"mom"
 
 @interface CoreDataController ()
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -42,14 +44,13 @@
 + (NSManagedObjectModel *)managedObjectModel;
 + (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
 
-// CORE DATA //
+// MIGRATION //
 
 + (BOOL)progressivelyMigrateURL:(NSURL *)sourceStoreURL ofType:(NSString *)type toModel:(NSManagedObjectModel *)finalModel error:(NSError **)error;
-+ (NSManagedObjectModel *)sourceModelForSourceMetadata:(NSDictionary *)sourceMetadata;
-+ (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error;
-+ (NSArray *)modelPaths;
-+ (NSURL *)destinationStoreURLWithSourceStoreURL:(NSURL *)sourceStoreURL modelName:(NSString *)modelName;
-+ (BOOL)backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError **)error;
+//+ (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error;
+//+ (NSArray *)modelPaths;
+//+ (NSURL *)destinationStoreURLWithSourceStoreURL:(NSURL *)sourceStoreURL modelName:(NSString *)modelName;
+//+ (BOOL)backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError **)error;
 
 @end
 
@@ -79,7 +80,7 @@
 
     if (!_managedObjectModel)
     {
-        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:CORE_DATA_MODEL_NAME withExtension:CORE_DATA_MODEL_EXTENSION];
+        NSURL *modelURL = [[NSBundle mainBundle] URLForResource:CORE_DATA_MODEL_NAME withExtension:CORE_DATA_MODEL_DIRECTORY_EXTENSION];
         if (modelURL)
         {
             _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
@@ -105,7 +106,7 @@
     
     NSManagedObjectModel *managedObjectModel = [self managedObjectModel];
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
-    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption : @YES, NSInferMappingModelAutomaticallyOption : @YES};
+    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES, NSInferMappingModelAutomaticallyOption: @YES};
     NSURL *storeURL = [[AKPrivateInfo applicationDocumentsDirectory] URLByAppendingPathComponent:CORE_DATA_FILENAME];
     NSError *error;
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
@@ -233,25 +234,18 @@
 
 #pragma mark - // PUBLIC METHODS (Retrieval) //
 
-+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient
++ (User *)getUserWithUserId:(NSString *)userId
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-    if (!managedObjectContext)
-    {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
-        return nil;
-    }
-    
-    __block NSArray *foundMessages;
+    __block NSArray *foundUsers;
     __block NSError *error;
     [managedObjectContext performBlockAndWait:^{
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Message class]) inManagedObjectContext:managedObjectContext]];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@)", NSStringFromSelector(@selector(recipient)), recipient]];
-        [request setSortDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(sendDate)) ascending:NO], nil]];
-        foundMessages = [managedObjectContext executeFetchRequest:request error:&error];
+        [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([User class]) inManagedObjectContext:managedObjectContext]];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@)", NSStringFromSelector(@selector(userId)), userId]];
+        foundUsers = [managedObjectContext executeFetchRequest:request error:&error];
     }];
     if (error)
     {
@@ -259,39 +253,63 @@
         return nil;
     }
     
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@", (unsigned long)foundMessages.count, NSStringFromClass([Message class]), stringFromVariable(recipient), recipient]];
-    return [NSOrderedSet orderedSetWithArray:foundMessages];
+    if (foundUsers.count > 1) [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@; returning first object", (unsigned long)foundUsers.count, NSStringFromClass([User class]), stringFromVariable(userId), userId]];
+    return [foundUsers firstObject];
 }
 
-+ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
-    
-    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-    if (!managedObjectContext)
-    {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
-        return nil;
-    }
-    
-    __block NSArray *foundMessages;
-    __block NSError *error;
-    [managedObjectContext performBlockAndWait:^{
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Message class]) inManagedObjectContext:managedObjectContext]];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@)", NSStringFromSelector(@selector(sender)), sender]];
-        [request setSortDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(sendDate)) ascending:NO], nil]];
-        foundMessages = [managedObjectContext executeFetchRequest:request error:&error];
-    }];
-    if (error)
-    {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
-        return nil;
-    }
-    
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@", (unsigned long)foundMessages.count, NSStringFromClass([Message class]), stringFromVariable(sender), sender]];
-    return [NSOrderedSet orderedSetWithArray:foundMessages];
-}
+//+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+//    
+//    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
+//    __block NSArray *foundMessages;
+//    __block NSError *error;
+//    [managedObjectContext performBlockAndWait:^{
+//        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//        [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Message class]) inManagedObjectContext:managedObjectContext]];
+//        [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@)", NSStringFromSelector(@selector(recipient)), recipient]];
+//        [request setSortDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(sendDate)) ascending:NO], nil]];
+//        foundMessages = [managedObjectContext executeFetchRequest:request error:&error];
+//    }];
+//    if (error)
+//    {
+//        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+//        return nil;
+//    }
+//    
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@", (unsigned long)foundMessages.count, NSStringFromClass([Message class]), stringFromVariable(recipient), recipient]];
+//    return [NSOrderedSet orderedSetWithArray:foundMessages];
+//}
+//
+//+ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+//    
+//    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
+//    if (!managedObjectContext)
+//    {
+//        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
+//        return nil;
+//    }
+//    
+//    __block NSArray *foundMessages;
+//    __block NSError *error;
+//    [managedObjectContext performBlockAndWait:^{
+//        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//        [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Message class]) inManagedObjectContext:managedObjectContext]];
+//        [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@)", NSStringFromSelector(@selector(sender)), sender]];
+//        [request setSortDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(sendDate)) ascending:NO], nil]];
+//        foundMessages = [managedObjectContext executeFetchRequest:request error:&error];
+//    }];
+//    if (error)
+//    {
+//        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+//        return nil;
+//    }
+//    
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@", (unsigned long)foundMessages.count, NSStringFromClass([Message class]), stringFromVariable(sender), sender]];
+//    return [NSOrderedSet orderedSetWithArray:foundMessages];
+//}
 
 + (Message *)getMessageWithId:(NSString *)messageId
 {
@@ -325,17 +343,25 @@
 
 #pragma mark - // PUBLIC METHODS (Creation) //
 
-+ (Message *)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
++ (User *)createUserWithUserId:(NSString *)userId username:(NSString *)username
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_CORE_DATA] message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-    if (!managedObjectContext)
-    {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
-        return nil;
-    }
+    __block User *user;
+    [managedObjectContext performBlockAndWait:^{
+        user = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([User class]) inManagedObjectContext:managedObjectContext];
+        [user setUsername:username];
+        [user setUserId:userId];
+    }];
+    return user;
+}
+
++ (Message *)createMessageWithText:(NSString *)text fromUser:(User *)sender toUser:(User *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_CORE_DATA] message:nil];
     
+    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
     __block Message *message;
     [managedObjectContext performBlockAndWait:^{
         message = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([Message class]) inManagedObjectContext:managedObjectContext];
@@ -345,19 +371,18 @@
         [message setText:text];
         [message setSendDate:sendDate];
     }];
-    
-    if (![CoreDataController save])
-    {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(message)]];
-        if (![CoreDataController deleteObject:message])
-        {
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not delete %@", stringFromVariable(message)]];
-        }
-        return nil;
-    }
-    
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeCreator customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Created %@ with %@ %@ and %@ %@", NSStringFromClass([Message class]), stringFromVariable(sender), sender, stringFromVariable(recipient), recipient]];
     return message;
+}
+
+#pragma mark - // PUBLIC METHODS (Convenience) //
+
++ (User *)userWithUserId:(NSString *)userId username:(NSString *)username
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    
+    User *user = [CoreDataController getUserWithUserId:userId];
+    if (!user) user = [CoreDataController createUserWithUserId:userId username:username];
+    return user;
 }
 
 #pragma mark - // PUBLIC METHODS (Deletion) //
@@ -432,7 +457,7 @@
     return [[CoreDataController sharedController] persistentStoreCoordinator];
 }
 
-#pragma mark - // PRIVATE METHODS (Core Data) //
+#pragma mark - // PRIVATE METHODS (Migration) //
 
 + (BOOL)progressivelyMigrateURL:(NSURL *)sourceStoreURL ofType:(NSString *)type toModel:(NSManagedObjectModel *)finalModel error:(NSError **)error
 {
@@ -447,122 +472,161 @@
     
     if ([finalModel isConfiguration:nil compatibleWithStoreMetadata:sourceMetadata])
     {
-        if (NULL != error) *error = nil;
+        *error = nil;
         return YES;
     }
     
-    NSManagedObjectModel *sourceModel = [CoreDataController sourceModelForSourceMetadata:sourceMetadata];
-    NSManagedObjectModel *destinationModel = nil;
-    NSMappingModel *mappingModel = nil;
-    NSString *modelName = nil;
-    if (![CoreDataController getDestinationModel:&destinationModel mappingModel:&mappingModel modelName:&modelName forSourceModel:sourceModel error:error])
+    NSManagedObjectModel *sourceModel = [NSManagedObjectModel mergedModelFromBundles:nil forStoreMetadata:sourceMetadata];
+    NSMutableArray *modelPaths = [NSMutableArray array];
+    NSArray *managedObjectModelsArray = [[NSBundle mainBundle] pathsForResourcesOfType:CORE_DATA_MODEL_DIRECTORY_EXTENSION inDirectory:nil];
+    NSString *resourceSubpath;
+    NSArray *array;
+    for (NSString *managedObjectModelPath in managedObjectModelsArray)
     {
+        resourceSubpath = [managedObjectModelPath lastPathComponent];
+        array = [[NSBundle mainBundle] pathsForResourcesOfType:CORE_DATA_MODEL_FILE_EXTENSION inDirectory:resourceSubpath];
+        [modelPaths addObjectsFromArray:array];
+    }
+    NSArray *otherModels = [[NSBundle mainBundle] pathsForResourcesOfType:CORE_DATA_MODEL_FILE_EXTENSION inDirectory:nil];
+    [modelPaths addObjectsFromArray:otherModels];
+    if (!modelPaths || !modelPaths.count)
+    {
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        [dictionary setValue:@"No models found in bundle" forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"Zarra" code:8001 userInfo:dictionary];
         return NO;
     }
     
-    NSURL *destinationStoreURL = [CoreDataController destinationStoreURLWithSourceStoreURL:sourceStoreURL modelName:modelName];
-    NSMigrationManager *manager = [[NSMigrationManager alloc] initWithSourceModel:sourceModel destinationModel:destinationModel];
+    NSMappingModel *mappingModel;
+    NSManagedObjectModel *targetModel;
+    NSString *modelPath;
+    for (modelPath in modelPaths)
+    {
+        targetModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:[NSURL fileURLWithPath:modelPath]];
+        mappingModel = [NSMappingModel mappingModelFromBundles:nil forSourceModel:sourceModel destinationModel:targetModel];
+        if (mappingModel) break;
+    }
+    if (!mappingModel)
+    {
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        [dictionary setValue:@"No models found in bundle" forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"Zarra" code:8001 userInfo:dictionary];
+        return NO;
+    }
+    
+    NSMigrationManager *manager = [[NSMigrationManager alloc] initWithSourceModel:sourceModel destinationModel:targetModel];
+    NSString *modelName = [[modelPath lastPathComponent] stringByDeletingPathExtension];
+    NSString *storeExtension = [sourceStoreURL.path pathExtension];
+    NSString *storePath = [sourceStoreURL.path stringByDeletingPathExtension];
+    storePath = [NSString stringWithFormat:@"%@.%@.%@", storePath, modelName, storeExtension];
+    NSURL *destinationStoreURL = [NSURL fileURLWithPath:storePath];
     if (![manager migrateStoreFromURL:sourceStoreURL type:type options:nil withMappingModel:mappingModel toDestinationURL:destinationStoreURL destinationType:type destinationOptions:nil error:error])
     {
         return NO;
     }
     
-    if (![CoreDataController backupSourceStoreAtURL:sourceStoreURL movingDestinationStoreAtURL:destinationStoreURL error:error])
+    NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
+    guid = [guid stringByAppendingPathExtension:modelName];
+    guid = [guid stringByAppendingPathExtension:storeExtension];
+    NSString *appSupportPath = [storePath stringByDeletingLastPathComponent];
+    NSString *backupPath = [appSupportPath stringByAppendingPathComponent:guid];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager moveItemAtPath:sourceStoreURL.path toPath:backupPath error:error])
     {
+        // failed to copy file
+        return NO;
+    }
+    
+    if (![fileManager moveItemAtPath:storePath toPath:sourceStoreURL.path error:error])
+    {
+        [fileManager moveItemAtPath:backupPath toPath:sourceStoreURL.path error:nil];
         return NO;
     }
     
     return [self progressivelyMigrateURL:sourceStoreURL ofType:type toModel:finalModel error:error];
 }
 
-+ (NSManagedObjectModel *)sourceModelForSourceMetadata:(NSDictionary *)sourceMetadata
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
-    
-    return [NSManagedObjectModel mergedModelFromBundles:@[[NSBundle mainBundle]] forStoreMetadata:sourceMetadata];
-}
+//+ (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+//    
+//    NSArray *modelPaths = [CoreDataController modelPaths];
+//    if (!modelPaths.count)
+//    {
+//        if (NULL != error) *error = [NSError errorWithDomain:@"Zarra" code:8001 userInfo:@{NSLocalizedDescriptionKey:@"No models found!"}];
+//        return NO;
+//    }
+//    
+//    NSManagedObjectModel *model = nil;
+//    NSMappingModel *mapping = nil;
+//    NSString *modelPath = nil;
+//    for (modelPath in modelPaths)
+//    {
+//        model = [[NSManagedObjectModel alloc] initWithContentsOfURL:[NSURL fileURLWithPath:modelPath]];
+//        mapping = [NSMappingModel mappingModelFromBundles:@[[NSBundle mainBundle]] forSourceModel:sourceModel destinationModel:model];
+//        if (mapping)
+//        {
+//            break;
+//        }
+//    }
+//    if (!mapping)
+//    {
+//        if (NULL != error) *error = [NSError errorWithDomain:@"Zarra" code:8001 userInfo:@{NSLocalizedDescriptionKey:@"No mapping model found in bundle"}];
+//        return NO;
+//    }
+//    
+//    *destinationModel = model;
+//    *mappingModel = mapping;
+//    *modelName = modelPath.lastPathComponent.stringByDeletingPathExtension;
+//    return YES;
+//}
 
-+ (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
-    
-    NSArray *modelPaths = [CoreDataController modelPaths];
-    if (!modelPaths.count)
-    {
-        if (NULL != error) *error = [NSError errorWithDomain:@"Zarra" code:8001 userInfo:@{NSLocalizedDescriptionKey:@"No models found!"}];
-        return NO;
-    }
-    
-    NSManagedObjectModel *model = nil;
-    NSMappingModel *mapping = nil;
-    NSString *modelPath = nil;
-    for (modelPath in modelPaths)
-    {
-        model = [[NSManagedObjectModel alloc] initWithContentsOfURL:[NSURL fileURLWithPath:modelPath]];
-        mapping = [NSMappingModel mappingModelFromBundles:@[[NSBundle mainBundle]] forSourceModel:sourceModel destinationModel:model];
-        if (mapping)
-        {
-            break;
-        }
-    }
-    if (!mapping)
-    {
-        if (NULL != error) *error = [NSError errorWithDomain:@"Zarra" code:8001 userInfo:@{NSLocalizedDescriptionKey:@"No mapping model found in bundle"}];
-        return NO;
-    }
-    
-    *destinationModel = model;
-    *mappingModel = mapping;
-    *modelName = modelPath.lastPathComponent.stringByDeletingPathExtension;
-    return YES;
-}
+//+ (NSArray *)modelPaths
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+//    
+//    NSMutableArray *modelPaths = [NSMutableArray array];
+//    NSArray *momdArray = [[NSBundle mainBundle] pathsForResourcesOfType:@"momd" inDirectory:nil];
+//    for (NSString *momdPath in momdArray)
+//    {
+//        NSString *resourceSubpath = [momdPath lastPathComponent];
+//        NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"mom" inDirectory:resourceSubpath];
+//        [modelPaths addObjectsFromArray:array];
+//    }
+//    NSArray *otherModels = [[NSBundle mainBundle] pathsForResourcesOfType:@"mom" inDirectory:nil];
+//    [modelPaths addObjectsFromArray:otherModels];
+//    return modelPaths;
+//}
 
-+ (NSArray *)modelPaths
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
-    
-    NSMutableArray *modelPaths = [NSMutableArray array];
-    NSArray *momdArray = [[NSBundle mainBundle] pathsForResourcesOfType:@"momd" inDirectory:nil];
-    for (NSString *momdPath in momdArray)
-    {
-        NSString *resourceSubpath = [momdPath lastPathComponent];
-        NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"mom" inDirectory:resourceSubpath];
-        [modelPaths addObjectsFromArray:array];
-    }
-    NSArray *otherModels = [[NSBundle mainBundle] pathsForResourcesOfType:@"mom" inDirectory:nil];
-    [modelPaths addObjectsFromArray:otherModels];
-    return modelPaths;
-}
+//+ (NSURL *)destinationStoreURLWithSourceStoreURL:(NSURL *)sourceStoreURL modelName:(NSString *)modelName
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+//    
+//    NSString *storeExtension = sourceStoreURL.path.pathExtension;
+//    NSString *storePath = sourceStoreURL.path.stringByDeletingPathExtension;
+//    storePath = [NSString stringWithFormat:@"%@.%@.%@", storePath, modelName, storeExtension];
+//    return [NSURL fileURLWithPath:storePath];
+//}
 
-+ (NSURL *)destinationStoreURLWithSourceStoreURL:(NSURL *)sourceStoreURL modelName:(NSString *)modelName
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
-    
-    NSString *storeExtension = sourceStoreURL.path.pathExtension;
-    NSString *storePath = sourceStoreURL.path.stringByDeletingPathExtension;
-    storePath = [NSString stringWithFormat:@"%@.%@.%@", storePath, modelName, storeExtension];
-    return [NSURL fileURLWithPath:storePath];
-}
-
-+ (BOOL)backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError **)error
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
-    
-    NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
-    NSString *backupPath = [NSTemporaryDirectory() stringByAppendingPathComponent:guid];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager moveItemAtPath:sourceStoreURL.path toPath:backupPath error:error])
-    {
-        return NO;
-    }
-    
-    if (![fileManager moveItemAtPath:destinationStoreURL.path toPath:sourceStoreURL.path error:error])
-    {
-        [fileManager moveItemAtPath:backupPath toPath:sourceStoreURL.path error:nil];
-        return NO;
-    }
-    
-    return YES;
-}
+//+ (BOOL)backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError **)error
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+//    
+//    NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
+//    NSString *backupPath = [NSTemporaryDirectory() stringByAppendingPathComponent:guid];
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    if (![fileManager moveItemAtPath:sourceStoreURL.path toPath:backupPath error:error])
+//    {
+//        return NO;
+//    }
+//    
+//    if (![fileManager moveItemAtPath:destinationStoreURL.path toPath:sourceStoreURL.path error:error])
+//    {
+//        [fileManager moveItemAtPath:backupPath toPath:sourceStoreURL.path error:nil];
+//        return NO;
+//    }
+//    
+//    return YES;
+//}
 
 @end
