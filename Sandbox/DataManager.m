@@ -82,19 +82,19 @@
 
 #pragma mark - // PUBLIC METHODS (Retrieval) //
 
-+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
-    
-    return [CoreDataController getMessagesSentToUser:recipient];
-}
-
-+ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
-    
-    return [CoreDataController getMessagesSentByUser:sender];
-}
+//+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
+//    
+//    return [CoreDataController getMessagesSentToUser:recipient];
+//}
+//
+//+ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
+//    
+//    return [CoreDataController getMessagesSentByUser:sender];
+//}
 
 + (Message *)getMessageWithId:(NSString *)messageId
 {
