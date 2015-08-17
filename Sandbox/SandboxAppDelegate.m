@@ -13,6 +13,7 @@
 #import "SandboxAppDelegate.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
+#import "CoreDataController.h"
 #import "ParseController.h"
 #import "CentralDispatch.h"
 
@@ -46,6 +47,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    
+    [CoreDataController setup];
     
     [ParseController setupApplication:application withLaunchOptions:launchOptions];
     

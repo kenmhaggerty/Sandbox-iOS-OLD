@@ -24,6 +24,7 @@
 
 // GENERAL //
 
++ (void)setup;
 + (BOOL)save;
 
 // EXISTENCE //
