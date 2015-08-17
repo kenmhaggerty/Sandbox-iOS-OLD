@@ -28,6 +28,7 @@
 
 // RETRIEVAL //
 
++ (NSString *)getAccountIdForUsername:(NSString *)username;
 //+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient;
 //+ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender;
 + (Message *)getMessageWithId:(NSString *)messageId;

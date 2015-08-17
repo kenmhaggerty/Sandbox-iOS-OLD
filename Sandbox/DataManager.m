@@ -18,6 +18,7 @@
 #import "CoreDataController.h"
 #import "SyncEngine.h"
 #import "Message+RW.h"
+#import "User+RW.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
@@ -82,6 +83,28 @@
 #pragma mark - // PUBLIC METHODS (Existence) //
 
 #pragma mark - // PUBLIC METHODS (Retrieval) //
+
++ (NSString *)getAccountIdForUsername:(NSString *)username
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS, AKD_DATA] message:nil];
+    
+    User *user = [CoreDataController getUserWithUsername:username];
+    NSString *accountId;
+    if (user) accountId = user.userId;
+    if (!accountId)
+    {
+        accountId = [SyncEngine getAccountIdForUsername:username];
+        if (accountId && user)
+        {
+            [user setUserId:accountId];
+            if ([CoreDataController save])
+            {
+                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS, AKD_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
+            }
+        }
+    }
+    return accountId;
+}
 
 //+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient
 //{
