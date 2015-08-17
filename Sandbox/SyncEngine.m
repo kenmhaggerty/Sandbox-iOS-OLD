@@ -202,20 +202,20 @@
     if (![ParseController shouldProcessPushNotificationWithData:userInfo]) return;
     
     NSDictionary *info = [ParseController translatePushNotification:userInfo];
-    NSString *pushType = [info objectForKey:PUSHNOTIFICATION_KEY_TYPE];
     NSString *messageId = [info objectForKey:PUSHNOTIFICATION_KEY_MESSAGEID];
-    if ([pushType isEqualToString:PUSHNOTIFICATION_TYPE_READRECEIPT])
+    NSString *pushType = [info objectForKey:PUSHNOTIFICATION_KEY_TYPE];
+    if ([pushType isEqualToString:PUSHNOTIFICATION_TYPE_NEWMESSAGE])
+    {
+        NSString *senderId = [info objectForKey:PUSHNOTIFICATION_KEY_SENDERID];
+        NSString *senderUsername = [info objectForKey:PUSHNOTIFICATION_KEY_SENDERUSERNAME];
+        NSString *text = [info objectForKey:PUSHNOTIFICATION_KEY_TEXT];
+        NSDate *sendDate = [info objectForKey:PUSHNOTIFICATION_KEY_SENDDATE];
+        [DataManager saveMessageWithText:text fromUser:[CoreDataController userWithUserId:senderId username:senderUsername] toUser:[CentralDispatch currentUser] onDate:sendDate withId:messageId];
+    }
+    else if ([pushType isEqualToString:PUSHNOTIFICATION_TYPE_READRECEIPT])
     {
         Message *message = [DataManager getMessageWithId:messageId];
         if (message) [DataManager userDidReadMessage:message];
-    }
-    else if ([pushType isEqualToString:PUSHNOTIFICATION_TYPE_NEWMESSAGE])
-    {
-        NSString *sender = [info objectForKey:PUSHNOTIFICATION_KEY_SENDER];
-        NSString *recipient = [CentralDispatch currentUsername];
-        NSString *text = [info objectForKey:PUSHNOTIFICATION_KEY_TEXT];
-        NSDate *sendDate = [info objectForKey:PUSHNOTIFICATION_KEY_SENDDATE];
-        [DataManager saveMessageWithText:text fromUser:[CoreDataController userWithUserId:[ParseController getAccountIdForUsername:sender] username:sender] toUser:[CoreDataController userWithUserId:[ParseController getAccountIdForUsername:recipient] username:recipient] onDate:sendDate withId:messageId];
     }
 }
 
