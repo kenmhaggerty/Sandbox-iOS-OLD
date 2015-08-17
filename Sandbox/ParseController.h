@@ -52,6 +52,10 @@
 
 + (PFObject *)getObjectWithQuery:(PFQuery *)query;
 
+// EDITORS //
+
++ (void)messageWasRead:(NSString *)messageId;
+
 // DELETORS //
 
 + (void)removeCurrentInstallationFromObject:(PFObject *)object;

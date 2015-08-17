@@ -171,11 +171,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_DATA] message:nil];
     
-    PFObject *message = [PFQuery getObjectOfClass:PARSE_CLASS_MESSAGE objectId:messageId];
-    if (!message) return;
-    
-    [message setObject:@YES forKey:PARSE_KEY_MESSAGE_ISREAD];
-    [message saveEventually];
+    [ParseController messageWasRead:messageId];
 }
 
 + (void)messageWasDeleted:(NSString *)messageId

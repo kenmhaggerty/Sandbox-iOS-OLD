@@ -23,6 +23,9 @@
 #define PARSE_FUNCTION_GETACCOUNTIDFORUSERNAME @"getAccountIdForUsername"
 #define PARSE_FUNCTION_GETACCOUNTIDFORUSERNAME_USERNAME @"username"
 
+#define PARSE_FUNCTION_MESSAGEWASREAD @"messageWasRead"
+#define PARSE_FUNCTION_MESSAGEWASREAD_MESSAGEID @"messageId"
+
 @interface ParseController ()
 @property (nonatomic, strong) PFInstallation *currentInstallation;
 @property (nonatomic, strong) PFUser *currentAccount;
@@ -311,6 +314,20 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE] message:nil];
     
     return [query getFirstObject];
+}
+
+#pragma mark - // PUBLIC METHODS (Editors) //
+
++ (void)messageWasRead:(NSString *)messageId
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_PARSE] message:nil];
+    
+    NSError *error;
+    [PFCloud callFunction:PARSE_FUNCTION_MESSAGEWASREAD withParameters:@{PARSE_FUNCTION_MESSAGEWASREAD_MESSAGEID:messageId} error:&error];
+    if (error)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE, AKD_ACCOUNTS] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+    }
 }
 
 #pragma mark - // PUBLIC METHODS (Deletors) //

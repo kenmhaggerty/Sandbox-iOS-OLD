@@ -125,8 +125,8 @@
     if (![CoreDataController save])
     {
         [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not save %@", stringFromVariable(message)]];
-        return;
     }
+    [SyncEngine messageWasRead:message.messageId];
 }
 
 + (void)incrementBadge
