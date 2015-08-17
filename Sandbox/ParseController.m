@@ -362,13 +362,28 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_PARSE, AKD_PUSH_NOTIFICATIONS] message:nil];
     
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    [dictionary setObject:[pushNotification objectForKey:PUSHNOTIFICATION_KEY_TYPE] forKey:PUSHNOTIFICATION_KEY_TYPE];
     [dictionary setObject:[pushNotification objectForKey:PUSHNOTIFICATION_KEY_MESSAGEID] forKey:PUSHNOTIFICATION_KEY_MESSAGEID];
-    [dictionary setObject:[pushNotification objectForKey:PUSHNOTIFICATION_KEY_SENDER] forKey:PUSHNOTIFICATION_KEY_SENDER];
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSz"];
-    [dictionary setObject:[dateFormat dateFromString:[[pushNotification objectForKey:PUSHNOTIFICATION_KEY_SENDDATE] objectForKey:@"iso"]] forKey:PUSHNOTIFICATION_KEY_SENDDATE];
-    [dictionary setObject:[[pushNotification objectForKey:@"aps"] objectForKey:@"alert"] forKey:PUSHNOTIFICATION_KEY_TEXT];
+    NSString *pushType = [pushNotification objectForKey:PUSHNOTIFICATION_KEY_TYPE];
+    [dictionary setObject:pushType forKey:PUSHNOTIFICATION_KEY_TYPE];
+    if ([pushType isEqualToString:PUSHNOTIFICATION_TYPE_NEWMESSAGE])
+    {
+        [dictionary setObject:[pushNotification objectForKey:PUSHNOTIFICATION_KEY_SENDERID] forKey:PUSHNOTIFICATION_KEY_SENDERID];
+        [dictionary setObject:[pushNotification objectForKey:PUSHNOTIFICATION_KEY_SENDERUSERNAME] forKey:PUSHNOTIFICATION_KEY_SENDERUSERNAME];
+        [dictionary setObject:[pushNotification objectForKey:PUSHNOTIFICATION_KEY_TEXT] forKey:PUSHNOTIFICATION_KEY_TEXT];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSz"];
+        [dictionary setObject:[dateFormat dateFromString:[pushNotification objectForKey:PUSHNOTIFICATION_KEY_SENDDATE]] forKey:PUSHNOTIFICATION_KEY_SENDDATE];
+    }
+    else if ([pushType isEqualToString:PUSHNOTIFICATION_TYPE_READRECEIPT])
+    {
+        // nothing else to translate
+    }
+    else
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategories:@[AKD_PARSE, AKD_PUSH_NOTIFICATIONS] message:[NSString stringWithFormat:@"Unknown %@ for %@", stringFromVariable(pushType), stringFromVariable(pushNotification)]];
+        return nil;
+    }
+    
     return dictionary;
 }
 

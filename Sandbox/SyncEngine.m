@@ -208,7 +208,7 @@
     }
     else if ([pushType isEqualToString:PUSHNOTIFICATION_TYPE_NEWMESSAGE])
     {
-        NSString *sender = [info objectForKey:PUSHNOTIFICATION_KEY_SENDER];
+        NSString *sender = [info objectForKey:PUSHNOTIFICATION_KEY_SENDERUSERNAME];
         NSString *recipient = [CentralDispatch currentUsername];
         NSString *text = [info objectForKey:PUSHNOTIFICATION_KEY_TEXT];
         NSDate *sendDate = [info objectForKey:PUSHNOTIFICATION_KEY_SENDDATE];
@@ -295,7 +295,7 @@
     [parseInfo setObject:message.recipient forKey:PARSE_KEY_MESSAGE_RECIPIENTUSERNAME];
     [parseInfo setObject:message.text forKey:PARSE_KEY_MESSAGE_TEXT];
     [parseInfo setObject:message.sendDate forKey:PARSE_KEY_MESSAGE_SENDDATE];
-    [parseInfo setObject:message.isRead forKey:PARSE_KEY_MESSAGE_ISREAD];
+    [parseInfo setObject:[NSNumber numberWithBool:message.isRead.boolValue] forKey:PARSE_KEY_MESSAGE_ISREAD];
     return parseInfo;
 }
 
