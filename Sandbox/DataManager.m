@@ -31,6 +31,7 @@
 // CONVENIENCE METHODS //
 
 + (id)sharedManager;
++ (User *)userWithUsername:(NSString *)username;
 
 // CREATORS //
 
@@ -109,7 +110,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:nil message:nil];
     
-    return [SyncEngine sendMessage:[DataManager createMessageWithText:text fromUser:[CentralDispatch currentUser] toUser:[CoreDataController userWithUserId:[SyncEngine getAccountIdForUsername:recipient] username:recipient] onDate:[NSDate date] withId:nil]];
+    return [SyncEngine sendMessage:[DataManager createMessageWithText:text fromUser:[CentralDispatch currentUser] toUser:[DataManager userWithUsername:recipient] onDate:[NSDate date] withId:nil]];
 }
 
 #pragma mark - // PUBLIC METHODS (Editing) //
@@ -216,6 +217,16 @@
         sharedManager = [[DataManager alloc] init];
     });
     return sharedManager;
+}
+
++ (User *)userWithUsername:(NSString *)username
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS, AKD_DATA] message:nil];
+    
+    User *user = [CoreDataController getUserWithUsername:username];
+    if (user) return user;
+    
+    return [CoreDataController userWithUserId:[SyncEngine getAccountIdForUsername:username] username:username];
 }
 
 #pragma mark - // PRIVATE METHODS (Creators) //

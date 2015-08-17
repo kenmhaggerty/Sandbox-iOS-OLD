@@ -257,6 +257,29 @@
     return [foundUsers firstObject];
 }
 
++ (User *)getUserWithUsername:(NSString *)username
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    
+    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
+    __block NSArray *foundUsers;
+    __block NSError *error;
+    [managedObjectContext performBlockAndWait:^{
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([User class]) inManagedObjectContext:managedObjectContext]];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@)", NSStringFromSelector(@selector(username)), username]];
+        foundUsers = [managedObjectContext executeFetchRequest:request error:&error];
+    }];
+    if (error)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+        return nil;
+    }
+    
+    if (foundUsers.count > 1) [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@; returning first object", (unsigned long)foundUsers.count, NSStringFromClass([User class]), stringFromVariable(username), username]];
+    return [foundUsers firstObject];
+}
+
 //+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient
 //{
 //    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
