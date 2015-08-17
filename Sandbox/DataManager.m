@@ -249,6 +249,11 @@
         return nil;
     }
     
+    if (![CoreDataController save])
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator customCategories:@[AKD_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
+    }
+    
     [CentralDispatch postNotificationName:NOTIFICATION_MESSAGE_WAS_CREATED object:nil userInfo:[NSDictionary dictionaryWithObject:message forKey:NOTIFICATION_OBJECT_KEY]];
     return message;
 }
