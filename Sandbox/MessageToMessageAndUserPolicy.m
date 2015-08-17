@@ -13,8 +13,9 @@
 #import "MessageToMessageAndUserPolicy.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
-#import "Message.h"
-#import "User.h"
+#import "Message+RW.h"
+#import "User+RW.h"
+#import "DataManager.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
@@ -39,43 +40,66 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
     
-    NSManagedObjectContext *destinationContext = manager.destinationContext;
-    NSString *destinationEntityName = mapping.destinationEntityName;
-    NSString *sourceEntityName = [sInstance valueForKey:@"name"];
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:manager.userInfo];
     if (!userInfo)
     {
         userInfo = [NSMutableDictionary dictionary];
         [manager setUserInfo:userInfo];
     }
+    
     NSMutableDictionary *createdMessages = [userInfo valueForKey:NSStringFromClass([Message class])];
     if (!createdMessages)
     {
         createdMessages = [NSMutableDictionary dictionary];
         [userInfo setValue:createdMessages forKey:NSStringFromClass([Message class])];
     }
+    
+    NSString *messageId = [sInstance valueForKey:NSStringFromSelector(@selector(messageId))];
+    Message *newMessage = [createdMessages valueForKey:messageId];
+    if (!newMessage)
+    {
+        newMessage = [NSEntityDescription insertNewObjectForEntityForName:[mapping destinationEntityName] inManagedObjectContext:[manager destinationContext]];
+        NSNumber *isRead = [sInstance valueForKey:NSStringFromSelector(@selector(isRead))];
+        NSDate *sendDate = [sInstance valueForKey:NSStringFromSelector(@selector(sendDate))];
+        NSString *text = [sInstance valueForKey:NSStringFromSelector(@selector(text))];
+        [newMessage setMessageId:messageId];
+        [newMessage setText:text];
+        [newMessage setIsRead:isRead];
+        [newMessage setSendDate:sendDate];
+        [createdMessages setValue:newMessage forKey:messageId];
+    }
+    
     NSMutableDictionary *createdUsers = [userInfo valueForKey:NSStringFromClass([User class])];
     if (!createdUsers)
     {
         createdUsers = [NSMutableDictionary dictionary];
         [userInfo setValue:createdUsers forKey:NSStringFromClass([User class])];
     }
-    NSManagedObject *destinationEntity = [createdMessages valueForKey:sourceEntityName];
-    if (!destinationEntity)
+    NSManagedObjectContext *destinationContext = manager.destinationContext;
+    
+    NSString *recipientUsername = [sInstance valueForKey:NSStringFromSelector(@selector(recipient))];
+    User *recipient = [createdUsers valueForKey:recipientUsername];
+    if (!recipient)
     {
-        destinationEntity = [NSEntityDescription insertNewObjectForEntityForName:destinationEntityName inManagedObjectContext:destinationContext];
-        [destinationEntity setValue:sourceEntityName forKey:@"name"];
-        [createdUsers setValue:destinationEntity forKey:sourceEntityName];
-        sourceEntityName = [sInstance valueForKey:NSStringFromClass([User class])];
-        NSManagedObject *user = [createdUsers valueForKey:sourceEntityName];
-        if (!user)
-        {
-            user = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([User class]) inManagedObjectContext:destinationContext];
-            [user setValue:sourceEntityName forKey:@"name"];
-            [destinationEntity setValue:user forKey:sourceEntityName];
-        }
+        recipient = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([User class]) inManagedObjectContext:destinationContext];
+        [recipient setUsername:recipientUsername];
+        [recipient setUserId:[DataManager getAccountIdForUsername:recipientUsername]];
+        [createdUsers setValue:recipient forKey:recipientUsername];
     }
-    [manager associateSourceInstance:sInstance withDestinationInstance:destinationEntity forEntityMapping:mapping];
+    [newMessage setRecipient:recipient];
+    
+    NSString *senderUsername = [sInstance valueForKey:NSStringFromSelector(@selector(sender))];
+    User *sender = [createdUsers valueForKey:senderUsername];
+    if (!sender)
+    {
+        sender = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([User class]) inManagedObjectContext:destinationContext];
+        [sender setUsername:senderUsername];
+        [sender setUserId:[DataManager getAccountIdForUsername:senderUsername]];
+        [createdUsers setValue:sender forKey:senderUsername];
+    }
+    [newMessage setSender:sender];
+    
+    [manager associateSourceInstance:sInstance withDestinationInstance:newMessage forEntityMapping:mapping];
     return YES;
 }
 
