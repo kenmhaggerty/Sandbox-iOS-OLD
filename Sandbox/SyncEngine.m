@@ -298,7 +298,7 @@
     [parseInfo setObject:message.recipient.username forKey:PARSE_KEY_MESSAGE_RECIPIENTUSERNAME];
     [parseInfo setObject:message.text forKey:PARSE_KEY_MESSAGE_TEXT];
     [parseInfo setObject:message.sendDate forKey:PARSE_KEY_MESSAGE_SENDDATE];
-    [parseInfo setObject:message.isRead forKey:PARSE_KEY_MESSAGE_ISREAD];
+    [parseInfo setObject:[NSNumber numberWithBool:message.isRead.boolValue] forKey:PARSE_KEY_MESSAGE_ISREAD];
     return parseInfo;
 }
 
