@@ -46,7 +46,14 @@
 
 // MIGRATION //
 
++ (BOOL)isMigrationNeeded;
++ (BOOL)migrate;
 + (BOOL)progressivelyMigrateURL:(NSURL *)sourceStoreURL ofType:(NSString *)type toModel:(NSManagedObjectModel *)finalModel error:(NSError **)error;
++ (NSURL *)sourceStoreURL;
++ (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error;
++ (NSArray *)modelPaths;
++ (NSURL *)destinationStoreURLWithSourceStoreURL:(NSURL *)sourceStoreURL modelName:(NSString *)modelName;
+
 //+ (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error;
 //+ (NSArray *)modelPaths;
 //+ (NSURL *)destinationStoreURLWithSourceStoreURL:(NSURL *)sourceStoreURL modelName:(NSString *)modelName;
@@ -163,6 +170,13 @@
 }
 
 #pragma mark - // PUBLIC METHODS (General) //
+
++ (void)setup
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    
+    if ([CoreDataController isMigrationNeeded]) [CoreDataController migrate];
+}
 
 + (BOOL)save
 {
@@ -489,6 +503,49 @@
 
 #pragma mark - // PRIVATE METHODS (Migration) //
 
++ (BOOL)isMigrationNeeded
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    
+    NSError *error;
+    NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:[CoreDataController sourceStoreURL] error:&error];
+    BOOL isMigrationNeeded = NO;
+    if (sourceMetadata)
+    {
+        NSManagedObjectModel *destinationModel = [CoreDataController managedObjectModel];
+        isMigrationNeeded = ![destinationModel isConfiguration:nil compatibleWithStoreMetadata:sourceMetadata];
+    }
+    return isMigrationNeeded;
+}
+
++ (BOOL)migrate
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    
+    __block UIBackgroundTaskIdentifier bgTask;
+    bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:bgTask];
+        bgTask = UIBackgroundTaskInvalid;
+    }];
+    NSError *error;
+    BOOL success = [CoreDataController progressivelyMigrateURL:[CoreDataController sourceStoreURL] ofType:NSSQLiteStoreType toModel:[CoreDataController managedObjectModel] error:&error];
+    if (error)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+    }
+    if (!success)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:@"Migration unsuccessful"];
+    }
+    else
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:@"Migration successful"];
+    }
+    [[UIApplication sharedApplication] endBackgroundTask:bgTask];
+    bgTask = UIBackgroundTaskInvalid;
+    return success;
+}
+
 + (BOOL)progressivelyMigrateURL:(NSURL *)sourceStoreURL ofType:(NSString *)type toModel:(NSManagedObjectModel *)finalModel error:(NSError **)error
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
@@ -496,7 +553,7 @@
     NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:type URL:sourceStoreURL error:error];
     if (!sourceMetadata)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(sourceMetadata)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(sourceMetadata)]];
         return NO;
     }
     
@@ -506,157 +563,157 @@
         return YES;
     }
     
-    NSManagedObjectModel *sourceModel = [NSManagedObjectModel mergedModelFromBundles:nil forStoreMetadata:sourceMetadata];
-    NSMutableArray *modelPaths = [NSMutableArray array];
-    NSArray *managedObjectModelsArray = [[NSBundle mainBundle] pathsForResourcesOfType:CORE_DATA_MODEL_DIRECTORY_EXTENSION inDirectory:nil];
-    NSString *resourceSubpath;
-    NSArray *array;
-    for (NSString *managedObjectModelPath in managedObjectModelsArray)
-    {
-        resourceSubpath = [managedObjectModelPath lastPathComponent];
-        array = [[NSBundle mainBundle] pathsForResourcesOfType:CORE_DATA_MODEL_FILE_EXTENSION inDirectory:resourceSubpath];
-        [modelPaths addObjectsFromArray:array];
-    }
-    NSArray *otherModels = [[NSBundle mainBundle] pathsForResourcesOfType:CORE_DATA_MODEL_FILE_EXTENSION inDirectory:nil];
-    [modelPaths addObjectsFromArray:otherModels];
-    if (!modelPaths || !modelPaths.count)
-    {
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-        [dictionary setValue:@"No models found in bundle" forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"Zarra" code:8001 userInfo:dictionary];
-        return NO;
-    }
-    
+    NSManagedObjectModel *sourceModel = [NSManagedObjectModel mergedModelFromBundles:@[[NSBundle mainBundle]] forStoreMetadata:sourceMetadata];
+    NSManagedObjectModel *destinationModel;
     NSMappingModel *mappingModel;
-    NSManagedObjectModel *targetModel;
-    NSString *modelPath;
-    for (modelPath in modelPaths)
+    NSString *modelName;
+    BOOL success = [CoreDataController getDestinationModel:&destinationModel mappingModel:&mappingModel modelName:&modelName forSourceModel:sourceModel error:error];
+    if (error)
     {
-        targetModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:[NSURL fileURLWithPath:modelPath]];
-        mappingModel = [NSMappingModel mappingModelFromBundles:nil forSourceModel:sourceModel destinationModel:targetModel];
-        if (mappingModel) break;
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", *error, (*error).userInfo]];
     }
-    if (!mappingModel)
+    if (!success)
     {
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-        [dictionary setValue:@"No models found in bundle" forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:@"Zarra" code:8001 userInfo:dictionary];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not get %@, %@, and/or %@ for %@", stringFromVariable(destinationModel), stringFromVariable(mappingModel), stringFromVariable(modelName), stringFromVariable(sourceModel)]];
         return NO;
     }
     
-    NSMigrationManager *manager = [[NSMigrationManager alloc] initWithSourceModel:sourceModel destinationModel:targetModel];
-    NSString *modelName = [[modelPath lastPathComponent] stringByDeletingPathExtension];
-    NSString *storeExtension = [sourceStoreURL.path pathExtension];
-    NSString *storePath = [sourceStoreURL.path stringByDeletingPathExtension];
-    storePath = [NSString stringWithFormat:@"%@.%@.%@", storePath, modelName, storeExtension];
-    NSURL *destinationStoreURL = [NSURL fileURLWithPath:storePath];
-    if (![manager migrateStoreFromURL:sourceStoreURL type:type options:nil withMappingModel:mappingModel toDestinationURL:destinationStoreURL destinationType:type destinationOptions:nil error:error])
+    NSArray *mappingModels = @[mappingModel];
+    NSURL *destinationStoreURL = [CoreDataController destinationStoreURLWithSourceStoreURL:sourceStoreURL modelName:modelName];
+    NSMigrationManager *manager = [[NSMigrationManager alloc] initWithSourceModel:sourceModel destinationModel:destinationModel];
+    for (NSMappingModel *mappingModel in mappingModels)
     {
+        success = ([manager migrateStoreFromURL:sourceStoreURL type:type options:nil withMappingModel:mappingModel toDestinationURL:destinationStoreURL destinationType:type destinationOptions:nil error:error] && success);
+    }
+    if (!success)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not successfully migrate all %@", stringFromVariable(mappingModels)]];
         return NO;
     }
     
-    NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
-    guid = [guid stringByAppendingPathExtension:modelName];
-    guid = [guid stringByAppendingPathExtension:storeExtension];
-    NSString *appSupportPath = [storePath stringByDeletingLastPathComponent];
-    NSString *backupPath = [appSupportPath stringByAppendingPathComponent:guid];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager moveItemAtPath:sourceStoreURL.path toPath:backupPath error:error])
+    success = [self backupSourceStoreAtURL:sourceStoreURL movingDestinationStoreAtURL:destinationStoreURL error:error];
+    if (error)
     {
-        // failed to copy file
-        return NO;
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", *error, (*error).userInfo]];
     }
-    
-    if (![fileManager moveItemAtPath:storePath toPath:sourceStoreURL.path error:error])
+    if (!success)
     {
-        [fileManager moveItemAtPath:backupPath toPath:sourceStoreURL.path error:nil];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not back up source store at %@ to %@", sourceStoreURL, destinationStoreURL]];
         return NO;
     }
     
     return [self progressivelyMigrateURL:sourceStoreURL ofType:type toModel:finalModel error:error];
 }
 
-//+ (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error
-//{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
-//    
-//    NSArray *modelPaths = [CoreDataController modelPaths];
-//    if (!modelPaths.count)
-//    {
-//        if (NULL != error) *error = [NSError errorWithDomain:@"Zarra" code:8001 userInfo:@{NSLocalizedDescriptionKey:@"No models found!"}];
-//        return NO;
-//    }
-//    
-//    NSManagedObjectModel *model = nil;
-//    NSMappingModel *mapping = nil;
-//    NSString *modelPath = nil;
-//    for (modelPath in modelPaths)
-//    {
-//        model = [[NSManagedObjectModel alloc] initWithContentsOfURL:[NSURL fileURLWithPath:modelPath]];
-//        mapping = [NSMappingModel mappingModelFromBundles:@[[NSBundle mainBundle]] forSourceModel:sourceModel destinationModel:model];
-//        if (mapping)
-//        {
-//            break;
-//        }
-//    }
-//    if (!mapping)
-//    {
-//        if (NULL != error) *error = [NSError errorWithDomain:@"Zarra" code:8001 userInfo:@{NSLocalizedDescriptionKey:@"No mapping model found in bundle"}];
-//        return NO;
-//    }
-//    
-//    *destinationModel = model;
-//    *mappingModel = mapping;
-//    *modelName = modelPath.lastPathComponent.stringByDeletingPathExtension;
-//    return YES;
-//}
++ (NSURL *)sourceStoreURL
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    
+    NSString *applicationSupportDirectory = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    BOOL isDir = NO;
+    NSError *error;
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    if (![fileManager fileExistsAtPath:applicationSupportDirectory isDirectory:&isDir] && isDir == NO)
+    {
+        [fileManager createDirectoryAtPath:applicationSupportDirectory withIntermediateDirectories:NO attributes:nil error:&error];
+    }
+    return [[NSURL fileURLWithPath:applicationSupportDirectory] URLByAppendingPathComponent:@"Model.sqlite"];
+}
 
-//+ (NSArray *)modelPaths
-//{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
-//    
-//    NSMutableArray *modelPaths = [NSMutableArray array];
-//    NSArray *momdArray = [[NSBundle mainBundle] pathsForResourcesOfType:@"momd" inDirectory:nil];
-//    for (NSString *momdPath in momdArray)
-//    {
-//        NSString *resourceSubpath = [momdPath lastPathComponent];
-//        NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"mom" inDirectory:resourceSubpath];
-//        [modelPaths addObjectsFromArray:array];
-//    }
-//    NSArray *otherModels = [[NSBundle mainBundle] pathsForResourcesOfType:@"mom" inDirectory:nil];
-//    [modelPaths addObjectsFromArray:otherModels];
-//    return modelPaths;
-//}
++ (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    
+    NSArray *modelPaths = [CoreDataController modelPaths];
+    if (!modelPaths.count)
+    {
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        [dictionary setValue:@"No models found in bundle" forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"Zarra" code:8001 userInfo:dictionary];
+        return NO;
+    }
+    
+    NSManagedObjectModel *model;
+    NSMappingModel *mapping;
+    NSString *modelPath;
+    for (modelPath in modelPaths)
+    {
+        model = [[NSManagedObjectModel alloc] initWithContentsOfURL:[NSURL fileURLWithPath:modelPath]];
+        mapping = [NSMappingModel mappingModelFromBundles:@[[NSBundle mainBundle]] forSourceModel:sourceModel destinationModel:model];
+        if (mapping) break;
+    }
+    if (!mapping)
+    {
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        [dictionary setValue:@"No models found in bundle" forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:@"Zarra" code:8001 userInfo:dictionary];
+        return NO;
+    }
+    
+    *destinationModel = model;
+    *mappingModel = mapping;
+    *modelName = modelPath.lastPathComponent.stringByDeletingPathExtension;
+    return YES;
+}
 
-//+ (NSURL *)destinationStoreURLWithSourceStoreURL:(NSURL *)sourceStoreURL modelName:(NSString *)modelName
-//{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
-//    
-//    NSString *storeExtension = sourceStoreURL.path.pathExtension;
-//    NSString *storePath = sourceStoreURL.path.stringByDeletingPathExtension;
-//    storePath = [NSString stringWithFormat:@"%@.%@.%@", storePath, modelName, storeExtension];
-//    return [NSURL fileURLWithPath:storePath];
-//}
++ (NSArray *)modelPaths
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    
+    NSMutableArray *modelPaths = [NSMutableArray array];
+    NSArray *momdArray = [[NSBundle mainBundle] pathsForResourcesOfType:CORE_DATA_MODEL_DIRECTORY_EXTENSION inDirectory:nil];
+    for (NSString *momdPath in momdArray)
+    {
+        NSString *resourceSubpath = [momdPath lastPathComponent];
+        NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:CORE_DATA_MODEL_FILE_EXTENSION inDirectory:resourceSubpath];
+        [modelPaths addObjectsFromArray:array];
+    }
+    NSArray *otherModels = [[NSBundle mainBundle] pathsForResourcesOfType:CORE_DATA_MODEL_FILE_EXTENSION inDirectory:nil];
+    [modelPaths addObjectsFromArray:otherModels];
+    return modelPaths;
+}
 
-//+ (BOOL)backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError **)error
-//{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
-//    
-//    NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
-//    NSString *backupPath = [NSTemporaryDirectory() stringByAppendingPathComponent:guid];
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    if (![fileManager moveItemAtPath:sourceStoreURL.path toPath:backupPath error:error])
-//    {
-//        return NO;
-//    }
-//    
-//    if (![fileManager moveItemAtPath:destinationStoreURL.path toPath:sourceStoreURL.path error:error])
-//    {
-//        [fileManager moveItemAtPath:backupPath toPath:sourceStoreURL.path error:nil];
-//        return NO;
-//    }
-//    
-//    return YES;
-//}
++ (NSURL *)destinationStoreURLWithSourceStoreURL:(NSURL *)sourceStoreURL modelName:(NSString *)modelName
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    
+    NSString *storeExtension = sourceStoreURL.path.pathExtension;
+    NSString *storePath = sourceStoreURL.path.stringByDeletingPathExtension;
+    storePath = [NSString stringWithFormat:@"%@.%@.%@", storePath, modelName, storeExtension];
+    return [NSURL fileURLWithPath:storePath];
+}
+
++ (BOOL)backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError **)error
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    
+    NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
+    NSString *backupPath = [NSTemporaryDirectory() stringByAppendingPathComponent:guid];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL success = [fileManager moveItemAtPath:sourceStoreURL.path toPath:backupPath error:error];
+    if (error)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", *error, (*error).userInfo]];
+    }
+    if (!success)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Failed to move item at %@ to %@", sourceStoreURL.path, backupPath]];
+        return NO;
+    }
+    
+    success = [fileManager moveItemAtPath:destinationStoreURL.path toPath:sourceStoreURL.path error:error];
+    if (error)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", *error, (*error).userInfo]];
+    }
+    if (!success)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not move item at %@ to %@; reverting changes", destinationStoreURL.path, sourceStoreURL.path]];
+        [fileManager moveItemAtPath:backupPath toPath:sourceStoreURL.path error:nil];
+        return NO;
+    }
+    
+    return YES;
+}
 
 @end

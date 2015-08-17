@@ -11,6 +11,7 @@
 		1F11C8661B505AA80031B985 /* AKSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11C8651B505AA80031B985 /* AKSwitchView.m */; };
 		1F11C8681B505ABF0031B985 /* AKSwitchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F11C8671B505ABF0031B985 /* AKSwitchView.xib */; };
 		1F11C86B1B50DE680031B985 /* AlertSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11C86A1B50DE680031B985 /* AlertSwitchViewController.m */; };
+		1F92A90B1B8255C800AB5490 /* NSMigrationManager+Lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F92A90A1B8255C800AB5490 /* NSMigrationManager+Lookup.m */; };
 		1FA2480A183CEBE500351015 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA24809183CEBE500351015 /* TableViewController.m */; };
 		1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB7580180F46BC005BE376 /* AKDebugger.m */; };
 		1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */; };
@@ -77,6 +78,8 @@
 		1F11C8671B505ABF0031B985 /* AKSwitchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AKSwitchView.xib; path = ../../AlertSwitchViewController/AKSwitchView.xib; sourceTree = "<group>"; };
 		1F11C8691B50DE680031B985 /* AlertSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertSwitchViewController.h; path = ../../AlertSwitchViewController/AlertSwitchViewController.h; sourceTree = "<group>"; };
 		1F11C86A1B50DE680031B985 /* AlertSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlertSwitchViewController.m; path = ../../AlertSwitchViewController/AlertSwitchViewController.m; sourceTree = "<group>"; };
+		1F92A9091B8255C800AB5490 /* NSMigrationManager+Lookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMigrationManager+Lookup.h"; sourceTree = "<group>"; };
+		1F92A90A1B8255C800AB5490 /* NSMigrationManager+Lookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMigrationManager+Lookup.m"; sourceTree = "<group>"; };
 		1FA24808183CEBE500351015 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		1FA24809183CEBE500351015 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		1FCB757F180F46BC005BE376 /* AKDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKDebugger.h; path = ../../AKDebugger/AKDebugger.h; sourceTree = "<group>"; };
@@ -225,6 +228,15 @@
 				1F11C8671B505ABF0031B985 /* AKSwitchView.xib */,
 			);
 			name = AKSwitchView;
+			sourceTree = "<group>";
+		};
+		1F92A90C1B8255CD00AB5490 /* NSMigrationManager+Lookup */ = {
+			isa = PBXGroup;
+			children = (
+				1F92A9091B8255C800AB5490 /* NSMigrationManager+Lookup.h */,
+				1F92A90A1B8255C800AB5490 /* NSMigrationManager+Lookup.m */,
+			);
+			name = "NSMigrationManager+Lookup";
 			sourceTree = "<group>";
 		};
 		1FCB7582180F46D3005BE376 /* AKDebugger */ = {
@@ -533,6 +545,7 @@
 		7D66AF621B7BF36700105E61 /* Migrations */ = {
 			isa = PBXGroup;
 			children = (
+				1F92A90C1B8255CD00AB5490 /* NSMigrationManager+Lookup */,
 				7D66AF661B7BF52B00105E61 /* Migration_0,2_0,3 */,
 				7D66AF631B7BF3B800105E61 /* MessageToMessageAndUserPolicy.h */,
 				7D66AF641B7BF3B800105E61 /* MessageToMessageAndUserPolicy.m */,
@@ -728,6 +741,7 @@
 				1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */,
 				7D66AF681B7BF53900105E61 /* Migration_0,2_0,3.xcmappingmodel in Sources */,
 				7D66AF2A1B74F75A00105E61 /* CentralDispatch.m in Sources */,
+				1F92A90B1B8255C800AB5490 /* NSMigrationManager+Lookup.m in Sources */,
 				1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */,
 				7D66AF381B7535B200105E61 /* LoginManager.m in Sources */,
 				1FA2480A183CEBE500351015 /* TableViewController.m in Sources */,
