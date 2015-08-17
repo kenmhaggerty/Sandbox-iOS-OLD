@@ -404,7 +404,14 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
     
     User *user = [CoreDataController getUserWithUserId:userId];
-    if (!user) user = [CoreDataController createUserWithUserId:userId username:username];
+    if (!user)
+    {
+        user = [CoreDataController createUserWithUserId:userId username:username];
+        if (![CoreDataController save])
+        {
+            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
+        }
+    }
     return user;
 }
 
