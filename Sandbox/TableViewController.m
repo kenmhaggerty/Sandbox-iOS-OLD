@@ -95,11 +95,13 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
     
-    if (!_data)
-    {
-        if (self.isInbox) [self setData:[[NSMutableArray alloc] initWithArray:[[DataManager getMessagesSentToUser:[CentralDispatch currentUser]] array]]];
-        else if (self.isOutbox) [self setData:[[NSMutableArray alloc] initWithArray:[[DataManager getMessagesSentByUser:[CentralDispatch currentUser]] array]]];
-    }
+    if (_data) return _data;
+    
+    if (self.isInbox) [self setData:[NSMutableArray arrayWithArray:[[CentralDispatch currentUser].inbox allObjects]]];
+    else if (self.isOutbox) [self setData:[NSMutableArray arrayWithArray:[[CentralDispatch currentUser].outbox allObjects]]];
+    [_data sortUsingComparator:(NSComparator)^(Message *message1, Message *message2) {
+        return [message2.sendDate compare:message1.sendDate];
+    }];
     return _data;
 }
 
@@ -319,8 +321,8 @@
     if (![message.isRead boolValue]) messageText = @"• ";
     messageText = [messageText stringByAppendingString:message.text];
     [cell.textLabel setText:messageText];
-    if (self.isInbox) [cell.detailTextLabel setText:message.sender];
-    else if (self.isOutbox) [cell.detailTextLabel setText:message.recipient];
+    if (self.isInbox) [cell.detailTextLabel setText:message.sender.username];
+    else if (self.isOutbox) [cell.detailTextLabel setText:message.recipient.username];
     return cell;
 }
 
@@ -480,7 +482,7 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
     
     Message *message = [notification.userInfo objectForKey:NOTIFICATION_OBJECT_KEY];
-    if ((self.isInbox && [message.recipient isEqualToString:[CentralDispatch currentUsername]]) || (self.isOutbox && [message.sender isEqualToString:[CentralDispatch currentUsername]]))
+    if ((self.isInbox && [message.recipient isEqual:[CentralDispatch currentUser]]) || (self.isOutbox && [message.sender isEqual:[CentralDispatch currentUser]]))
     {
         [self addObserversToMessage:message];
         NSUInteger index = 0;

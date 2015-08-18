@@ -18,6 +18,7 @@
 #import "CoreDataController.h"
 #import "SyncEngine.h"
 #import "Message+RW.h"
+#import "User+RW.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
@@ -31,10 +32,11 @@
 // CONVENIENCE METHODS //
 
 + (id)sharedManager;
++ (User *)userWithUsername:(NSString *)username;
 
 // CREATORS //
 
-+ (Message *)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId;
++ (Message *)createMessageWithText:(NSString *)text fromUser:(User *)sender toUser:(User *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId;
 
 @end
 
@@ -82,19 +84,41 @@
 
 #pragma mark - // PUBLIC METHODS (Retrieval) //
 
-+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient
++ (NSString *)getAccountIdForUsername:(NSString *)username
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS, AKD_DATA] message:nil];
     
-    return [CoreDataController getMessagesSentToUser:recipient];
+    User *user = [CoreDataController getUserWithUsername:username];
+    NSString *accountId;
+    if (user) accountId = user.userId;
+    if (!accountId)
+    {
+        accountId = [SyncEngine getAccountIdForUsername:username];
+        if (accountId && user)
+        {
+            [user setUserId:accountId];
+            if ([CoreDataController save])
+            {
+                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS, AKD_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
+            }
+        }
+    }
+    return accountId;
 }
 
-+ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
-    
-    return [CoreDataController getMessagesSentByUser:sender];
-}
+//+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
+//    
+//    return [CoreDataController getMessagesSentToUser:recipient];
+//}
+//
+//+ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender
+//{
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
+//    
+//    return [CoreDataController getMessagesSentByUser:sender];
+//}
 
 + (Message *)getMessageWithId:(NSString *)messageId
 {
@@ -109,7 +133,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:nil message:nil];
     
-    return [SyncEngine sendMessage:[DataManager createMessageWithText:text fromUser:[CentralDispatch currentUsername] toUser:recipient onDate:[NSDate date] withId:nil]];
+    return [SyncEngine sendMessage:[DataManager createMessageWithText:text fromUser:[CentralDispatch currentUser] toUser:[DataManager userWithUsername:recipient] onDate:[NSDate date] withId:nil]];
 }
 
 #pragma mark - // PUBLIC METHODS (Editing) //
@@ -124,8 +148,8 @@
     if (![CoreDataController save])
     {
         [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not save %@", stringFromVariable(message)]];
-        return;
     }
+    [SyncEngine messageWasRead:message.messageId];
 }
 
 + (void)incrementBadge
@@ -174,7 +198,7 @@
 
 #pragma mark - // CATEGORY METHODS (Private) //
 
-+ (BOOL)saveMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
++ (BOOL)saveMessageWithText:(NSString *)text fromUser:(User *)sender toUser:(User *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_DATA] message:nil];
     
@@ -218,9 +242,19 @@
     return sharedManager;
 }
 
++ (User *)userWithUsername:(NSString *)username
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS, AKD_DATA] message:nil];
+    
+    User *user = [CoreDataController getUserWithUsername:username];
+    if (user) return user;
+    
+    return [CoreDataController userWithUserId:[SyncEngine getAccountIdForUsername:username] username:username];
+}
+
 #pragma mark - // PRIVATE METHODS (Creators) //
 
-+ (Message *)createMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
++ (Message *)createMessageWithText:(NSString *)text fromUser:(User *)sender toUser:(User *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_DATA] message:nil];
     
@@ -236,6 +270,11 @@
     {
         [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator customCategories:@[AKD_DATA] message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(message)]];
         return nil;
+    }
+    
+    if (![CoreDataController save])
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator customCategories:@[AKD_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
     }
     
     [CentralDispatch postNotificationName:NOTIFICATION_MESSAGE_WAS_CREATED object:nil userInfo:[NSDictionary dictionaryWithObject:message forKey:NOTIFICATION_OBJECT_KEY]];

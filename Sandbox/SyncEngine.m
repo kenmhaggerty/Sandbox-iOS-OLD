@@ -54,7 +54,7 @@
 // TRANSLATORS //
 
 + (NSDictionary *)parseInfoForMessage:(Message *)message;
-+ (NSString *)userForAccount:(PFUser *)account;
++ (User *)userForAccount:(PFUser *)account;
 
 @end
 
@@ -105,11 +105,18 @@
 
 #pragma mark - // PUBLIC METHODS (Account) //
 
-+ (NSString *)currentUser
++ (User *)currentUser
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS] message:nil];
     
     return [SyncEngine userForAccount:[ParseController currentAccount]];
+}
+
++ (NSString *)getAccountIdForUsername:(NSString *)username
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS] message:nil];
+    
+    return [ParseController getAccountIdForUsername:username];
 }
 
 + (BOOL)createAccountWithEmail:(NSString *)email password:(NSString *)password
@@ -164,11 +171,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_DATA] message:nil];
     
-    PFObject *message = [PFQuery getObjectOfClass:PARSE_CLASS_MESSAGE objectId:messageId];
-    if (!message) return;
-    
-    [message setObject:@YES forKey:PARSE_KEY_MESSAGE_ISREAD];
-    [message saveEventually];
+    [ParseController messageWasRead:messageId];
 }
 
 + (void)messageWasDeleted:(NSString *)messageId
@@ -199,20 +202,20 @@
     if (![ParseController shouldProcessPushNotificationWithData:userInfo]) return;
     
     NSDictionary *info = [ParseController translatePushNotification:userInfo];
-    NSString *pushType = [info objectForKey:PUSHNOTIFICATION_KEY_TYPE];
     NSString *messageId = [info objectForKey:PUSHNOTIFICATION_KEY_MESSAGEID];
-    if ([pushType isEqualToString:PUSHNOTIFICATION_TYPE_READRECEIPT])
-    {
-        Message *message = [DataManager getMessageWithId:messageId];
-        if (message) [DataManager userDidReadMessage:message];
-    }
-    else if ([pushType isEqualToString:PUSHNOTIFICATION_TYPE_NEWMESSAGE])
+    NSString *pushType = [info objectForKey:PUSHNOTIFICATION_KEY_TYPE];
+    if ([pushType isEqualToString:PUSHNOTIFICATION_TYPE_NEWMESSAGE])
     {
         NSString *sender = [info objectForKey:PUSHNOTIFICATION_KEY_SENDERUSERNAME];
         NSString *recipient = [CentralDispatch currentUsername];
         NSString *text = [info objectForKey:PUSHNOTIFICATION_KEY_TEXT];
         NSDate *sendDate = [info objectForKey:PUSHNOTIFICATION_KEY_SENDDATE];
-        [DataManager saveMessageWithText:text fromUser:sender toUser:recipient onDate:sendDate withId:messageId];
+        [DataManager saveMessageWithText:text fromUser:[CoreDataController userWithUserId:senderId username:senderUsername] toUser:[CentralDispatch currentUser] onDate:sendDate withId:messageId];
+    }
+    else if ([pushType isEqualToString:PUSHNOTIFICATION_TYPE_READRECEIPT])
+    {
+        Message *message = [DataManager getMessageWithId:messageId];
+        if (message) [DataManager userDidReadMessage:message];
     }
 }
 
@@ -289,23 +292,23 @@
     }
     
     NSMutableDictionary *parseInfo = [NSMutableDictionary dictionary];
-    [parseInfo setObject:[ParseController getAccountIdForUsername:message.sender] forKey:PARSE_KEY_MESSAGE_SENDERID];
-    [parseInfo setObject:message.sender forKey:PARSE_KEY_MESSAGE_SENDERUSERNAME];
-    [parseInfo setObject:[ParseController getAccountIdForUsername:message.recipient] forKey:PARSE_KEY_MESSAGE_RECIPIENTID];
-    [parseInfo setObject:message.recipient forKey:PARSE_KEY_MESSAGE_RECIPIENTUSERNAME];
+    [parseInfo setObject:message.sender.userId forKey:PARSE_KEY_MESSAGE_SENDERID];
+    [parseInfo setObject:message.sender.username forKey:PARSE_KEY_MESSAGE_SENDERUSERNAME];
+    [parseInfo setObject:message.recipient.userId forKey:PARSE_KEY_MESSAGE_RECIPIENTID];
+    [parseInfo setObject:message.recipient.username forKey:PARSE_KEY_MESSAGE_RECIPIENTUSERNAME];
     [parseInfo setObject:message.text forKey:PARSE_KEY_MESSAGE_TEXT];
     [parseInfo setObject:message.sendDate forKey:PARSE_KEY_MESSAGE_SENDDATE];
     [parseInfo setObject:[NSNumber numberWithBool:message.isRead.boolValue] forKey:PARSE_KEY_MESSAGE_ISREAD];
     return parseInfo;
 }
 
-+ (NSString *)userForAccount:(PFUser *)account
++ (User *)userForAccount:(PFUser *)account
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_DATA, AKD_ACCOUNTS] message:nil];
     
     if (!account) return nil;
     
-    return account.username;
+    return [CoreDataController userWithUserId:account.objectId username:account.username];
 }
 
 @end

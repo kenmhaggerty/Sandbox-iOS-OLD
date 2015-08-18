@@ -20,9 +20,8 @@
 #define NOTIFICATION_PARSECONTROLLER_CURRENTINSTALLATION_DID_CHANGE @"kNotificationParseControllerCurrentInstallationDidChange"
 #define NOTIFICATION_PARSECONTROLLER_CURRENTACCOUNT_DID_CHANGE @"kNotificationParseControllerCurrentAccountDidChange"
 
-#define PUSHNOTIFICATION_KEY_INSTALLATIONID @"installationId"
+#define PUSHNOTIFICATION_KEY_MESSAGEID @"messageId"
 #define PUSHNOTIFICATION_KEY_TYPE @"pushType"
-#define PUSHNOTIFICATION_TYPE_READRECEIPT @"readReceipt"
 #define PUSHNOTIFICATION_TYPE_NEWMESSAGE @"newMessage"
 #define PUSHNOTIFICATION_KEY_MESSAGEID @"messageId"
 #define PUSHNOTIFICATION_KEY_SENDERID @"senderId"
@@ -30,6 +29,7 @@
 #define PUSHNOTIFICATION_KEY_TEXT @"text"
 #define PUSHNOTIFICATION_KEY_SENDDATE @"sendDate"
 #define PUSHNOTIFICATION_RECIPIENT_GLOBAL @"global"
+#define PUSHNOTIFICATION_TYPE_READRECEIPT @"readReceipt"
 
 @interface ParseController : NSObject
 
@@ -52,6 +52,10 @@
 // GETTERS //
 
 + (PFObject *)getObjectWithQuery:(PFQuery *)query;
+
+// EDITORS //
+
++ (void)messageWasRead:(NSString *)messageId;
 
 // DELETORS //
 

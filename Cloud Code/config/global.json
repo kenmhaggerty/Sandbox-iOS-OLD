@@ -1,0 +1,14 @@
+{
+  "global": {
+    "parseVersion": "1.5.0"
+  },
+  "applications": {
+    "Sandbox": {
+      "applicationId": "T9CB69m4pAPrbNojY5Ua22klABxdSzmfK2SoAWY2",
+      "masterKey": "PbIb6d8pOhMoSEr4OIGK2JZlL2VTGL7KbfyvNLfu"
+    },
+    "_default": {
+      "link": "Sandbox"
+    }
+  }
+}

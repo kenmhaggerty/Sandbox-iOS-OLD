@@ -23,6 +23,9 @@
 #define PARSE_FUNCTION_GETACCOUNTIDFORUSERNAME @"getAccountIdForUsername"
 #define PARSE_FUNCTION_GETACCOUNTIDFORUSERNAME_USERNAME @"username"
 
+#define PARSE_FUNCTION_MESSAGEWASREAD @"messageWasRead"
+#define PARSE_FUNCTION_MESSAGEWASREAD_MESSAGEID @"messageId"
+
 @interface ParseController ()
 @property (nonatomic, strong) PFInstallation *currentInstallation;
 @property (nonatomic, strong) PFUser *currentAccount;
@@ -313,6 +316,20 @@
     return [query getFirstObject];
 }
 
+#pragma mark - // PUBLIC METHODS (Editors) //
+
++ (void)messageWasRead:(NSString *)messageId
+{
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_PARSE] message:nil];
+    
+    NSError *error;
+    [PFCloud callFunction:PARSE_FUNCTION_MESSAGEWASREAD withParameters:@{PARSE_FUNCTION_MESSAGEWASREAD_MESSAGEID:messageId} error:&error];
+    if (error)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE, AKD_ACCOUNTS] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+    }
+}
+
 #pragma mark - // PUBLIC METHODS (Deletors) //
 
 + (void)removeCurrentInstallationFromObject:(PFObject *)object
@@ -330,9 +347,6 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeValidator customCategories:@[AKD_PUSH_NOTIFICATIONS] message:nil];
     
-    NSString *installationId = [notificationPayload objectForKey:PUSHNOTIFICATION_KEY_INSTALLATIONID];
-    if ([installationId isEqualToString:[ParseController currentInstallation].objectId]) return NO;
-    
     return YES;
 }
 
@@ -342,7 +356,6 @@
     
     PFPush *push = [[PFPush alloc] init];
     NSMutableDictionary *mutableData = [NSMutableDictionary dictionaryWithDictionary:data];
-    [mutableData setObject:[ParseController currentInstallation].objectId forKey:PUSHNOTIFICATION_KEY_INSTALLATIONID];
     [push setData:mutableData];
     [push setChannels:recipients];
     NSError *error;

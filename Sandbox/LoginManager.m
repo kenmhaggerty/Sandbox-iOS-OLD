@@ -19,7 +19,7 @@
 #pragma mark - // DEFINITIONS (Private) //
 
 @interface LoginManager ()
-@property (nonatomic, strong) NSString *currentUser;
+@property (nonatomic, strong) User *currentUser;
 
 // GENERAL //
 
@@ -47,7 +47,7 @@
 
 @synthesize currentUser = _currentUser;
 
-- (void)setCurrentUser:(NSString *)currentUser
+- (void)setCurrentUser:(User *)currentUser
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategories:@[AKD_ACCOUNTS] message:nil];
     
@@ -126,7 +126,7 @@
     return [LoginManager sharedManager];
 }
 
-- (NSString *)currentUser
+- (User *)currentUser
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS] message:nil];
     
@@ -140,7 +140,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS] message:nil];
     
-    return _currentUser;
+    return self.currentUser.username;
 }
 
 #pragma mark - // OVERWRITTEN METHODS //

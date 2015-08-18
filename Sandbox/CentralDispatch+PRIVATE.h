@@ -20,7 +20,7 @@
 @end
 
 @protocol AccountDelegate <CentralDispatchDelegate>
-- (NSString *)currentUser;
+- (User *)currentUser;
 - (NSString *)currentUsername;
 @end
 

@@ -19,6 +19,6 @@
 
 @interface LoginManager (Delegate) <AccountDelegate>
 + (id)delegateForCentralDispatch;
-- (NSString *)currentUser;
+- (User *)currentUser;
 - (NSString *)currentUsername;
 @end

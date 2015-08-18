@@ -11,11 +11,12 @@
 #pragma mark - // IMPORTS (Public) //
 
 #import "DataManager.h"
+#import "User.h"
 
 #pragma mark - // PROTOCOLS //
 
 #pragma mark - // DEFINITIONS (Public) //
 
 @interface DataManager (PRIVATE)
-+ (BOOL)saveMessageWithText:(NSString *)text fromUser:(NSString *)sender toUser:(NSString *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId;
++ (BOOL)saveMessageWithText:(NSString *)text fromUser:(User *)sender toUser:(User *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId;
 @end

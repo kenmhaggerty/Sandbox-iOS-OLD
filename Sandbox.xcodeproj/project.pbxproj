@@ -11,6 +11,7 @@
 		1F11C8661B505AA80031B985 /* AKSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11C8651B505AA80031B985 /* AKSwitchView.m */; };
 		1F11C8681B505ABF0031B985 /* AKSwitchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F11C8671B505ABF0031B985 /* AKSwitchView.xib */; };
 		1F11C86B1B50DE680031B985 /* AlertSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11C86A1B50DE680031B985 /* AlertSwitchViewController.m */; };
+		1F92A90B1B8255C800AB5490 /* NSMigrationManager+Lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F92A90A1B8255C800AB5490 /* NSMigrationManager+Lookup.m */; };
 		1FA2480A183CEBE500351015 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA24809183CEBE500351015 /* TableViewController.m */; };
 		1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB7580180F46BC005BE376 /* AKDebugger.m */; };
 		1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */; };
@@ -40,6 +41,9 @@
 		7D66AF381B7535B200105E61 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF371B7535B200105E61 /* LoginManager.m */; };
 		7D66AF441B76884200105E61 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF431B76884200105E61 /* RootViewController.m */; };
 		7D66AF481B77A12200105E61 /* AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF471B77A12200105E61 /* AppInfo.m */; };
+		7D66AF5C1B7BEA9700105E61 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF5B1B7BEA9700105E61 /* User.m */; };
+		7D66AF651B7BF3B800105E61 /* MessageToMessageAndUserPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF641B7BF3B800105E61 /* MessageToMessageAndUserPolicy.m */; };
+		7D66AF681B7BF53900105E61 /* Migration_0,2_0,3.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF671B7BF53900105E61 /* Migration_0,2_0,3.xcmappingmodel */; };
 		7D9513C71B0A86D900E508E8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D9513C61B0A86D900E508E8 /* AudioToolbox.framework */; };
 		7D9513C91B0A86E000E508E8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D9513C81B0A86E000E508E8 /* CFNetwork.framework */; };
 		7D9513CB1B0A86E900E508E8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D9513CA1B0A86E900E508E8 /* CoreLocation.framework */; };
@@ -74,6 +78,8 @@
 		1F11C8671B505ABF0031B985 /* AKSwitchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AKSwitchView.xib; path = ../../AlertSwitchViewController/AKSwitchView.xib; sourceTree = "<group>"; };
 		1F11C8691B50DE680031B985 /* AlertSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertSwitchViewController.h; path = ../../AlertSwitchViewController/AlertSwitchViewController.h; sourceTree = "<group>"; };
 		1F11C86A1B50DE680031B985 /* AlertSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlertSwitchViewController.m; path = ../../AlertSwitchViewController/AlertSwitchViewController.m; sourceTree = "<group>"; };
+		1F92A9091B8255C800AB5490 /* NSMigrationManager+Lookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMigrationManager+Lookup.h"; sourceTree = "<group>"; };
+		1F92A90A1B8255C800AB5490 /* NSMigrationManager+Lookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMigrationManager+Lookup.m"; sourceTree = "<group>"; };
 		1FA24808183CEBE500351015 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		1FA24809183CEBE500351015 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		1FCB757F180F46BC005BE376 /* AKDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKDebugger.h; path = ../../AKDebugger/AKDebugger.h; sourceTree = "<group>"; };
@@ -131,6 +137,12 @@
 		7D66AF501B77A93600105E61 /* SyncEngine+Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SyncEngine+Delegate.h"; sourceTree = "<group>"; };
 		7D66AF561B77ABDD00105E61 /* CentralDispatch+PRIVATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CentralDispatch+PRIVATE.h"; sourceTree = "<group>"; };
 		7D66AF591B7BE61F00105E61 /* CoreDataModel_0,3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel_0,3.xcdatamodel"; sourceTree = "<group>"; };
+		7D66AF5A1B7BEA9700105E61 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		7D66AF5B1B7BEA9700105E61 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		7D66AF5F1B7BEDE900105E61 /* User+RW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+RW.h"; sourceTree = "<group>"; };
+		7D66AF631B7BF3B800105E61 /* MessageToMessageAndUserPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageToMessageAndUserPolicy.h; sourceTree = "<group>"; };
+		7D66AF641B7BF3B800105E61 /* MessageToMessageAndUserPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageToMessageAndUserPolicy.m; sourceTree = "<group>"; };
+		7D66AF671B7BF53900105E61 /* Migration_0,2_0,3.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = "Migration_0,2_0,3.xcmappingmodel"; sourceTree = "<group>"; };
 		7D9513C61B0A86D900E508E8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7D9513C81B0A86E000E508E8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7D9513CA1B0A86E900E508E8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -218,6 +230,15 @@
 			name = AKSwitchView;
 			sourceTree = "<group>";
 		};
+		1F92A90C1B8255CD00AB5490 /* NSMigrationManager+Lookup */ = {
+			isa = PBXGroup;
+			children = (
+				1F92A9091B8255C800AB5490 /* NSMigrationManager+Lookup.h */,
+				1F92A90A1B8255C800AB5490 /* NSMigrationManager+Lookup.m */,
+			);
+			name = "NSMigrationManager+Lookup";
+			sourceTree = "<group>";
+		};
 		1FCB7582180F46D3005BE376 /* AKDebugger */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,9 +284,8 @@
 		1FEB6F021A4C1F2E0049AFDD /* Core Data Objects */ = {
 			isa = PBXGroup;
 			children = (
-				1FEB6F041A4E76950049AFDD /* Message.h */,
-				7D9513DF1B0A966B00E508E8 /* Message+RW.h */,
-				1FEB6F051A4E76950049AFDD /* Message.m */,
+				7D66AF5E1B7BEAD900105E61 /* Message */,
+				7D66AF5D1B7BEAD400105E61 /* User */,
 			);
 			name = "Core Data Objects";
 			sourceTree = "<group>";
@@ -399,6 +419,7 @@
 				1FEB6EEE1A4C0BFC0049AFDD /* CoreDataController.h */,
 				1FEB6EEF1A4C0BFC0049AFDD /* CoreDataController.m */,
 				1FECF60E1B080B600021D883 /* CoreDataModel.xcdatamodeld */,
+				7D66AF621B7BF36700105E61 /* Migrations */,
 				1FEB6F021A4C1F2E0049AFDD /* Core Data Objects */,
 			);
 			name = CoreDataController;
@@ -499,6 +520,45 @@
 				7D66AF471B77A12200105E61 /* AppInfo.m */,
 			);
 			name = AppInfo;
+			sourceTree = "<group>";
+		};
+		7D66AF5D1B7BEAD400105E61 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				7D66AF5A1B7BEA9700105E61 /* User.h */,
+				7D66AF5F1B7BEDE900105E61 /* User+RW.h */,
+				7D66AF5B1B7BEA9700105E61 /* User.m */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		7D66AF5E1B7BEAD900105E61 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				1FEB6F041A4E76950049AFDD /* Message.h */,
+				7D9513DF1B0A966B00E508E8 /* Message+RW.h */,
+				1FEB6F051A4E76950049AFDD /* Message.m */,
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
+		7D66AF621B7BF36700105E61 /* Migrations */ = {
+			isa = PBXGroup;
+			children = (
+				1F92A90C1B8255CD00AB5490 /* NSMigrationManager+Lookup */,
+				7D66AF661B7BF52B00105E61 /* Migration_0,2_0,3 */,
+			);
+			name = Migrations;
+			sourceTree = "<group>";
+		};
+		7D66AF661B7BF52B00105E61 /* Migration_0,2_0,3 */ = {
+			isa = PBXGroup;
+			children = (
+				7D66AF671B7BF53900105E61 /* Migration_0,2_0,3.xcmappingmodel */,
+				7D66AF631B7BF3B800105E61 /* MessageToMessageAndUserPolicy.h */,
+				7D66AF641B7BF3B800105E61 /* MessageToMessageAndUserPolicy.m */,
+			);
+			name = "Migration_0,2_0,3";
 			sourceTree = "<group>";
 		};
 		7DB435731B13627000BAA7A2 /* AlertTableViewController */ = {
@@ -657,6 +717,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D66AF5C1B7BEA9700105E61 /* User.m in Sources */,
 				7D4278301551865E000240A5 /* main.m in Sources */,
 				1FEB6F0C1A4F9F520049AFDD /* UIAlertController+Info.m in Sources */,
 				7D66AF441B76884200105E61 /* RootViewController.m in Sources */,
@@ -668,6 +729,7 @@
 				1FEB6F061A4E76950049AFDD /* Message.m in Sources */,
 				7DDA09721B17E69600157479 /* UIViewController+Syncing.m in Sources */,
 				7D66AF481B77A12200105E61 /* AppInfo.m in Sources */,
+				7D66AF651B7BF3B800105E61 /* MessageToMessageAndUserPolicy.m in Sources */,
 				7DDA09791B180A5400157479 /* SyncViewController.m in Sources */,
 				1F11C86B1B50DE680031B985 /* AlertSwitchViewController.m in Sources */,
 				7D3AC9F316691B5A00594015 /* ViewController.m in Sources */,
@@ -677,7 +739,9 @@
 				7D66AF251B74F31500105E61 /* ParseController.m in Sources */,
 				7D66AF2D1B75041400105E61 /* SyncEngine.m in Sources */,
 				1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */,
+				7D66AF681B7BF53900105E61 /* Migration_0,2_0,3.xcmappingmodel in Sources */,
 				7D66AF2A1B74F75A00105E61 /* CentralDispatch.m in Sources */,
+				1F92A90B1B8255C800AB5490 /* NSMigrationManager+Lookup.m in Sources */,
 				1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */,
 				7D66AF381B7535B200105E61 /* LoginManager.m in Sources */,
 				1FA2480A183CEBE500351015 /* TableViewController.m in Sources */,
@@ -845,7 +909,7 @@
 				7D9513E01B0BC1C700E508E8 /* CoreDataModel_0,2.xcdatamodel */,
 				1FECF60F1B080B600021D883 /* CoreDataModel_0,0.xcdatamodel */,
 			);
-			currentVersion = 7D9513E01B0BC1C700E508E8 /* CoreDataModel_0,2.xcdatamodel */;
+			currentVersion = 7D66AF591B7BE61F00105E61 /* CoreDataModel_0,3.xcdatamodel */;
 			path = CoreDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -101,7 +101,7 @@
     _alertSwitchViewController = [AlertSwitchViewController alertControllerWithTitle:@"AlertSwitchViewController" message:@"You can toggle the following options:" preferredStyle:UIAlertControllerStyleAlert];
     for (int i = 0; i < 10; i++)
     {
-        [_alertSwitchViewController addSwitchWithText:[NSString stringWithFormat:@"Switch %i", i+1] on:NO];
+        [_alertSwitchViewController addSwitchWithText:[NSString stringWithFormat:@"Switch %i", i+1] on:YES];
     }
     [_alertSwitchViewController setDelegate:self];
     [_alertSwitchViewController addAction:self.alertActionDismiss];
@@ -267,7 +267,19 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:@[AKD_UI] message:nil];
     
-    // do something
+    NSNumber *index = [self.alertSwitchViewController indexForSwitch:sender];
+    if (!index) return;
+    
+    if (!index.integerValue) return;
+    
+    if (sender.on)
+    {
+        [self.alertSwitchViewController showSwitchAtIndex:index.integerValue-1 animated:YES completion:nil];
+    }
+    else
+    {
+        [self.alertSwitchViewController hideSwitchAtIndex:index.integerValue-1 animated:YES completion:nil];
+    }
 }
 
 #pragma mark - // DELEGATED METHODS (SyncViewDelegate) //
