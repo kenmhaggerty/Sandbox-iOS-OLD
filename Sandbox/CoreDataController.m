@@ -48,11 +48,12 @@
 
 + (BOOL)isMigrationNeeded;
 + (BOOL)migrate;
-+ (BOOL)progressivelyMigrateURL:(NSURL *)sourceStoreURL ofType:(NSString *)type toModel:(NSManagedObjectModel *)finalModel error:(NSError **)error;
++ (BOOL)progressivelyMigrateURL:(NSURL *)sourceStoreURL ofType:(NSString *)type toModel:(NSManagedObjectModel *)finalModel error:(NSError *)error;
 + (NSURL *)sourceStoreURL;
 + (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error;
 + (NSArray *)modelPaths;
 + (NSURL *)destinationStoreURLWithSourceStoreURL:(NSURL *)sourceStoreURL modelName:(NSString *)modelName;
++ (BOOL)backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError *)error;
 
 @end
 
@@ -109,7 +110,7 @@
     NSManagedObjectModel *managedObjectModel = [self managedObjectModel];
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
     NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES, NSInferMappingModelAutomaticallyOption: @YES};
-    NSURL *storeURL = [[AKPrivateInfo applicationDocumentsDirectory] URLByAppendingPathComponent:CORE_DATA_FILENAME];
+    NSURL *storeURL = [CoreDataController sourceStoreURL];
     NSError *error;
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
         /*
@@ -469,7 +470,7 @@
         bgTask = UIBackgroundTaskInvalid;
     }];
     NSError *error;
-    BOOL success = [CoreDataController progressivelyMigrateURL:[CoreDataController sourceStoreURL] ofType:NSSQLiteStoreType toModel:[CoreDataController managedObjectModel] error:&error];
+    BOOL success = [CoreDataController progressivelyMigrateURL:[CoreDataController sourceStoreURL] ofType:NSSQLiteStoreType toModel:[CoreDataController managedObjectModel] error:error];
     if (error)
     {
         [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
@@ -487,11 +488,15 @@
     return success;
 }
 
-+ (BOOL)progressivelyMigrateURL:(NSURL *)sourceStoreURL ofType:(NSString *)type toModel:(NSManagedObjectModel *)finalModel error:(NSError **)error
++ (BOOL)progressivelyMigrateURL:(NSURL *)sourceStoreURL ofType:(NSString *)type toModel:(NSManagedObjectModel *)finalModel error:(NSError *)error
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
     
-    NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:type URL:sourceStoreURL error:error];
+    NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:type URL:sourceStoreURL error:&error];
+    if (error)
+    {
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+    }
     if (!sourceMetadata)
     {
         [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(sourceMetadata)]];
@@ -500,7 +505,7 @@
     
     if ([finalModel isConfiguration:nil compatibleWithStoreMetadata:sourceMetadata])
     {
-        *error = nil;
+        error = nil;
         return YES;
     }
     
@@ -508,10 +513,10 @@
     NSManagedObjectModel *destinationModel;
     NSMappingModel *mappingModel;
     NSString *modelName;
-    BOOL success = [CoreDataController getDestinationModel:&destinationModel mappingModel:&mappingModel modelName:&modelName forSourceModel:sourceModel error:error];
+    BOOL success = [CoreDataController getDestinationModel:&destinationModel mappingModel:&mappingModel modelName:&modelName forSourceModel:sourceModel error:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", *error, (*error).userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!success)
     {
@@ -524,7 +529,7 @@
     NSMigrationManager *manager = [[NSMigrationManager alloc] initWithSourceModel:sourceModel destinationModel:destinationModel];
     for (NSMappingModel *mappingModel in mappingModels)
     {
-        success = ([manager migrateStoreFromURL:sourceStoreURL type:type options:nil withMappingModel:mappingModel toDestinationURL:destinationStoreURL destinationType:type destinationOptions:nil error:error] && success);
+        success = ([manager migrateStoreFromURL:sourceStoreURL type:type options:nil withMappingModel:mappingModel toDestinationURL:destinationStoreURL destinationType:type destinationOptions:nil error:&error] && success);
     }
     if (!success)
     {
@@ -535,7 +540,7 @@
     success = [self backupSourceStoreAtURL:sourceStoreURL movingDestinationStoreAtURL:destinationStoreURL error:error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", *error, (*error).userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!success)
     {
@@ -550,15 +555,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
     
-    NSString *applicationSupportDirectory = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    BOOL isDir = NO;
-    NSError *error;
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
-    if (![fileManager fileExistsAtPath:applicationSupportDirectory isDirectory:&isDir] && isDir == NO)
-    {
-        [fileManager createDirectoryAtPath:applicationSupportDirectory withIntermediateDirectories:NO attributes:nil error:&error];
-    }
-    return [[NSURL fileURLWithPath:applicationSupportDirectory] URLByAppendingPathComponent:@"Model.sqlite"];
+    return [[AKPrivateInfo applicationDocumentsDirectory] URLByAppendingPathComponent:CORE_DATA_FILENAME];
 }
 
 + (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error
@@ -624,17 +621,17 @@
     return [NSURL fileURLWithPath:storePath];
 }
 
-+ (BOOL)backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError **)error
++ (BOOL)backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError *)error
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
     
     NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
     NSString *backupPath = [NSTemporaryDirectory() stringByAppendingPathComponent:guid];
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL success = [fileManager moveItemAtPath:sourceStoreURL.path toPath:backupPath error:error];
+    BOOL success = [fileManager moveItemAtPath:sourceStoreURL.path toPath:backupPath error:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", *error, (*error).userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!success)
     {
@@ -642,10 +639,10 @@
         return NO;
     }
     
-    success = [fileManager moveItemAtPath:destinationStoreURL.path toPath:sourceStoreURL.path error:error];
+    success = [fileManager moveItemAtPath:destinationStoreURL.path toPath:sourceStoreURL.path error:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", *error, (*error).userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!success)
     {
