@@ -206,8 +206,8 @@
     NSString *pushType = [info objectForKey:PUSHNOTIFICATION_KEY_TYPE];
     if ([pushType isEqualToString:PUSHNOTIFICATION_TYPE_NEWMESSAGE])
     {
-        NSString *sender = [info objectForKey:PUSHNOTIFICATION_KEY_SENDERUSERNAME];
-        NSString *recipient = [CentralDispatch currentUsername];
+        NSString *senderId = [info objectForKey:PUSHNOTIFICATION_KEY_SENDERID];
+        NSString *senderUsername = [info objectForKey:PUSHNOTIFICATION_KEY_SENDERUSERNAME];
         NSString *text = [info objectForKey:PUSHNOTIFICATION_KEY_TEXT];
         NSDate *sendDate = [info objectForKey:PUSHNOTIFICATION_KEY_SENDDATE];
         [DataManager saveMessageWithText:text fromUser:[CoreDataController userWithUserId:senderId username:senderUsername] toUser:[CentralDispatch currentUser] onDate:sendDate withId:messageId];

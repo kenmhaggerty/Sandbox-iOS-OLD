@@ -396,7 +396,6 @@
         [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategories:@[AKD_PARSE, AKD_PUSH_NOTIFICATIONS] message:[NSString stringWithFormat:@"Unknown %@ for %@", stringFromVariable(pushType), stringFromVariable(pushNotification)]];
         return nil;
     }
-    
     return dictionary;
 }
 
