@@ -35,8 +35,6 @@
 
 + (User *)getUserWithUserId:(NSString *)userId;
 + (User *)getUserWithUsername:(NSString *)username;
-//+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient;
-//+ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender;
 + (Message *)getMessageWithId:(NSString *)messageId;
 
 // CREATION //

@@ -54,11 +54,6 @@
 + (NSArray *)modelPaths;
 + (NSURL *)destinationStoreURLWithSourceStoreURL:(NSURL *)sourceStoreURL modelName:(NSString *)modelName;
 
-//+ (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error;
-//+ (NSArray *)modelPaths;
-//+ (NSURL *)destinationStoreURLWithSourceStoreURL:(NSURL *)sourceStoreURL modelName:(NSString *)modelName;
-//+ (BOOL)backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError **)error;
-
 @end
 
 @implementation CoreDataController
@@ -293,60 +288,6 @@
     if (foundUsers.count > 1) [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@; returning first object", (unsigned long)foundUsers.count, NSStringFromClass([User class]), stringFromVariable(username), username]];
     return [foundUsers firstObject];
 }
-
-//+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient
-//{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
-//    
-//    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-//    __block NSArray *foundMessages;
-//    __block NSError *error;
-//    [managedObjectContext performBlockAndWait:^{
-//        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//        [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Message class]) inManagedObjectContext:managedObjectContext]];
-//        [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@)", NSStringFromSelector(@selector(recipient)), recipient]];
-//        [request setSortDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(sendDate)) ascending:NO], nil]];
-//        foundMessages = [managedObjectContext executeFetchRequest:request error:&error];
-//    }];
-//    if (error)
-//    {
-//        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
-//        return nil;
-//    }
-//    
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@", (unsigned long)foundMessages.count, NSStringFromClass([Message class]), stringFromVariable(recipient), recipient]];
-//    return [NSOrderedSet orderedSetWithArray:foundMessages];
-//}
-//
-//+ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender
-//{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
-//    
-//    NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
-//    if (!managedObjectContext)
-//    {
-//        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
-//        return nil;
-//    }
-//    
-//    __block NSArray *foundMessages;
-//    __block NSError *error;
-//    [managedObjectContext performBlockAndWait:^{
-//        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//        [request setEntity:[NSEntityDescription entityForName:NSStringFromClass([Message class]) inManagedObjectContext:managedObjectContext]];
-//        [request setPredicate:[NSPredicate predicateWithFormat:@"(%K == %@)", NSStringFromSelector(@selector(sender)), sender]];
-//        [request setSortDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(sendDate)) ascending:NO], nil]];
-//        foundMessages = [managedObjectContext executeFetchRequest:request error:&error];
-//    }];
-//    if (error)
-//    {
-//        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
-//        return nil;
-//    }
-//    
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@", (unsigned long)foundMessages.count, NSStringFromClass([Message class]), stringFromVariable(sender), sender]];
-//    return [NSOrderedSet orderedSetWithArray:foundMessages];
-//}
 
 + (Message *)getMessageWithId:(NSString *)messageId
 {
