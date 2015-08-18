@@ -547,8 +547,6 @@
 			children = (
 				1F92A90C1B8255CD00AB5490 /* NSMigrationManager+Lookup */,
 				7D66AF661B7BF52B00105E61 /* Migration_0,2_0,3 */,
-				7D66AF631B7BF3B800105E61 /* MessageToMessageAndUserPolicy.h */,
-				7D66AF641B7BF3B800105E61 /* MessageToMessageAndUserPolicy.m */,
 			);
 			name = Migrations;
 			sourceTree = "<group>";
@@ -557,6 +555,8 @@
 			isa = PBXGroup;
 			children = (
 				7D66AF671B7BF53900105E61 /* Migration_0,2_0,3.xcmappingmodel */,
+				7D66AF631B7BF3B800105E61 /* MessageToMessageAndUserPolicy.h */,
+				7D66AF641B7BF3B800105E61 /* MessageToMessageAndUserPolicy.m */,
 			);
 			name = "Migration_0,2_0,3";
 			sourceTree = "<group>";
