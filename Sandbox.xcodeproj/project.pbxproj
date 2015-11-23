@@ -36,7 +36,7 @@
 		7D66AF1C1B74F20400105E61 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D66AF1A1B74F20400105E61 /* Bolts.framework */; };
 		7D66AF1D1B74F20400105E61 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D66AF1B1B74F20400105E61 /* Parse.framework */; };
 		7D66AF251B74F31500105E61 /* ParseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF241B74F31500105E61 /* ParseController.m */; };
-		7D66AF2A1B74F75A00105E61 /* CentralDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF291B74F75A00105E61 /* CentralDispatch.m */; };
+		7D66AF2A1B74F75A00105E61 /* SandboxCentralDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF291B74F75A00105E61 /* SandboxCentralDispatch.m */; };
 		7D66AF2D1B75041400105E61 /* SyncEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF2C1B75041400105E61 /* SyncEngine.m */; };
 		7D66AF381B7535B200105E61 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF371B7535B200105E61 /* LoginManager.m */; };
 		7D66AF441B76884200105E61 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF431B76884200105E61 /* RootViewController.m */; };
@@ -121,8 +121,8 @@
 		7D66AF1B1B74F20400105E61 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		7D66AF231B74F31500105E61 /* ParseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseController.h; sourceTree = "<group>"; };
 		7D66AF241B74F31500105E61 /* ParseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseController.m; sourceTree = "<group>"; };
-		7D66AF281B74F75A00105E61 /* CentralDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CentralDispatch.h; sourceTree = "<group>"; };
-		7D66AF291B74F75A00105E61 /* CentralDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CentralDispatch.m; sourceTree = "<group>"; };
+		7D66AF281B74F75A00105E61 /* SandboxCentralDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxCentralDispatch.h; sourceTree = "<group>"; };
+		7D66AF291B74F75A00105E61 /* SandboxCentralDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxCentralDispatch.m; sourceTree = "<group>"; };
 		7D66AF2B1B75041400105E61 /* SyncEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncEngine.h; sourceTree = "<group>"; };
 		7D66AF2C1B75041400105E61 /* SyncEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncEngine.m; sourceTree = "<group>"; };
 		7D66AF301B751AEE00105E61 /* DataManager+PRIVATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DataManager+PRIVATE.h"; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 		7D66AF471B77A12200105E61 /* SandboxAppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxAppInfo.m; sourceTree = "<group>"; };
 		7D66AF4D1B77A85300105E61 /* LoginManager+Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LoginManager+Delegate.h"; sourceTree = "<group>"; };
 		7D66AF501B77A93600105E61 /* SyncEngine+Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SyncEngine+Delegate.h"; sourceTree = "<group>"; };
-		7D66AF561B77ABDD00105E61 /* CentralDispatch+PRIVATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CentralDispatch+PRIVATE.h"; sourceTree = "<group>"; };
+		7D66AF561B77ABDD00105E61 /* SandboxCentralDispatch+PRIVATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SandboxCentralDispatch+PRIVATE.h"; sourceTree = "<group>"; };
 		7D66AF591B7BE61F00105E61 /* CoreDataModel_0,3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel_0,3.xcdatamodel"; sourceTree = "<group>"; };
 		7D66AF5A1B7BEA9700105E61 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		7D66AF5B1B7BEA9700105E61 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
@@ -374,7 +374,6 @@
 				7D66AF491B77A12500105E61 /* SandboxAppInfo */,
 				7D4278321551865E000240A5 /* SandboxAppDelegate.h */,
 				7D4278331551865E000240A5 /* SandboxAppDelegate.m */,
-				7D66AF2F1B750B7A00105E61 /* CentralDispatch */,
 				7D66AF271B74F73E00105E61 /* View Controllers */,
 				1FEB6EFB1A4C0D550049AFDD /* Data Managers */,
 				7D66AE331B6976C000105E61 /* Assets */,
@@ -470,14 +469,14 @@
 			name = SyncEngine;
 			sourceTree = "<group>";
 		};
-		7D66AF2F1B750B7A00105E61 /* CentralDispatch */ = {
+		7D66AF2F1B750B7A00105E61 /* SandboxCentralDispatch */ = {
 			isa = PBXGroup;
 			children = (
-				7D66AF281B74F75A00105E61 /* CentralDispatch.h */,
-				7D66AF561B77ABDD00105E61 /* CentralDispatch+PRIVATE.h */,
-				7D66AF291B74F75A00105E61 /* CentralDispatch.m */,
+				7D66AF281B74F75A00105E61 /* SandboxCentralDispatch.h */,
+				7D66AF561B77ABDD00105E61 /* SandboxCentralDispatch+PRIVATE.h */,
+				7D66AF291B74F75A00105E61 /* SandboxCentralDispatch.m */,
 			);
-			name = CentralDispatch;
+			name = SandboxCentralDispatch;
 			sourceTree = "<group>";
 		};
 		7D66AF391B7535B500105E61 /* LoginManager */ = {
