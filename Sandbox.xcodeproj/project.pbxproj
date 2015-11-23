@@ -297,6 +297,7 @@
 				1FEB6F0B1A4F9F520049AFDD /* UIAlertController+Info.m */,
 			);
 			name = "UIAlertController+Info";
+			path = "../../UIAlertController+Info";
 			sourceTree = "<group>";
 		};
 		1FECF6181B080BB40021D883 /* AKGenerics */ = {
@@ -370,7 +371,6 @@
 			children = (
 				7D66AE2E1B694E3500105E61 /* IMPORTED */,
 				1FEB6EFA1A4C0CDE0049AFDD /* AKPrivateInfo */,
-				1FEB6F0D1A4F9F550049AFDD /* UIAlertController+Info */,
 				7D66AF491B77A12500105E61 /* SandboxAppInfo */,
 				7D4278321551865E000240A5 /* SandboxAppDelegate.h */,
 				7D4278331551865E000240A5 /* SandboxAppDelegate.m */,
@@ -403,6 +403,7 @@
 				7DB435731B13627000BAA7A2 /* AlertTableViewController */,
 				1F11C86C1B50DE6F0031B985 /* AlertSwitchViewController */,
 				7DDA09731B17E69A00157479 /* UIViewController+Syncing */,
+				1FEB6F0D1A4F9F550049AFDD /* UIAlertController+Info */,
 			);
 			name = IMPORTED;
 			sourceTree = "<group>";
