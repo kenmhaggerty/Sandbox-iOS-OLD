@@ -15,7 +15,7 @@
 #import "AKGenerics.h"
 #import "CoreDataController.h"
 #import "ParseController.h"
-#import "CentralDispatch.h"
+#import "SandboxCentralDispatch.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
@@ -58,7 +58,7 @@
     [application registerForRemoteNotifications];
     
     NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (notificationPayload) [CentralDispatch processRemoteNotification:notificationPayload];
+    if (notificationPayload) [SandboxCentralDispatch processRemoteNotification:notificationPayload];
     
     return YES;
 }
@@ -74,7 +74,7 @@
         [ParseController trackAppOpenedWithRemoteNotificationPayload:userInfo];
     }
     
-    [CentralDispatch processRemoteNotification:userInfo];
+    [SandboxCentralDispatch processRemoteNotification:userInfo];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

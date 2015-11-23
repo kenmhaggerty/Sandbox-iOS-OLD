@@ -16,7 +16,7 @@
 #import "AKSystemInfo.h"
 #import "SandboxAppInfo.h"
 #import "DataManager.h"
-#import "CentralDispatch.h"
+#import "SandboxCentralDispatch.h"
 #import "Message.h"
 #import "UIAlertController+Info.h"
 
@@ -97,8 +97,8 @@
     
     if (_data) return _data;
     
-    if (self.isInbox) [self setData:[NSMutableArray arrayWithArray:[[CentralDispatch currentUser].inbox allObjects]]];
-    else if (self.isOutbox) [self setData:[NSMutableArray arrayWithArray:[[CentralDispatch currentUser].outbox allObjects]]];
+    if (self.isInbox) [self setData:[NSMutableArray arrayWithArray:[[SandboxCentralDispatch currentUser].inbox allObjects]]];
+    else if (self.isOutbox) [self setData:[NSMutableArray arrayWithArray:[[SandboxCentralDispatch currentUser].outbox allObjects]]];
     [_data sortUsingComparator:(NSComparator)^(Message *message1, Message *message2) {
         return [message2.sendDate compare:message1.sendDate];
     }];
@@ -113,11 +113,11 @@
     {
         [((UITextField *)[_alertControllerCreateMessage.textFields objectAtIndex:0]) setText:[_alertControllerCreateMessage.info objectForKey:ALERT_INFO_RECIPIENT]];
         [((UITextField *)[_alertControllerCreateMessage.textFields objectAtIndex:1]) setText:[_alertControllerCreateMessage.info objectForKey:ALERT_INFO_MESSAGE]];
-        [_alertControllerCreateMessage setMessage:[NSString stringWithFormat:@"from %@", [CentralDispatch currentUsername]]];
+        [_alertControllerCreateMessage setMessage:[NSString stringWithFormat:@"from %@", [SandboxCentralDispatch currentUsername]]];
         return _alertControllerCreateMessage;
     }
     
-    _alertControllerCreateMessage = [UIAlertController alertControllerWithTitle:@"Create Message" message:[NSString stringWithFormat:@"from %@", [CentralDispatch currentUsername]] preferredStyle:UIAlertControllerStyleAlert];
+    _alertControllerCreateMessage = [UIAlertController alertControllerWithTitle:@"Create Message" message:[NSString stringWithFormat:@"from %@", [SandboxCentralDispatch currentUsername]] preferredStyle:UIAlertControllerStyleAlert];
     [_alertControllerCreateMessage addTextFieldWithConfigurationHandler:^(UITextField *textField){
         [textField setPlaceholder:@"recipient"];
     }];
@@ -138,7 +138,7 @@
         if (message) [info setObject:message forKey:ALERT_INFO_MESSAGE];
         [_alertControllerCreateMessage setInfo:info];
         
-        if (![CentralDispatch currentUser])
+        if (![SandboxCentralDispatch currentUser])
         {
             [self.alertControllerDismiss setTitle:@"Could Not Send Message"];
             [self.alertControllerDismiss setMessage:@"Please sign in to send your message:"];
@@ -229,7 +229,7 @@
     
     [super viewWillAppear:animated];
     
-    if ([CentralDispatch currentUser])
+    if ([SandboxCentralDispatch currentUser])
     {
         [self.buttonSignInOrOut setTitle:TEXT_LOGOUT];
     }
@@ -408,13 +408,13 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:nil message:nil];
     
-    if ([CentralDispatch currentUser])
+    if ([SandboxCentralDispatch currentUser])
     {
-        [CentralDispatch presentLogout];
+        [SandboxCentralDispatch presentLogout];
     }
     else
     {
-        [CentralDispatch presentLogin];
+        [SandboxCentralDispatch presentLogin];
     }
 }
 
@@ -465,7 +465,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:nil message:nil];
     
-    if ([CentralDispatch currentUser])
+    if ([SandboxCentralDispatch currentUser])
     {
         [self.buttonSignInOrOut setTitle:TEXT_LOGOUT];
     }
@@ -482,7 +482,7 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:nil message:nil];
     
     Message *message = [notification.userInfo objectForKey:NOTIFICATION_OBJECT_KEY];
-    if ((self.isInbox && [message.recipient isEqual:[CentralDispatch currentUser]]) || (self.isOutbox && [message.sender isEqual:[CentralDispatch currentUser]]))
+    if ((self.isInbox && [message.recipient isEqual:[SandboxCentralDispatch currentUser]]) || (self.isOutbox && [message.sender isEqual:[SandboxCentralDispatch currentUser]]))
     {
         [self addObserversToMessage:message];
         NSUInteger index = 0;

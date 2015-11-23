@@ -1,5 +1,5 @@
 //
-//  CentralDispatch.h
+//  SandboxCentralDispatch.h
 //  Sandbox
 //
 //  Created by Ken M. Haggerty on 8/7/15.
@@ -21,7 +21,7 @@
 #define NOTIFICATION_CURRENTUSERNAME_DID_CHANGE @"kNotificationCurrentUsernameDidChange"
 #define NOTIFICATION_MESSAGE_WAS_CREATED @"kNotificationMessageWasCreated"
 
-@interface CentralDispatch : NSObject
+@interface SandboxCentralDispatch : NSObject
 
 // ACCOUNT //
 
@@ -34,10 +34,6 @@
 + (void)dismissLogin;
 + (void)presentLogout;
 + (void)dismissLogout;
-
-// NOTIFICATION CENTER //
-
-+ (void)postNotificationName:(NSString *)notificationName object:(id)object userInfo:(NSDictionary *)userInfo;
 
 // PUSH NOTIFICATIONS //
 

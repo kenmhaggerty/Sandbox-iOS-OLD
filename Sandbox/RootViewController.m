@@ -13,7 +13,7 @@
 #import "RootViewController.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
-#import "CentralDispatch+PRIVATE.h"
+#import "SandboxCentralDispatch+PRIVATE.h"
 #import "SandboxAppInfo.h"
 #import "LoginManager.h"
 #import "UIAlertController+Info.h"
@@ -188,7 +188,7 @@
     
     if (_alertControllerSignOut) return _alertControllerSignOut;
     
-    _alertControllerSignOut = [UIAlertController alertControllerWithTitle:nil message:[CentralDispatch currentUsername] preferredStyle:UIAlertControllerStyleActionSheet];
+    _alertControllerSignOut = [UIAlertController alertControllerWithTitle:nil message:[SandboxCentralDispatch currentUsername] preferredStyle:UIAlertControllerStyleActionSheet];
     [_alertControllerSignOut addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [_alertControllerSignOut addAction:[UIAlertAction actionWithTitle:TEXT_LOGOUT style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         [LoginManager logOut];
@@ -261,7 +261,7 @@
     
     [super viewDidAppear:animated];
     
-    if (![CentralDispatch currentUser])
+    if (![SandboxCentralDispatch currentUser])
     {
         [self presentViewController:self.alertControllerSignIn animated:YES completion:nil];
     }
@@ -298,7 +298,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_UI, AKD_ACCOUNTS] message:nil];
     
-    if ([CentralDispatch currentUser]) return;
+    if ([SandboxCentralDispatch currentUser]) return;
     
     if (self.alertControllerSignIn.isBeingPresented || self.alertControllerCreateAccount.isBeingPresented || self.alertControllerDismiss.isBeingPresented) return;
     
@@ -322,7 +322,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_UI] message:nil];
     
-    if (![CentralDispatch currentUser]) return;
+    if (![SandboxCentralDispatch currentUser]) return;
     
     [self presentViewController:self.alertControllerSignOut animated:YES completion:nil];
 }
@@ -343,7 +343,7 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_UI] message:nil];
     
     [self addObserversToCentralDispatch];
-    [CentralDispatch setLoginControllerDelegate:self];
+    [SandboxCentralDispatch setLoginControllerDelegate:self];
 }
 
 - (void)teardown
@@ -375,7 +375,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_NOTIFICATION_CENTER, AKD_ACCOUNTS] message:nil];
     
-    if (![CentralDispatch currentUser]) [self presentViewController:self.alertControllerSignIn animated:YES completion:nil];
+    if (![SandboxCentralDispatch currentUser]) [self presentViewController:self.alertControllerSignIn animated:YES completion:nil];
 }
 
 #pragma mark - // PRIVATE METHODS (Other) //

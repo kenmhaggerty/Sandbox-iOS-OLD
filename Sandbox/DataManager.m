@@ -14,7 +14,7 @@
 #import "AKDebugger.h"
 #import "AKGenerics.h"
 #import "AKPrivateInfo.h"
-#import "CentralDispatch.h"
+#import "SandboxCentralDispatch.h"
 #import "CoreDataController.h"
 #import "SyncEngine.h"
 #import "Message+RW.h"
@@ -133,7 +133,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator tags:nil message:nil];
     
-    return [SyncEngine sendMessage:[DataManager createMessageWithText:text fromUser:[CentralDispatch currentUser] toUser:[DataManager userWithUsername:recipient] onDate:[NSDate date] withId:nil]];
+    return [SyncEngine sendMessage:[DataManager createMessageWithText:text fromUser:[SandboxCentralDispatch currentUser] toUser:[DataManager userWithUsername:recipient] onDate:[NSDate date] withId:nil]];
 }
 
 #pragma mark - // PUBLIC METHODS (Editing) //

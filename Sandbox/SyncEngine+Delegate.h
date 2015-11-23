@@ -11,7 +11,7 @@
 #pragma mark - // IMPORTS (Public) //
 
 #import "SyncEngine.h"
-#import "CentralDispatch+PRIVATE.h"
+#import "SandboxCentralDispatch+PRIVATE.h"
 
 #pragma mark - // PROTOCOLS //
 

@@ -1,5 +1,5 @@
 //
-//  CentralDispatch+PRIVATE.h
+//  SandboxCentralDispatch+PRIVATE.h
 //  Sandbox
 //
 //  Created by Ken M. Haggerty on 8/9/15.
@@ -10,7 +10,7 @@
 
 #pragma mark - // IMPORTS (Public) //
 
-#import "CentralDispatch.h"
+#import "SandboxCentralDispatch.h"
 
 #pragma mark - // PROTOCOLS //
 
@@ -37,7 +37,7 @@
 
 #pragma mark - // DEFINITIONS (Public) //
 
-@interface CentralDispatch (PRIVATE)
+@interface SandboxCentralDispatch (PRIVATE)
 + (void)setAccountDelegate:(id <AccountDelegate>)delegate;
 + (void)setLoginControllerDelegate:(id <LoginControllerDelegate>)delegate;
 + (void)setPushNotificationDelegate:(id <PushNotificationDelegate>)delegate;

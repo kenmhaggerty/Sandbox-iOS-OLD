@@ -254,7 +254,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_NOTIFICATION_CENTER] message:nil];
     
-    [CentralDispatch postNotificationName:NOTIFICATION_MESSAGE_RECIPIENT_USERNAME_DID_CHANGE object:self userInfo:notification.userInfo];
+    [AKGenerics postNotificationName:NOTIFICATION_MESSAGE_RECIPIENT_USERNAME_DID_CHANGE object:self userInfo:notification.userInfo];
 }
 
 - (void)senderUsernameDidChange:(NSNotification *)notification
