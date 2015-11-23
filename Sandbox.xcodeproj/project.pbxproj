@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D0FFABF458E6035F5BF095E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B5602FF0F1B253E66B2ED6 /* libPods.a */; };
 		1F11C8661B505AA80031B985 /* AKSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11C8651B505AA80031B985 /* AKSwitchView.m */; };
 		1F11C8681B505ABF0031B985 /* AKSwitchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F11C8671B505ABF0031B985 /* AKSwitchView.xib */; };
 		1F11C86B1B50DE680031B985 /* AlertSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11C86A1B50DE680031B985 /* AlertSwitchViewController.m */; };
@@ -177,6 +176,7 @@
 		7DDA09771B180A5400157479 /* SyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyncViewController.m; path = "../../UIViewController+Syncing/SyncViewController.m"; sourceTree = "<group>"; };
 		7DFFAC5A164F058D00B58EE4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B26A26A8E8CA2A6DDC8BFD85 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		EAE9FCCD1CBF13D613CCBFE0 /* Pods-Sandbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandbox.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sandbox/Pods-Sandbox.release.xcconfig"; sourceTree = "<group>"; };
 		F7CFEBCA72EF496C695A3A3E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,7 +203,7 @@
 				7D4278261551865E000240A5 /* Foundation.framework in Frameworks */,
 				7D66AF1C1B74F20400105E61 /* Bolts.framework in Frameworks */,
 				7D4278281551865E000240A5 /* CoreGraphics.framework in Frameworks */,
-				0D0FFABF458E6035F5BF095E /* libPods.a in Frameworks */,
+				9894FFFE75259EC23CFDE14C /* Pods_Sandbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +313,8 @@
 			children = (
 				B26A26A8E8CA2A6DDC8BFD85 /* Pods.debug.xcconfig */,
 				F7CFEBCA72EF496C695A3A3E /* Pods.release.xcconfig */,
+				0A80BD99C2B636DE248799D7 /* Pods-Sandbox.debug.xcconfig */,
+				EAE9FCCD1CBF13D613CCBFE0 /* Pods-Sandbox.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -358,6 +360,7 @@
 				7D66AF1B1B74F20400105E61 /* Parse.framework */,
 				7D9513D41B0A872E00E508E8 /* libz.dylib */,
 				73B5602FF0F1B253E66B2ED6 /* libPods.a */,
+				0509EF5E99E5FFD93173F910 /* Pods_Sandbox.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				7D42781C1551865E000240A5 /* Frameworks */,
 				7D42781D1551865E000240A5 /* Resources */,
 				98830C07D75B453EBFBF661C /* Copy Pods Resources */,
+				25233424CA96E3C847DF1BB7 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -680,6 +684,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		25233424CA96E3C847DF1BB7 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sandbox/Pods-Sandbox-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6204AB20CA5545268B95CCCD /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -707,7 +726,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sandbox/Pods-Sandbox-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -845,7 +864,7 @@
 		};
 		7D42783E1551865E000240A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B26A26A8E8CA2A6DDC8BFD85 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 0A80BD99C2B636DE248799D7 /* Pods-Sandbox.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -862,7 +881,7 @@
 		};
 		7D42783F1551865E000240A5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7CFEBCA72EF496C695A3A3E /* Pods.release.xcconfig */;
+			baseConfigurationReference = EAE9FCCD1CBF13D613CCBFE0 /* Pods-Sandbox.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
