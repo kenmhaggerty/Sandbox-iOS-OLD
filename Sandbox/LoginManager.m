@@ -14,7 +14,6 @@
 #import "AKDebugger.h"
 #import "AKGenerics.h"
 #import "SyncEngine.h"
-#import "CentralDispatch.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
@@ -57,7 +56,7 @@
     
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     if (currentUser) [userInfo setObject:currentUser forKey:NOTIFICATION_OBJECT_KEY];
-    [CentralDispatch postNotificationName:NOTIFICATION_CURRENTUSER_DID_CHANGE object:nil userInfo:userInfo];
+    [AKGenerics postNotificationName:NOTIFICATION_CURRENTUSER_DID_CHANGE object:nil userInfo:userInfo];
 }
 
 #pragma mark - // INITS AND LOADS //

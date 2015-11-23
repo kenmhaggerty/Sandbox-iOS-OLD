@@ -13,7 +13,6 @@
 #import "ParseController+PRIVATE.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
-#import "CentralDispatch.h"
 #import "AKPrivateInfo.h"
 
 #pragma mark - // DEFINITIONS (Private) //
@@ -79,7 +78,7 @@
     
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     if (currentInstallation) [userInfo setObject:currentInstallation forKey:NOTIFICATION_OBJECT_KEY];
-    [CentralDispatch postNotificationName:NOTIFICATION_PARSECONTROLLER_CURRENTINSTALLATION_DID_CHANGE object:nil userInfo:userInfo];
+    [AKGenerics postNotificationName:NOTIFICATION_PARSECONTROLLER_CURRENTINSTALLATION_DID_CHANGE object:nil userInfo:userInfo];
 }
 
 - (PFInstallation *)currentInstallation
@@ -131,7 +130,7 @@
     
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     if (currentAccount) [userInfo setObject:currentAccount forKey:NOTIFICATION_OBJECT_KEY];
-    [CentralDispatch postNotificationName:NOTIFICATION_PARSECONTROLLER_CURRENTACCOUNT_DID_CHANGE object:nil userInfo:userInfo];
+    [AKGenerics postNotificationName:NOTIFICATION_PARSECONTROLLER_CURRENTACCOUNT_DID_CHANGE object:nil userInfo:userInfo];
 }
 
 - (PFUser *)currentAccount

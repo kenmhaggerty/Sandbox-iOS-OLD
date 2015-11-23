@@ -14,7 +14,6 @@
 #import "AKDebugger.h"
 #import "AKGenerics.h"
 #import "User.h"
-#import "CentralDispatch.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
@@ -63,7 +62,7 @@
     
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     if (isRead) [userInfo setObject:isRead forKey:NOTIFICATION_OBJECT_KEY];
-    [CentralDispatch postNotificationName:NOTIFICATION_MESSAGE_ISREAD_DID_CHANGE object:self userInfo:userInfo];
+    [AKGenerics postNotificationName:NOTIFICATION_MESSAGE_ISREAD_DID_CHANGE object:self userInfo:userInfo];
 }
 
 - (void)setRecipient:(User *)recipient
@@ -96,7 +95,7 @@
     {
         NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
         if (newUsername) [userInfo setObject:newUsername forKey:NOTIFICATION_OBJECT_KEY];
-        [CentralDispatch postNotificationName:NOTIFICATION_MESSAGE_RECIPIENT_USERNAME_DID_CHANGE object:self userInfo:userInfo];
+        [AKGenerics postNotificationName:NOTIFICATION_MESSAGE_RECIPIENT_USERNAME_DID_CHANGE object:self userInfo:userInfo];
     }
 }
 
@@ -130,7 +129,7 @@
     {
         NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
         if (newUsername) [userInfo setObject:newUsername forKey:NOTIFICATION_OBJECT_KEY];
-        [CentralDispatch postNotificationName:NOTIFICATION_MESSAGE_SENDER_USERNAME_DID_CHANGE object:self userInfo:userInfo];
+        [AKGenerics postNotificationName:NOTIFICATION_MESSAGE_SENDER_USERNAME_DID_CHANGE object:self userInfo:userInfo];
     }
 }
 
@@ -262,7 +261,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
     
-    [CentralDispatch postNotificationName:NOTIFICATION_MESSAGE_SENDER_USERNAME_DID_CHANGE object:self userInfo:notification.userInfo];
+    [AKGenerics postNotificationName:NOTIFICATION_MESSAGE_SENDER_USERNAME_DID_CHANGE object:self userInfo:notification.userInfo];
 }
 
 @end

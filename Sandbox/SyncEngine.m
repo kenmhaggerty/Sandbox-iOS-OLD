@@ -276,7 +276,7 @@
     PFUser *currentAccount = [notification.userInfo objectForKey:NOTIFICATION_OBJECT_KEY];
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     if (currentAccount) [userInfo setObject:[SyncEngine userForAccount:currentAccount] forKey:NOTIFICATION_OBJECT_KEY];
-    [CentralDispatch postNotificationName:NOTIFICATION_SYNCENGINE_CURRENTUSER_DID_CHANGE object:nil userInfo:userInfo];
+    [AKGenerics postNotificationName:NOTIFICATION_SYNCENGINE_CURRENTUSER_DID_CHANGE object:nil userInfo:userInfo];
 }
 
 #pragma mark - // PRIVATE METHODS (Translators) //
