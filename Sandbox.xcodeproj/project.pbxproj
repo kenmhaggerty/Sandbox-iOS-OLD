@@ -69,9 +69,12 @@
 		7DDA09751B17FA1900157479 /* SyncViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDA09741B17FA1900157479 /* SyncViewController.xib */; };
 		7DDA09791B180A5400157479 /* SyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA09771B180A5400157479 /* SyncViewController.m */; };
 		7DFFAC5B164F058D00B58EE4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DFFAC5A164F058D00B58EE4 /* CoreData.framework */; };
+		9894FFFE75259EC23CFDE14C /* Pods_Sandbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0509EF5E99E5FFD93173F910 /* Pods_Sandbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0509EF5E99E5FFD93173F910 /* Pods_Sandbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sandbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A80BD99C2B636DE248799D7 /* Pods-Sandbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandbox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sandbox/Pods-Sandbox.debug.xcconfig"; sourceTree = "<group>"; };
 		1F11C8641B505AA80031B985 /* AKSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSwitchView.h; path = ../../AlertSwitchViewController/AKSwitchView.h; sourceTree = "<group>"; };
 		1F11C8651B505AA80031B985 /* AKSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSwitchView.m; path = ../../AlertSwitchViewController/AKSwitchView.m; sourceTree = "<group>"; };
 		1F11C8671B505ABF0031B985 /* AKSwitchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AKSwitchView.xib; path = ../../AlertSwitchViewController/AKSwitchView.xib; sourceTree = "<group>"; };
