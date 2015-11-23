@@ -13,7 +13,7 @@
 #import "ParseController+PRIVATE.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
-#import "AKPrivateInfo.h"
+#import "SandboxPrivateInfo.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
@@ -181,7 +181,7 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_PARSE] message:nil];
     
     [Parse enableLocalDatastore];
-    [Parse setApplicationId:[AKPrivateInfo parseApplicationId] clientKey:[AKPrivateInfo parseClientKey]];
+    [Parse setApplicationId:[SandboxPrivateInfo parseApplicationId] clientKey:[SandboxPrivateInfo parseClientKey]];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     if (application.applicationState != UIApplicationStateBackground)

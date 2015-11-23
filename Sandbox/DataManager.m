@@ -13,7 +13,7 @@
 #import "DataManager+PRIVATE.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
-#import "AKPrivateInfo.h"
+#import "SandboxPrivateInfo.h"
 #import "SandboxCentralDispatch.h"
 #import "CoreDataController.h"
 #import "SyncEngine.h"

@@ -17,7 +17,7 @@
 		1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */; };
 		1FEB6EF41A4C0BFC0049AFDD /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EEF1A4C0BFC0049AFDD /* CoreDataController.m */; };
 		1FEB6EF61A4C0BFC0049AFDD /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EF31A4C0BFC0049AFDD /* DataManager.m */; };
-		1FEB6EF91A4C0CD70049AFDD /* AKPrivateInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EF81A4C0CD70049AFDD /* AKPrivateInfo.m */; };
+		1FEB6EF91A4C0CD70049AFDD /* SandboxPrivateInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EF81A4C0CD70049AFDD /* SandboxPrivateInfo.m */; };
 		1FEB6F061A4E76950049AFDD /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6F051A4E76950049AFDD /* Message.m */; };
 		1FEB6F0C1A4F9F520049AFDD /* UIAlertController+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6F0B1A4F9F520049AFDD /* UIAlertController+Info.m */; };
 		1FECF6101B080B600021D883 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1FECF60E1B080B600021D883 /* CoreDataModel.xcdatamodeld */; };
@@ -94,8 +94,8 @@
 		1FEB6EEF1A4C0BFC0049AFDD /* CoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataController.m; sourceTree = "<group>"; };
 		1FEB6EF21A4C0BFC0049AFDD /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		1FEB6EF31A4C0BFC0049AFDD /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
-		1FEB6EF71A4C0CD70049AFDD /* AKPrivateInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPrivateInfo.h; sourceTree = "<group>"; };
-		1FEB6EF81A4C0CD70049AFDD /* AKPrivateInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPrivateInfo.m; sourceTree = "<group>"; };
+		1FEB6EF71A4C0CD70049AFDD /* SandboxPrivateInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxPrivateInfo.h; sourceTree = "<group>"; };
+		1FEB6EF81A4C0CD70049AFDD /* SandboxPrivateInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxPrivateInfo.m; sourceTree = "<group>"; };
 		1FEB6F041A4E76950049AFDD /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		1FEB6F051A4E76950049AFDD /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		1FEB6F0A1A4F9F520049AFDD /* UIAlertController+Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Info.h"; sourceTree = "<group>"; };
@@ -261,13 +261,13 @@
 			name = SystemInfo;
 			sourceTree = "<group>";
 		};
-		1FEB6EFA1A4C0CDE0049AFDD /* AKPrivateInfo */ = {
+		1FEB6EFA1A4C0CDE0049AFDD /* SandboxPrivateInfo */ = {
 			isa = PBXGroup;
 			children = (
-				1FEB6EF71A4C0CD70049AFDD /* AKPrivateInfo.h */,
-				1FEB6EF81A4C0CD70049AFDD /* AKPrivateInfo.m */,
+				1FEB6EF71A4C0CD70049AFDD /* SandboxPrivateInfo.h */,
+				1FEB6EF81A4C0CD70049AFDD /* SandboxPrivateInfo.m */,
 			);
-			name = AKPrivateInfo;
+			name = SandboxPrivateInfo;
 			sourceTree = "<group>";
 		};
 		1FEB6EFB1A4C0D550049AFDD /* Data Managers */ = {
@@ -371,7 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				7D66AE2E1B694E3500105E61 /* IMPORTED */,
-				1FEB6EFA1A4C0CDE0049AFDD /* AKPrivateInfo */,
+				1FEB6EFA1A4C0CDE0049AFDD /* SandboxPrivateInfo */,
 				7D66AF491B77A12500105E61 /* SandboxAppInfo */,
 				7D4278321551865E000240A5 /* SandboxAppDelegate.h */,
 				7D4278331551865E000240A5 /* SandboxAppDelegate.m */,
@@ -756,7 +756,7 @@
 				7D3AC9F316691B5A00594015 /* ViewController.m in Sources */,
 				1F11C8661B505AA80031B985 /* AKSwitchView.m in Sources */,
 				1FEB6EF41A4C0BFC0049AFDD /* CoreDataController.m in Sources */,
-				1FEB6EF91A4C0CD70049AFDD /* AKPrivateInfo.m in Sources */,
+				1FEB6EF91A4C0CD70049AFDD /* SandboxPrivateInfo.m in Sources */,
 				7D66AF251B74F31500105E61 /* ParseController.m in Sources */,
 				7D66AF2D1B75041400105E61 /* SyncEngine.m in Sources */,
 				1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */,

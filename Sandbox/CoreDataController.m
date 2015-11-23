@@ -13,7 +13,7 @@
 #import "CoreDataController.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
-#import "AKPrivateInfo.h"
+#import "SandboxPrivateInfo.h"
 #import "Message+RW.h"
 #import "User+RW.h"
 
@@ -555,7 +555,7 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
-    return [[AKPrivateInfo applicationDocumentsDirectory] URLByAppendingPathComponent:CORE_DATA_FILENAME];
+    return [[SandboxPrivateInfo applicationDocumentsDirectory] URLByAppendingPathComponent:CORE_DATA_FILENAME];
 }
 
 + (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error
