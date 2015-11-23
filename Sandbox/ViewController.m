@@ -13,7 +13,7 @@
 #import "ViewController.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
-#import "AKSystemInfo.h"
+#import "SystemInfo.h"
 #import "AlertTableViewController.h"
 #import "UIViewController+Syncing.h"
 #import "AlertSwitchViewController.h" // temp
@@ -400,9 +400,9 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter tags:@[AKD_UI] message:nil];
     
-    [self.labelWiFi setText:[AKGenerics textForBool:[AKSystemInfo isReachableViaWiFi] yesText:@"ON" noText:@"OFF"]];
-    [self.labelWWAN setText:[AKGenerics textForBool:[AKSystemInfo isReachableViaWWAN] yesText:@"ON" noText:@"OFF"]];
-    [self.labelInternet setText:[AKGenerics textForBool:[AKSystemInfo isReachable] yesText:@"ON" noText:@"OFF"]];
+    [self.labelWiFi setText:[AKGenerics textForBool:[SystemInfo isReachableViaWiFi] yesText:@"ON" noText:@"OFF"]];
+    [self.labelWWAN setText:[AKGenerics textForBool:[SystemInfo isReachableViaWWAN] yesText:@"ON" noText:@"OFF"]];
+    [self.labelInternet setText:[AKGenerics textForBool:[SystemInfo isReachable] yesText:@"ON" noText:@"OFF"]];
 }
 
 @end

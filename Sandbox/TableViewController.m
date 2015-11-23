@@ -13,7 +13,7 @@
 #import "TableViewController.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
-#import "AKSystemInfo.h"
+#import "SystemInfo.h"
 #import "SandboxAppInfo.h"
 #import "DataManager.h"
 #import "SandboxCentralDispatch.h"
@@ -298,7 +298,7 @@
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:nil message:nil];
     
     UITableViewCell *cell;
-    if ([AKSystemInfo iOSVersion] < 6.0)
+    if ([SystemInfo iOSVersion] < 6.0)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:UITABLEVIEWCELL_REUSE_IDENTIFIER];
         if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:UITABLEVIEWCELL_REUSE_IDENTIFIER];
