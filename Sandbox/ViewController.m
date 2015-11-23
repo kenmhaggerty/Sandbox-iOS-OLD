@@ -81,7 +81,7 @@
 
 - (AlertTableViewController *)alertTableViewController
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_UI] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_UI] message:nil];
     
     if (_alertTableViewController) return _alertTableViewController;
     
@@ -94,7 +94,7 @@
 
 - (AlertSwitchViewController *)alertSwitchViewController
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_UI] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_UI] message:nil];
     
     if (_alertSwitchViewController) return _alertSwitchViewController;
     
@@ -110,7 +110,7 @@
 
 - (UIAlertController *)alertControllerDismiss
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:nil message:nil];
     
     if (_alertControllerDismiss) return _alertControllerDismiss;
     
@@ -121,7 +121,7 @@
 
 - (UIAlertAction *)alertActionDismiss
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:nil message:nil];
     
     if (_alertActionDismiss) return _alertActionDismiss;
     
@@ -133,7 +133,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
@@ -145,7 +145,7 @@
 
 - (void)awakeFromNib
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [super awakeFromNib];
     [self setup];
@@ -153,7 +153,7 @@
 
 - (void)viewDidLoad
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [super viewDidLoad];
     
@@ -162,35 +162,35 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [super viewDidDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [super didReceiveMemoryWarning];
     [self teardown];
@@ -198,7 +198,7 @@
 
 - (void)dealloc
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [self teardown];
 }
@@ -209,7 +209,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_UI] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_UI] message:nil];
     
     if ([tableView isEqual:self.alertTableViewController.tableView])
     {
@@ -220,7 +220,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_UI] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_UI] message:nil];
     
     if ([tableView isEqual:self.alertTableViewController.tableView])
     {
@@ -231,7 +231,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_UI] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_UI] message:nil];
     
     UITableViewCell *cell;
     if ([tableView isEqual:self.alertTableViewController.tableView])
@@ -244,7 +244,7 @@
             [cell setBackgroundColor:[UIColor clearColor]];
             [cell.textLabel setText:[NSString stringWithFormat:@"Cell (%li, %li)", (long)indexPath.section, (long)indexPath.row]];
         }
-        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_UI] message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(cell)]];
+        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter tags:@[AKD_UI] message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(cell)]];
     }
     return cell;
 }
@@ -253,7 +253,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:@[AKD_UI] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction tags:@[AKD_UI] message:nil];
     
     if ([tableView isEqual:self.alertTableViewController.tableView])
     {
@@ -265,7 +265,7 @@
 
 - (IBAction)actionSwitchDidToggle:(UISwitch *)sender
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:@[AKD_UI] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction tags:@[AKD_UI] message:nil];
     
     NSNumber *index = [self.alertSwitchViewController indexForSwitch:sender];
     if (!index) return;
@@ -286,7 +286,7 @@
 
 - (void)syncViewCancelButtonWasTapped:(SyncViewController *)sender
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction tags:nil message:nil];
     
     if (![sender isEqual:self.syncViewController]) return;
     
@@ -300,7 +300,7 @@
 
 - (void)setup
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [self setTimerIsActive:NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(timerDidTick:) name:NOTIFICATION_TICK object:self];
@@ -309,7 +309,7 @@
 
 - (void)teardown
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_TICK object:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_INTERNETSTATUS_DID_CHANGE object:nil];
@@ -319,7 +319,7 @@
 
 - (void)timerDidTick:(NSNotification *)notification
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:nil message:nil];
     
     NSUInteger tickValue = [[notification.userInfo objectForKey:NOTIFICATION_OBJECT_KEY] integerValue];
     [self setSyncViewSecondaryText:[NSString stringWithFormat:@"(%lu / %i)", (unsigned long)tickValue, (int)(TICKS_PER_SEC*SYNC_TIME)]];
@@ -329,7 +329,7 @@
 
 - (void)internetStatusDidChange:(NSNotification *)notification
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_NOTIFICATION_CENTER] message:nil];
     
     [self setLabels];
 }
@@ -338,21 +338,21 @@
 
 - (IBAction)actionAlertTableViewController:(id)sender
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction tags:nil message:nil];
     
     [self presentViewController:self.alertTableViewController animated:YES completion:nil];
 }
 
 - (IBAction)actionAlertSwitchViewController:(id)sender
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction tags:nil message:nil];
     
     [self presentViewController:self.alertSwitchViewController animated:YES completion:nil];
 }
 
 - (IBAction)actionSync:(id)sender
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction tags:nil message:nil];
     
     [self startTimer];
     [self startSyncViewWithPrimaryText:nil secondaryText:nil progressView:YES cancelButton:YES animated:YES];
@@ -360,7 +360,7 @@
 
 - (IBAction)actionRefresh:(id)sender
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeAction tags:nil message:nil];
     
     [self setLabels];
 }
@@ -369,7 +369,7 @@
 
 - (void)startTimer
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:nil message:nil];
     
     [self setTimerIsActive:YES];
     [self tick:[NSNumber numberWithInteger:0]];
@@ -377,7 +377,7 @@
 
 - (void)tick:(NSNumber *)ticks
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:nil message:nil];
     
     if (!self.timerIsActive)
     {
@@ -398,7 +398,7 @@
 
 - (void)setLabels
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategories:@[AKD_UI] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter tags:@[AKD_UI] message:nil];
     
     [self.labelWiFi setText:[AKGenerics textForBool:[AKSystemInfo isReachableViaWiFi] yesText:@"ON" noText:@"OFF"]];
     [self.labelWWAN setText:[AKGenerics textForBool:[AKSystemInfo isReachableViaWWAN] yesText:@"ON" noText:@"OFF"]];

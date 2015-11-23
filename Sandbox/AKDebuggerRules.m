@@ -48,24 +48,24 @@
 // RULES (View Controllers) //
 
 #define PRINT_VIEWCONTROLLERS YES
-#define VIEWCONTROLLERS_TO_SKIP [NSSet setWithObjects:@"ExampleViewController", nil]
+#define VIEWCONTROLLERS_TO_SKIP [NSSet setWithObjects:nil]
 
 // RULES (Views) //
 
 #define PRINT_VIEWS YES
-#define VIEWS_TO_SKIP [NSSet setWithObjects:@"ExampleView", nil]
+#define VIEWS_TO_SKIP [NSSet setWithObjects:nil]
 
 // RULES (Other) //
 
 #define PRINT_OTHERCLASSES YES
-#define CLASSES_TO_SKIP [NSSet setWithObjects:@"ExampleClass", nil]
-#define METHODS_TO_SKIP [NSSet setWithObjects:@"exampleMethod", nil]
+#define CLASSES_TO_SKIP [NSSet setWithObjects:nil]
+#define METHODS_TO_SKIP [NSSet setWithObjects:nil]
 #define METHODS_TO_PRINT nil
 
 // RULES (Categories) //
 
 #define PRINT_CATEGORIES YES
-#define CATEGORIES_TO_SKIP [NSSet setWithObjects:@"ExampleCategory", nil]
+#define CATEGORIES_TO_SKIP [NSSet setWithObjects:nil]
 
 // FORMATTING //
 

@@ -26,7 +26,7 @@
 
 - (NSMutableDictionary *)lookupWithKey:(NSString *)lookupKey
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     NSMutableDictionary *userInfo = (NSMutableDictionary *)self.userInfo;
     if (!userInfo)

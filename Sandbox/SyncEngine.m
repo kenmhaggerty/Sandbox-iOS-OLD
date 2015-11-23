@@ -66,12 +66,12 @@
 
 - (id)init
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     self = [super init];
     if (!self)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeCritical methodType:AKMethodTypeSetup customCategories:nil message:[NSString stringWithFormat:@"Could not initialize %@", stringFromVariable(self)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeCritical methodType:AKMethodTypeSetup tags:nil message:[NSString stringWithFormat:@"Could not initialize %@", stringFromVariable(self)]];
         return nil;
     }
     
@@ -81,7 +81,7 @@
 
 - (void)awakeFromNib
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [super awakeFromNib];
     [self setup];
@@ -89,7 +89,7 @@
 
 - (void)dealloc
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [self teardown];
 }
@@ -98,7 +98,7 @@
 
 + (void)startEngine
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [SyncEngine sharedEngine];
 }
@@ -107,35 +107,35 @@
 
 + (User *)currentUser
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_ACCOUNTS] message:nil];
     
     return [SyncEngine userForAccount:[ParseController currentAccount]];
 }
 
 + (NSString *)getAccountIdForUsername:(NSString *)username
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_ACCOUNTS] message:nil];
     
     return [ParseController getAccountIdForUsername:username];
 }
 
 + (BOOL)createAccountWithEmail:(NSString *)email password:(NSString *)password
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_ACCOUNTS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator tags:@[AKD_ACCOUNTS] message:nil];
     
     return [ParseController createAccountWithEmail:email password:password];
 }
 
 + (BOOL)logInWithEmail:(NSString *)email password:(NSString *)password
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_ACCOUNTS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_ACCOUNTS] message:nil];
     
     return [ParseController logInWithEmail:email password:password];
 }
 
 + (void)logOut
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_ACCOUNTS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_ACCOUNTS] message:nil];
     
     [ParseController logOut];
 }
@@ -144,39 +144,39 @@
 
 + (BOOL)sendMessage:(Message *)message
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_DATA] message:nil];
     
     if (!message)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategories:@[AKD_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(message)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified tags:@[AKD_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(message)]];
         return NO;
     }
     
     NSString *objectId = [ParseController createParseObjectWithClass:PARSE_CLASS_MESSAGE info:[SyncEngine parseInfoForMessage:message]];
     if (!objectId)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategories:@[AKD_DATA] message:[NSString stringWithFormat:@"Could not create Parse object for %@", stringFromVariable(message)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified tags:@[AKD_DATA] message:[NSString stringWithFormat:@"Could not create Parse object for %@", stringFromVariable(message)]];
         return NO;
     }
     
     [message setMessageId:objectId];
     if (![CoreDataController save])
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategories:@[AKD_DATA, AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified tags:@[AKD_DATA, AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
     }
     return YES;
 }
 
 + (void)messageWasRead:(NSString *)messageId
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_DATA] message:nil];
     
     [ParseController messageWasRead:messageId];
 }
 
 + (void)messageWasDeleted:(NSString *)messageId
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeDeletor customCategories:@[AKD_DATA, AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeDeletor tags:@[AKD_DATA, AKD_PARSE] message:nil];
     
     PFObject *message = [PFQuery getObjectOfClass:PARSE_CLASS_MESSAGE objectId:messageId];
     if (!message) return;
@@ -190,14 +190,14 @@
 
 + (id <PushNotificationDelegate>)delegateForCentralDispatch
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_PUSH_NOTIFICATIONS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_PUSH_NOTIFICATIONS] message:nil];
     
     return [SyncEngine sharedEngine];
 }
 
 - (void)processRemoteNotification:(NSDictionary *)userInfo
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_PUSH_NOTIFICATIONS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_PUSH_NOTIFICATIONS] message:nil];
     
     if (![ParseController shouldProcessPushNotificationWithData:userInfo]) return;
     
@@ -225,14 +225,14 @@
 
 - (void)setup
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [self addObserversToParseController];
 }
 
 - (void)teardown
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
     [self removeObserversFromParseController];
 }
@@ -241,7 +241,7 @@
 
 + (id)sharedEngine
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:nil message:nil];
     
     static dispatch_once_t once;
     static SyncEngine *sharedEngine;
@@ -255,14 +255,14 @@
 
 - (void)addObserversToParseController
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_NOTIFICATION_CENTER] message:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(currentAccountDidChange:) name:NOTIFICATION_PARSECONTROLLER_CURRENTACCOUNT_DID_CHANGE object:nil];
 }
 
 - (void)removeObserversFromParseController
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_NOTIFICATION_CENTER] message:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_PARSECONTROLLER_CURRENTACCOUNT_DID_CHANGE object:nil];
 }
@@ -271,7 +271,7 @@
 
 - (void)currentAccountDidChange:(NSNotification *)notification
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_NOTIFICATION_CENTER, AKD_ACCOUNTS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_NOTIFICATION_CENTER, AKD_ACCOUNTS] message:nil];
     
     PFUser *currentAccount = [notification.userInfo objectForKey:NOTIFICATION_OBJECT_KEY];
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
@@ -283,11 +283,11 @@
 
 + (NSDictionary *)parseInfoForMessage:(Message *)message
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_DATA, AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_DATA, AKD_PARSE] message:nil];
     
     if (!message)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategories:@[AKD_DATA, AKD_PARSE] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(message)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified tags:@[AKD_DATA, AKD_PARSE] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(message)]];
         return nil;
     }
     
@@ -304,7 +304,7 @@
 
 + (User *)userForAccount:(PFUser *)account
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_DATA, AKD_ACCOUNTS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_DATA, AKD_ACCOUNTS] message:nil];
     
     if (!account) return nil;
     

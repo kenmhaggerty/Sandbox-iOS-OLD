@@ -51,7 +51,7 @@
 
 - (void)setIsRead:(NSNumber *)isRead
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter tags:@[AKD_CORE_DATA] message:nil];
     
     NSNumber *primitiveIsRead = [self primitiveValueForKey:NSStringFromSelector(@selector(isRead))];
     if ([AKGenerics object:isRead isEqualToObject:primitiveIsRead]) return;
@@ -67,7 +67,7 @@
 
 - (void)setRecipient:(User *)recipient
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter tags:@[AKD_CORE_DATA] message:nil];
     
     User *primitiveRecipient = [self primitiveValueForKey:NSStringFromSelector(@selector(recipient))];
     if ([AKGenerics object:recipient isEqualToObject:primitiveRecipient]) return;
@@ -101,7 +101,7 @@
 
 - (void)setSender:(User *)sender
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter tags:@[AKD_CORE_DATA] message:nil];
     
     User *primitiveSender = [self primitiveValueForKey:NSStringFromSelector(@selector(sender))];
     if ([AKGenerics object:sender isEqualToObject:primitiveSender]) return;
@@ -137,20 +137,20 @@
 
 //- (id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 //{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
 //
 //    self = [super initWithEntity:entity insertIntoManagedObjectContext:context];
 //    if (self)
 //    {
 //        [self setup];
 //    }
-//    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:@"Could not initialize self"];
+//    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:@"Could not initialize self"];
 //    return self;
 //}
 
 - (void)awakeFromFetch
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
     //    [super awakeFromFetch];
     [self setup];
@@ -158,7 +158,7 @@
 
 - (void)awakeFromInsert
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
 //    [super awakeFromInsert];
     [self setup];
@@ -166,14 +166,14 @@
 
 - (void)willTurnIntoFault
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
     [super willTurnIntoFault];
 }
 
 - (void)didTurnIntoFault
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
     [self teardown];
 //    [super didTurnIntoFault];
@@ -181,7 +181,7 @@
 
 - (void)prepareForDeletion
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MESSAGE_WILL_BE_DELETED object:self];
     [super prepareForDeletion];
@@ -189,7 +189,7 @@
 
 //- (void)dealloc
 //{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
 //
 //    [self teardown];
 //}
@@ -204,7 +204,7 @@
 
 - (void)setup
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
     [self addObserversToRecipient:self.recipient];
     [self addObserversToSender:self.sender];
@@ -212,7 +212,7 @@
 
 - (void)teardown
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
     [self removeObserversFromRecipient:self.recipient];
     [self removeObserversFromSender:self.sender];
@@ -222,28 +222,28 @@
 
 - (void)addObserversToRecipient:(User *)recipient
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_NOTIFICATION_CENTER] message:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recipientUsernameDidChange:) name:NOTIFICATION_USER_USERNAME_DID_CHANGE object:recipient];
 }
 
 - (void)removeObserversFromRecipient:(User *)recipient
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_NOTIFICATION_CENTER] message:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_USER_USERNAME_DID_CHANGE object:recipient];
 }
 
 - (void)addObserversToSender:(User *)sender
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_NOTIFICATION_CENTER] message:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(senderUsernameDidChange:) name:NOTIFICATION_USER_USERNAME_DID_CHANGE object:sender];
 }
 
 - (void)removeObserversFromSender:(User *)sender
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_NOTIFICATION_CENTER] message:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_USER_USERNAME_DID_CHANGE object:sender];
 }
@@ -252,14 +252,14 @@
 
 - (void)recipientUsernameDidChange:(NSNotification *)notification
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_NOTIFICATION_CENTER] message:nil];
     
     [CentralDispatch postNotificationName:NOTIFICATION_MESSAGE_RECIPIENT_USERNAME_DID_CHANGE object:self userInfo:notification.userInfo];
 }
 
 - (void)senderUsernameDidChange:(NSNotification *)notification
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_NOTIFICATION_CENTER] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_NOTIFICATION_CENTER] message:nil];
     
     [AKGenerics postNotificationName:NOTIFICATION_MESSAGE_SENDER_USERNAME_DID_CHANGE object:self userInfo:notification.userInfo];
 }

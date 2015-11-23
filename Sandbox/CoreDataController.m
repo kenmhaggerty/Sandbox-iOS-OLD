@@ -67,7 +67,7 @@
 
 - (NSManagedObjectContext *)managedObjectContext
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     if (!_managedObjectContext)
     {
@@ -79,7 +79,7 @@
 
 - (NSManagedObjectModel *)managedObjectModel
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
 
     if (!_managedObjectModel)
     {
@@ -88,14 +88,14 @@
         {
             _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
         }
-        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:@"modelURL is nil"];
+        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:@"modelURL is nil"];
     }
     return _managedObjectModel;
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     if (_persistentStoreCoordinator) return _persistentStoreCoordinator;
     
@@ -137,7 +137,7 @@
          
          */
         
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
         abort();
     }
     return _persistentStoreCoordinator;
@@ -147,20 +147,20 @@
 
 - (id)init
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
     self = [super init];
     if (self)
     {
         [self setup];
     }
-    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not initialize %@", stringFromVariable(self)]];
+    else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not initialize %@", stringFromVariable(self)]];
     return self;
 }
 
 - (void)dealloc
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
     [self teardown];
 }
@@ -169,19 +169,19 @@
 
 + (void)setup
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
     if ([CoreDataController isMigrationNeeded]) [CoreDataController migrate];
 }
 
 + (BOOL)save
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_CORE_DATA] message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
     if (!managedObjectContext)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
         return NO;
     }
     
@@ -197,20 +197,20 @@
         {
             for (NSError *detailedError in detailedErrors)
             {
-                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@", [detailedError userInfo]]];
+                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@", [detailedError userInfo]]];
             }
         }
-        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@", [error userInfo]]];
+        else [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@", [error userInfo]]];
         return NO;
     }
     
     if (!succeeded)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:@"Could not save"];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified tags:@[AKD_CORE_DATA] message:@"Could not save"];
         return NO;
     }
     
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:@"Save successful"];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified tags:@[AKD_CORE_DATA] message:@"Save successful"];
     return YES;
 }
 
@@ -218,7 +218,7 @@
 
 + (BOOL)messageExistsWithId:(NSString *)messageId
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     if (!messageId) return NO;
     
@@ -233,11 +233,11 @@
     }];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
         return NO;
     }
     
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s)", (unsigned long)count, NSStringFromClass([Message class])]];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s)", (unsigned long)count, NSStringFromClass([Message class])]];
     if (count == 0) return NO;
     return YES;
 }
@@ -246,7 +246,7 @@
 
 + (User *)getUserWithUserId:(NSString *)userId
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
     __block NSArray *foundUsers;
@@ -259,17 +259,17 @@
     }];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
         return nil;
     }
     
-    if (foundUsers.count > 1) [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@; returning first object", (unsigned long)foundUsers.count, NSStringFromClass([User class]), stringFromVariable(userId), userId]];
+    if (foundUsers.count > 1) [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@; returning first object", (unsigned long)foundUsers.count, NSStringFromClass([User class]), stringFromVariable(userId), userId]];
     return [foundUsers firstObject];
 }
 
 + (User *)getUserWithUsername:(NSString *)username
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
     __block NSArray *foundUsers;
@@ -282,22 +282,22 @@
     }];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
         return nil;
     }
     
-    if (foundUsers.count > 1) [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@; returning first object", (unsigned long)foundUsers.count, NSStringFromClass([User class]), stringFromVariable(username), username]];
+    if (foundUsers.count > 1) [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@; returning first object", (unsigned long)foundUsers.count, NSStringFromClass([User class]), stringFromVariable(username), username]];
     return [foundUsers firstObject];
 }
 
 + (Message *)getMessageWithId:(NSString *)messageId
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
     if (!managedObjectContext)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
         return nil;
     }
     
@@ -312,11 +312,11 @@
     }];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, [error userInfo]]];
         return nil;
     }
     
-    if (foundMessages.count > 1) [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@; returning first object", (unsigned long)foundMessages.count, NSStringFromClass([Message class]), stringFromVariable(messageId), messageId]];
+    if (foundMessages.count > 1) [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Found %lu %@ object(s) with %@ %@; returning first object", (unsigned long)foundMessages.count, NSStringFromClass([Message class]), stringFromVariable(messageId), messageId]];
     return [foundMessages firstObject];
 }
 
@@ -324,7 +324,7 @@
 
 + (User *)createUserWithUserId:(NSString *)userId username:(NSString *)username
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator tags:@[AKD_CORE_DATA] message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
     __block User *user;
@@ -338,7 +338,7 @@
 
 + (Message *)createMessageWithText:(NSString *)text fromUser:(User *)sender toUser:(User *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator tags:@[AKD_CORE_DATA] message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
     __block Message *message;
@@ -357,7 +357,7 @@
 
 + (User *)userWithUserId:(NSString *)userId username:(NSString *)username
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     User *user = [CoreDataController getUserWithUserId:userId];
     if (!user)
@@ -365,7 +365,7 @@
         user = [CoreDataController createUserWithUserId:userId username:username];
         if (![CoreDataController save])
         {
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
+            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
         }
     }
     return user;
@@ -375,12 +375,12 @@
 
 + (BOOL)deleteObject:(NSManagedObject *)object
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_CORE_DATA] message:nil];
     
     NSManagedObjectContext *managedObjectContext = [CoreDataController managedObjectContext];
     if (!managedObjectContext)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(managedObjectContext)]];
         return NO;
     }
     
@@ -400,19 +400,19 @@
 
 - (void)setup
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
 }
 
 - (void)teardown
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
 }
 
 #pragma mark - // PRIVATE METHODS (Convenience) //
 
 + (id)sharedController
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     static dispatch_once_t once;
     static CoreDataController *sharedController;
@@ -424,21 +424,21 @@
 
 + (NSManagedObjectContext *)managedObjectContext
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     return [[CoreDataController sharedController] managedObjectContext];
 }
 
 + (NSManagedObjectModel *)managedObjectModel
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     return [[CoreDataController sharedController] managedObjectModel];
 }
 
 + (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     return [[CoreDataController sharedController] persistentStoreCoordinator];
 }
@@ -447,7 +447,7 @@
 
 + (BOOL)isMigrationNeeded
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     NSError *error;
     NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:[CoreDataController sourceStoreURL] error:&error];
@@ -462,7 +462,7 @@
 
 + (BOOL)migrate
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
     __block UIBackgroundTaskIdentifier bgTask;
     bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
@@ -473,15 +473,15 @@
     BOOL success = [CoreDataController progressivelyMigrateURL:[CoreDataController sourceStoreURL] ofType:NSSQLiteStoreType toModel:[CoreDataController managedObjectModel] error:error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!success)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:@"Migration unsuccessful"];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:@"Migration unsuccessful"];
     }
     else
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:@"Migration successful"];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:@"Migration successful"];
     }
     [[UIApplication sharedApplication] endBackgroundTask:bgTask];
     bgTask = UIBackgroundTaskInvalid;
@@ -490,16 +490,16 @@
 
 + (BOOL)progressivelyMigrateURL:(NSURL *)sourceStoreURL ofType:(NSString *)type toModel:(NSManagedObjectModel *)finalModel error:(NSError *)error
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
     NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:type URL:sourceStoreURL error:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!sourceMetadata)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(sourceMetadata)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@ is nil", stringFromVariable(sourceMetadata)]];
         return NO;
     }
     
@@ -516,11 +516,11 @@
     BOOL success = [CoreDataController getDestinationModel:&destinationModel mappingModel:&mappingModel modelName:&modelName forSourceModel:sourceModel error:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!success)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not get %@, %@, and/or %@ for %@", stringFromVariable(destinationModel), stringFromVariable(mappingModel), stringFromVariable(modelName), stringFromVariable(sourceModel)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not get %@, %@, and/or %@ for %@", stringFromVariable(destinationModel), stringFromVariable(mappingModel), stringFromVariable(modelName), stringFromVariable(sourceModel)]];
         return NO;
     }
     
@@ -533,18 +533,18 @@
     }
     if (!success)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not successfully migrate all %@", stringFromVariable(mappingModels)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not successfully migrate all %@", stringFromVariable(mappingModels)]];
         return NO;
     }
     
     success = [self backupSourceStoreAtURL:sourceStoreURL movingDestinationStoreAtURL:destinationStoreURL error:error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!success)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not back up source store at %@ to %@", sourceStoreURL, destinationStoreURL]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not back up source store at %@ to %@", sourceStoreURL, destinationStoreURL]];
         return NO;
     }
     
@@ -553,14 +553,14 @@
 
 + (NSURL *)sourceStoreURL
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     return [[AKPrivateInfo applicationDocumentsDirectory] URLByAppendingPathComponent:CORE_DATA_FILENAME];
 }
 
 + (BOOL)getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel error:(NSError **)error
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     NSArray *modelPaths = [CoreDataController modelPaths];
     if (!modelPaths.count)
@@ -596,7 +596,7 @@
 
 + (NSArray *)modelPaths
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     NSMutableArray *modelPaths = [NSMutableArray array];
     NSArray *momdArray = [[NSBundle mainBundle] pathsForResourcesOfType:CORE_DATA_MODEL_DIRECTORY_EXTENSION inDirectory:nil];
@@ -613,7 +613,7 @@
 
 + (NSURL *)destinationStoreURLWithSourceStoreURL:(NSURL *)sourceStoreURL modelName:(NSString *)modelName
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_CORE_DATA] message:nil];
     
     NSString *storeExtension = sourceStoreURL.path.pathExtension;
     NSString *storePath = sourceStoreURL.path.stringByDeletingPathExtension;
@@ -623,7 +623,7 @@
 
 + (BOOL)backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError *)error
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:nil];
     
     NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
     NSString *backupPath = [NSTemporaryDirectory() stringByAppendingPathComponent:guid];
@@ -631,22 +631,22 @@
     BOOL success = [fileManager moveItemAtPath:sourceStoreURL.path toPath:backupPath error:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!success)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Failed to move item at %@ to %@", sourceStoreURL.path, backupPath]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Failed to move item at %@ to %@", sourceStoreURL.path, backupPath]];
         return NO;
     }
     
     success = [fileManager moveItemAtPath:destinationStoreURL.path toPath:sourceStoreURL.path error:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!success)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not move item at %@ to %@; reverting changes", destinationStoreURL.path, sourceStoreURL.path]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetup tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not move item at %@ to %@; reverting changes", destinationStoreURL.path, sourceStoreURL.path]];
         [fileManager moveItemAtPath:backupPath toPath:sourceStoreURL.path error:nil];
         return NO;
     }

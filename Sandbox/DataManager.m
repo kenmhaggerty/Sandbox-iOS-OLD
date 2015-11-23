@@ -48,12 +48,12 @@
 
 - (id)init
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_DATA] message:nil];
     
     self = [super init];
     if (!self)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeCritical methodType:AKMethodTypeSetup customCategories:nil message:[NSString stringWithFormat:@"Could not instantiate %@", stringFromVariable(self)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeCritical methodType:AKMethodTypeSetup tags:nil message:[NSString stringWithFormat:@"Could not instantiate %@", stringFromVariable(self)]];
         return nil;
     }
     
@@ -63,7 +63,7 @@
 
 - (void)awakeFromNib
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_DATA] message:nil];
     
     [super awakeFromNib];
     [self setup];
@@ -71,7 +71,7 @@
 
 - (void)dealloc
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_DATA] message:nil];
     
     [self teardown];
 }
@@ -86,7 +86,7 @@
 
 + (NSString *)getAccountIdForUsername:(NSString *)username
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS, AKD_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_ACCOUNTS, AKD_DATA] message:nil];
     
     User *user = [CoreDataController getUserWithUsername:username];
     NSString *accountId;
@@ -99,7 +99,7 @@
             [user setUserId:accountId];
             if ([CoreDataController save])
             {
-                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS, AKD_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
+                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeGetter tags:@[AKD_ACCOUNTS, AKD_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
             }
         }
     }
@@ -108,21 +108,21 @@
 
 //+ (NSOrderedSet *)getMessagesSentToUser:(NSString *)recipient
 //{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:nil message:nil];
 //    
 //    return [CoreDataController getMessagesSentToUser:recipient];
 //}
 //
 //+ (NSOrderedSet *)getMessagesSentByUser:(NSString *)sender
 //{
-//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
+//    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:nil message:nil];
 //    
 //    return [CoreDataController getMessagesSentByUser:sender];
 //}
 
 + (Message *)getMessageWithId:(NSString *)messageId
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:nil message:nil];
     
     return [CoreDataController getMessageWithId:messageId];
 }
@@ -131,7 +131,7 @@
 
 + (BOOL)sendMessageWithText:(NSString *)text toUser:(NSString *)recipient
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator tags:nil message:nil];
     
     return [SyncEngine sendMessage:[DataManager createMessageWithText:text fromUser:[CentralDispatch currentUser] toUser:[DataManager userWithUsername:recipient] onDate:[NSDate date] withId:nil]];
 }
@@ -140,35 +140,35 @@
 
 + (void)userDidReadMessage:(Message *)message
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:nil message:nil];
     
     if ([message.isRead boolValue]) return;
     
     [message setIsRead:@YES];
     if (![CoreDataController save])
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not save %@", stringFromVariable(message)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not save %@", stringFromVariable(message)]];
     }
     [SyncEngine messageWasRead:message.messageId];
 }
 
 + (void)incrementBadge
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter tags:nil message:nil];
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber]+1];
 }
 
 + (void)decrementBadge
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter tags:nil message:nil];
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber]-1];
 }
 
 + (void)setBadgeToCount:(NSUInteger)count
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter tags:nil message:nil];
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
 }
@@ -177,18 +177,18 @@
 
 + (void)deleteMessage:(Message *)message
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:nil message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:nil message:nil];
     
     NSString *messageId = message.messageId;
     if (![CoreDataController deleteObject:message])
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not delete %@", stringFromVariable(message)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeUnspecified tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not delete %@", stringFromVariable(message)]];
         return;
     }
     
     if (![CoreDataController save])
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator customCategories:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not save %@", stringFromVariable(message)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator tags:@[AKD_CORE_DATA] message:[NSString stringWithFormat:@"Could not save %@", stringFromVariable(message)]];
     }
     
     [SyncEngine messageWasDeleted:messageId];
@@ -200,12 +200,12 @@
 
 + (BOOL)saveMessageWithText:(NSString *)text fromUser:(User *)sender toUser:(User *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator tags:@[AKD_DATA] message:nil];
     
     Message *message = [DataManager createMessageWithText:text fromUser:sender toUser:recipient onDate:sendDate withId:messageId];
     if (message)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator customCategories:@[AKD_DATA] message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(message)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator tags:@[AKD_DATA] message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(message)]];
         return NO;
     }
     
@@ -220,19 +220,19 @@
 
 - (void)setup
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_DATA] message:nil];
 }
 
 - (void)teardown
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_DATA] message:nil];
 }
 
 #pragma mark - // PRIVATE METHODS (Convenience) //
 
 + (id)sharedManager
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_DATA] message:nil];
     
     static dispatch_once_t once;
     static DataManager *sharedManager;
@@ -244,7 +244,7 @@
 
 + (User *)userWithUsername:(NSString *)username
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS, AKD_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_ACCOUNTS, AKD_DATA] message:nil];
     
     User *user = [CoreDataController getUserWithUsername:username];
     if (user) return user;
@@ -256,11 +256,11 @@
 
 + (Message *)createMessageWithText:(NSString *)text fromUser:(User *)sender toUser:(User *)recipient onDate:(NSDate *)sendDate withId:(NSString *)messageId
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_DATA] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator tags:@[AKD_DATA] message:nil];
     
     if ([CoreDataController messageExistsWithId:messageId])
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeCreator customCategories:nil message:[NSString stringWithFormat:@"%@ already exists with %@ %@", stringFromVariable(message), stringFromVariable(messageId), messageId]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeCreator tags:nil message:[NSString stringWithFormat:@"%@ already exists with %@ %@", stringFromVariable(message), stringFromVariable(messageId), messageId]];
         return nil;
     }
     
@@ -268,13 +268,13 @@
     
     if (!message)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator customCategories:@[AKD_DATA] message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(message)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator tags:@[AKD_DATA] message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(message)]];
         return nil;
     }
     
     if (![CoreDataController save])
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator customCategories:@[AKD_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator tags:@[AKD_DATA] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), NSStringFromClass([CoreDataController class])]];
     }
     
     [AKGenerics postNotificationName:NOTIFICATION_MESSAGE_WAS_CREATED object:nil userInfo:[NSDictionary dictionaryWithObject:message forKey:NOTIFICATION_OBJECT_KEY]];

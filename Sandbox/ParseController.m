@@ -50,7 +50,7 @@
 
 - (void)setCurrentInstallation:(PFInstallation *)currentInstallation
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter tags:@[AKD_PARSE] message:nil];
     
     if ([AKGenerics object:currentInstallation isEqualToObject:_currentInstallation]) return;
     
@@ -68,11 +68,11 @@
         BOOL success = [currentInstallation save:&error];
         if (error)
         {
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetter tags:@[AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
         }
         if (!success)
         {
-            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), stringFromVariable(currentInstallation)]];
+            [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetter tags:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), stringFromVariable(currentInstallation)]];
         }
     }
     
@@ -83,7 +83,7 @@
 
 - (PFInstallation *)currentInstallation
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_PARSE] message:nil];
     
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [self setCurrentInstallation:currentInstallation];
@@ -92,7 +92,7 @@
 
 - (void)setCurrentAccount:(PFUser *)currentAccount
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetter tags:@[AKD_PARSE] message:nil];
     
     if ([AKGenerics object:currentAccount isEqualToObject:_currentAccount]) return;
     
@@ -119,11 +119,11 @@
             BOOL success = [currentInstallation save:&error];
             if (error)
             {
-                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeSetter tags:@[AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
             }
             if (!success)
             {
-                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetter customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), stringFromVariable(currentInstallation)]];
+                [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeSetter tags:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), stringFromVariable(currentInstallation)]];
             }
         }
     }
@@ -135,7 +135,7 @@
 
 - (PFUser *)currentAccount
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_PARSE] message:nil];
     
     PFUser *currentAccount = [PFUser currentUser];
     [self setCurrentAccount:currentAccount];
@@ -146,12 +146,12 @@
 
 - (id)init
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_PARSE] message:nil];
     
     self = [super init];
     if (!self)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeCritical methodType:AKMethodTypeSetup customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not initialize %@", stringFromVariable(self)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeCritical methodType:AKMethodTypeSetup tags:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not initialize %@", stringFromVariable(self)]];
         return nil;
     }
     
@@ -161,7 +161,7 @@
 
 - (void)awakeFromNib
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_PARSE ] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_PARSE ] message:nil];
     
     [super awakeFromNib];
     [self setup];
@@ -169,7 +169,7 @@
 
 - (void)dealloc
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_PARSE] message:nil];
     
     [self teardown];
 }
@@ -178,7 +178,7 @@
 
 + (void)setupApplication:(UIApplication *)application withLaunchOptions:(NSDictionary *)launchOptions
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_PARSE] message:nil];
     
     [Parse enableLocalDatastore];
     [Parse setApplicationId:[AKPrivateInfo parseApplicationId] clientKey:[AKPrivateInfo parseClientKey]];
@@ -202,7 +202,7 @@
 
 + (void)setDeviceTokenFromData:(NSData *)deviceToken
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_PARSE] message:nil];
     
     PFInstallation *currentInstallation = [ParseController currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
@@ -213,20 +213,20 @@
 
 + (NSString *)getAccountIdForUsername:(NSString *)username
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE, AKD_ACCOUNTS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_PARSE, AKD_ACCOUNTS] message:nil];
     
     NSError *error;
     NSString *accountId = [PFCloud callFunction:PARSE_FUNCTION_GETACCOUNTIDFORUSERNAME withParameters:@{PARSE_FUNCTION_GETACCOUNTIDFORUSERNAME_USERNAME:username} error:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE, AKD_ACCOUNTS] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter tags:@[AKD_PARSE, AKD_ACCOUNTS] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     return accountId;
 }
 
 + (BOOL)createAccountWithEmail:(NSString *)email password:(NSString *)password
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_ACCOUNTS, AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator tags:@[AKD_ACCOUNTS, AKD_PARSE] message:nil];
     
     PFUser *currentAccount = [PFUser user];
     [currentAccount setUsername:email];
@@ -235,11 +235,11 @@
     BOOL success = [currentAccount signUp:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeCreator customCategories:@[AKD_ACCOUNTS, AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeCreator tags:@[AKD_ACCOUNTS, AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!success)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator customCategories:@[AKD_PARSE, AKD_ACCOUNTS] message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(account)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeNotice methodType:AKMethodTypeCreator tags:@[AKD_PARSE, AKD_ACCOUNTS] message:[NSString stringWithFormat:@"Could not create %@", stringFromVariable(account)]];
         return NO;
     }
     
@@ -249,17 +249,17 @@
 
 + (BOOL)logInWithEmail:(NSString *)email password:(NSString *)password
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_ACCOUNTS, AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_ACCOUNTS, AKD_PARSE] message:nil];
     
     NSError *error;
     PFUser *currentAccount = [PFUser logInWithUsername:email password:password error:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified customCategories:@[AKD_ACCOUNTS, AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeUnspecified tags:@[AKD_ACCOUNTS, AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!currentAccount)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified customCategories:@[AKD_ACCOUNTS, AKD_PARSE] message:[NSString stringWithFormat:@"Could not log in %@", email]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeInfo methodType:AKMethodTypeUnspecified tags:@[AKD_ACCOUNTS, AKD_PARSE] message:[NSString stringWithFormat:@"Could not log in %@", email]];
         return NO;
     }
     
@@ -269,7 +269,7 @@
 
 + (void)logOut
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_ACCOUNTS, AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_ACCOUNTS, AKD_PARSE] message:nil];
     
     [PFUser logOut];
     [[ParseController sharedController] setCurrentAccount:nil];
@@ -279,7 +279,7 @@
 
 + (NSString *)createParseObjectWithClass:(NSString *)className info:(NSDictionary *)info
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator tags:@[AKD_PARSE] message:nil];
     
     PFObject *object = [PFObject objectWithClassName:className];
     PFRelation *installations = [object relationForKey:PARSE_KEY_INSTALLATIONS];
@@ -295,11 +295,11 @@
     BOOL success = [object save:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeCreator customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeCreator tags:@[AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!success)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), stringFromVariable(object)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator tags:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not %@ %@", NSStringFromSelector(@selector(save)), stringFromVariable(object)]];
         return nil;
     }
     
@@ -310,7 +310,7 @@
 
 + (PFObject *)getObjectWithQuery:(PFQuery *)query
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_PARSE] message:nil];
     
     return [query getFirstObject];
 }
@@ -319,13 +319,13 @@
 
 + (void)messageWasRead:(NSString *)messageId
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_PARSE] message:nil];
     
     NSError *error;
     [PFCloud callFunction:PARSE_FUNCTION_MESSAGEWASREAD withParameters:@{PARSE_FUNCTION_MESSAGEWASREAD_MESSAGEID:messageId} error:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE, AKD_ACCOUNTS] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeGetter tags:@[AKD_PARSE, AKD_ACCOUNTS] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
 }
 
@@ -333,7 +333,7 @@
 
 + (void)removeCurrentInstallationFromObject:(PFObject *)object
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeDeletor customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeDeletor tags:@[AKD_PARSE] message:nil];
     
     PFRelation *installations = [object relationForKey:PARSE_KEY_INSTALLATIONS];
     [installations removeObject:[ParseController currentInstallation]];
@@ -344,14 +344,14 @@
 
 + (BOOL)shouldProcessPushNotificationWithData:(NSDictionary *)notificationPayload
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeValidator customCategories:@[AKD_PUSH_NOTIFICATIONS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeValidator tags:@[AKD_PUSH_NOTIFICATIONS] message:nil];
     
     return YES;
 }
 
 + (void)pushNotificationWithData:(NSDictionary *)data recipients:(NSArray *)recipients
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator customCategories:@[AKD_PUSH_NOTIFICATIONS, AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeCreator tags:@[AKD_PUSH_NOTIFICATIONS, AKD_PARSE] message:nil];
     
     PFPush *push = [[PFPush alloc] init];
     NSMutableDictionary *mutableData = [NSMutableDictionary dictionaryWithDictionary:data];
@@ -361,17 +361,17 @@
     BOOL success = [push sendPush:&error];
     if (error)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeCreator customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeError methodType:AKMethodTypeCreator tags:@[AKD_PARSE] message:[NSString stringWithFormat:@"%@, %@", error, error.userInfo]];
     }
     if (!success)
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator customCategories:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not send push notification"]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeCreator tags:@[AKD_PARSE] message:[NSString stringWithFormat:@"Could not send push notification"]];
     }
 }
 
 + (NSDictionary *)translatePushNotification:(NSDictionary *)pushNotification
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_PARSE, AKD_PUSH_NOTIFICATIONS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_PARSE, AKD_PUSH_NOTIFICATIONS] message:nil];
     
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     [dictionary setObject:[pushNotification objectForKey:PUSHNOTIFICATION_KEY_MESSAGEID] forKey:PUSHNOTIFICATION_KEY_MESSAGEID];
@@ -392,7 +392,7 @@
     }
     else
     {
-        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified customCategories:@[AKD_PARSE, AKD_PUSH_NOTIFICATIONS] message:[NSString stringWithFormat:@"Unknown %@ for %@", stringFromVariable(pushType), stringFromVariable(pushNotification)]];
+        [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeWarning methodType:AKMethodTypeUnspecified tags:@[AKD_PARSE, AKD_PUSH_NOTIFICATIONS] message:[NSString stringWithFormat:@"Unknown %@ for %@", stringFromVariable(pushType), stringFromVariable(pushNotification)]];
         return nil;
     }
     return dictionary;
@@ -402,7 +402,7 @@
 
 + (void)trackAppOpenedWithRemoteNotificationPayload:(NSDictionary *)userInfo
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified customCategories:@[AKD_PARSE, AKD_PUSH_NOTIFICATIONS] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeUnspecified tags:@[AKD_PARSE, AKD_PUSH_NOTIFICATIONS] message:nil];
     
     [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
 }
@@ -411,7 +411,7 @@
 
 + (PFUser *)currentAccount
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_ACCOUNTS, AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_ACCOUNTS, AKD_PARSE] message:nil];
     
     return [[ParseController sharedController] currentAccount];
 }
@@ -424,19 +424,19 @@
 
 - (void)setup
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_PARSE] message:nil];
 }
 
 - (void)teardown
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:@[AKD_PARSE] message:nil];
 }
 
 #pragma mark - // PRIVATE METHODS (Convenience) //
 
 + (id)sharedController
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_PARSE] message:nil];
     
     static dispatch_once_t once;
     static ParseController *sharedController;
@@ -448,7 +448,7 @@
 
 + (PFInstallation *)currentInstallation
 {
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter customCategories:@[AKD_PARSE] message:nil];
+    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeGetter tags:@[AKD_PARSE] message:nil];
     
     return [[ParseController sharedController] currentInstallation];
 }
