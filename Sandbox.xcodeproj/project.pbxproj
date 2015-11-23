@@ -875,6 +875,7 @@
 				GCC_PREFIX_HEADER = "Sandbox/Sandbox-Prefix.pch";
 				INFOPLIST_FILE = "Sandbox/Sandbox-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eurekavalleyco.development.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Sandbox;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -892,6 +893,7 @@
 				GCC_PREFIX_HEADER = "Sandbox/Sandbox-Prefix.pch";
 				INFOPLIST_FILE = "Sandbox/Sandbox-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eurekavalleyco.development.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Sandbox;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
