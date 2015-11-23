@@ -160,7 +160,6 @@
 		7D9513DE1B0A8A9000E508E8 /* CoreDataModel_0,1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel_0,1.xcdatamodel"; sourceTree = "<group>"; };
 		7D9513DF1B0A966B00E508E8 /* Message+RW.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Message+RW.h"; sourceTree = "<group>"; };
 		7D9513E01B0BC1C700E508E8 /* CoreDataModel_0,2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel_0,2.xcdatamodel"; sourceTree = "<group>"; };
-		7DB435681B12519300BAA7A2 /* AKDebuggerCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKDebuggerCategories.h; path = ../../AKDebugger/AKDebuggerCategories.h; sourceTree = "<group>"; };
 		7DB4356B1B13626B00BAA7A2 /* AlertTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertTableViewController.h; sourceTree = "<group>"; };
 		7DB4356C1B13626B00BAA7A2 /* AlertTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertTableViewController.m; sourceTree = "<group>"; };
 		7DD538A5158C100800E63E29 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -247,7 +246,6 @@
 			children = (
 				1FCB757F180F46BC005BE376 /* AKDebugger.h */,
 				1FCB7580180F46BC005BE376 /* AKDebugger.m */,
-				7DB435681B12519300BAA7A2 /* AKDebuggerCategories.h */,
 				1FEB6EE71A4BFFB70049AFDD /* AKDebuggerRules.h */,
 				1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */,
 			);
