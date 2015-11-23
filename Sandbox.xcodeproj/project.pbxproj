@@ -34,7 +34,6 @@
 		7D66AE301B69769E00105E61 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D66AE2F1B69769E00105E61 /* Launch Screen.xib */; };
 		7D66AE321B6976BA00105E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D66AE311B6976BA00105E61 /* Media.xcassets */; };
 		7D66AF1C1B74F20400105E61 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D66AF1A1B74F20400105E61 /* Bolts.framework */; };
-		7D66AF1D1B74F20400105E61 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D66AF1B1B74F20400105E61 /* Parse.framework */; };
 		7D66AF251B74F31500105E61 /* ParseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF241B74F31500105E61 /* ParseController.m */; };
 		7D66AF2A1B74F75A00105E61 /* SandboxCentralDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF291B74F75A00105E61 /* SandboxCentralDispatch.m */; };
 		7D66AF2D1B75041400105E61 /* SyncEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF2C1B75041400105E61 /* SyncEngine.m */; };
@@ -68,6 +67,7 @@
 		7DDA09721B17E69600157479 /* UIViewController+Syncing.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA09691B17E69600157479 /* UIViewController+Syncing.m */; };
 		7DDA09751B17FA1900157479 /* SyncViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDA09741B17FA1900157479 /* SyncViewController.xib */; };
 		7DDA09791B180A5400157479 /* SyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA09771B180A5400157479 /* SyncViewController.m */; };
+		7DEC43DA1B83CADA005869E5 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DEC43D91B83CADA005869E5 /* Parse.framework */; };
 		7DFFAC5B164F058D00B58EE4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DFFAC5A164F058D00B58EE4 /* CoreData.framework */; };
 		9894FFFE75259EC23CFDE14C /* Pods_Sandbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0509EF5E99E5FFD93173F910 /* Pods_Sandbox.framework */; };
 /* End PBXBuildFile section */
@@ -120,8 +120,7 @@
 		7D4278361551865E000240A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Sandbox.storyboard; sourceTree = "<group>"; };
 		7D66AE2F1B69769E00105E61 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		7D66AE311B6976BA00105E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		7D66AF1A1B74F20400105E61 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		7D66AF1B1B74F20400105E61 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		7D66AF1A1B74F20400105E61 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../2_IMPORTS/FRAMEWORKS/parse-library-1.8.0/Bolts.framework"; sourceTree = "<group>"; };
 		7D66AF231B74F31500105E61 /* ParseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseController.h; sourceTree = "<group>"; };
 		7D66AF241B74F31500105E61 /* ParseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseController.m; sourceTree = "<group>"; };
 		7D66AF281B74F75A00105E61 /* SandboxCentralDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxCentralDispatch.h; sourceTree = "<group>"; };
@@ -176,6 +175,7 @@
 		7DDA09741B17FA1900157479 /* SyncViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SyncViewController.xib; path = "../../UIViewController+Syncing/SyncViewController.xib"; sourceTree = "<group>"; };
 		7DDA09761B180A5400157479 /* SyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SyncViewController.h; path = "../../UIViewController+Syncing/SyncViewController.h"; sourceTree = "<group>"; };
 		7DDA09771B180A5400157479 /* SyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SyncViewController.m; path = "../../UIViewController+Syncing/SyncViewController.m"; sourceTree = "<group>"; };
+		7DEC43D91B83CADA005869E5 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "../../2_IMPORTS/FRAMEWORKS/parse-library-1.8.0/Parse.framework"; sourceTree = "<group>"; };
 		7DFFAC5A164F058D00B58EE4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B26A26A8E8CA2A6DDC8BFD85 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		EAE9FCCD1CBF13D613CCBFE0 /* Pods-Sandbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandbox.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sandbox/Pods-Sandbox.release.xcconfig"; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 				7D9513C71B0A86D900E508E8 /* AudioToolbox.framework in Frameworks */,
 				7DFFAC5B164F058D00B58EE4 /* CoreData.framework in Frameworks */,
 				7DD538A6158C100800E63E29 /* QuartzCore.framework in Frameworks */,
-				7D66AF1D1B74F20400105E61 /* Parse.framework in Frameworks */,
+				7DEC43DA1B83CADA005869E5 /* Parse.framework in Frameworks */,
 				7D4278241551865E000240A5 /* UIKit.framework in Frameworks */,
 				7D4278261551865E000240A5 /* Foundation.framework in Frameworks */,
 				7D66AF1C1B74F20400105E61 /* Bolts.framework in Frameworks */,
@@ -325,8 +325,8 @@
 			isa = PBXGroup;
 			children = (
 				7D10BDEF160654FE00416C66 /* Default-568h@2x.png */,
+				7D66AE2E1B694E3500105E61 /* IMPORTED */,
 				7D4278291551865E000240A5 /* Sandbox */,
-				7D4278221551865E000240A5 /* Frameworks */,
 				7D4278201551865E000240A5 /* Products */,
 				467F20F8E0D5D0D5F38DCC2A /* Pods */,
 			);
@@ -345,26 +345,28 @@
 			children = (
 				7D9513D81B0A874600E508E8 /* Accounts.framework */,
 				7D9513C61B0A86D900E508E8 /* AudioToolbox.framework */,
+				7D66AF1A1B74F20400105E61 /* Bolts.framework */,
 				7D9513C81B0A86E000E508E8 /* CFNetwork.framework */,
 				7DFFAC5A164F058D00B58EE4 /* CoreData.framework */,
 				7D4278271551865E000240A5 /* CoreGraphics.framework */,
 				7D9513CA1B0A86E900E508E8 /* CoreLocation.framework */,
 				7D4278251551865E000240A5 /* Foundation.framework */,
 				7D9513CC1B0A86F400E508E8 /* MobileCoreServices.framework */,
+				7DEC43D91B83CADA005869E5 /* Parse.framework */,
 				7DD538A5158C100800E63E29 /* QuartzCore.framework */,
 				7D9513CE1B0A86FD00E508E8 /* Security.framework */,
 				7D9513DA1B0A874B00E508E8 /* Social.framework */,
 				7D9513D01B0A870500E508E8 /* StoreKit.framework */,
 				7D9513D21B0A872500E508E8 /* SystemConfiguration.framework */,
 				7D4278231551865E000240A5 /* UIKit.framework */,
+				73B5602FF0F1B253E66B2ED6 /* libPods.a */,
 				7D9513D61B0A873800E508E8 /* libsqlite3.dylib */,
-				7D66AF1A1B74F20400105E61 /* Bolts.framework */,
-				7D66AF1B1B74F20400105E61 /* Parse.framework */,
 				7D9513D41B0A872E00E508E8 /* libz.dylib */,
 				73B5602FF0F1B253E66B2ED6 /* libPods.a */,
 				0509EF5E99E5FFD93173F910 /* Pods_Sandbox.framework */,
 			);
 			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		7D4278291551865E000240A5 /* Sandbox */ = {
@@ -398,6 +400,7 @@
 		7D66AE2E1B694E3500105E61 /* IMPORTED */ = {
 			isa = PBXGroup;
 			children = (
+				7D4278221551865E000240A5 /* Frameworks */,
 				1FCB7582180F46D3005BE376 /* AKDebugger */,
 				1FEB6EED1A4C04D60049AFDD /* SystemInfo */,
 				1FECF6181B080BB40021D883 /* AKGenerics */,
@@ -407,6 +410,7 @@
 				1FEB6F0D1A4F9F550049AFDD /* UIAlertController+Info */,
 			);
 			name = IMPORTED;
+			path = Sandbox;
 			sourceTree = "<group>";
 		};
 		7D66AE331B6976C000105E61 /* Assets */ = {
@@ -871,7 +875,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"/Users/MCMDI/Documents/PROGRAMMING/iOS/2_IMPORTS/FRAMEWORKS/parse-library-1.8.0",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sandbox/Sandbox-Prefix.pch";
 				INFOPLIST_FILE = "Sandbox/Sandbox-Info.plist";
@@ -889,7 +896,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"/Users/MCMDI/Documents/PROGRAMMING/iOS/2_IMPORTS/FRAMEWORKS/parse-library-1.8.0",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sandbox/Sandbox-Prefix.pch";
 				INFOPLIST_FILE = "Sandbox/Sandbox-Info.plist";
