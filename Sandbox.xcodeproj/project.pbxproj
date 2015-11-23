@@ -359,7 +359,6 @@
 				7D9513D01B0A870500E508E8 /* StoreKit.framework */,
 				7D9513D21B0A872500E508E8 /* SystemConfiguration.framework */,
 				7D4278231551865E000240A5 /* UIKit.framework */,
-				73B5602FF0F1B253E66B2ED6 /* libPods.a */,
 				7D9513D61B0A873800E508E8 /* libsqlite3.dylib */,
 				7D9513D41B0A872E00E508E8 /* libz.dylib */,
 				73B5602FF0F1B253E66B2ED6 /* libPods.a */,
@@ -372,12 +371,12 @@
 		7D4278291551865E000240A5 /* Sandbox */ = {
 			isa = PBXGroup;
 			children = (
-				7D66AE2E1B694E3500105E61 /* IMPORTED */,
 				1FEB6EFA1A4C0CDE0049AFDD /* SandboxPrivateInfo */,
 				7D66AF491B77A12500105E61 /* SandboxAppInfo */,
+				7D66AF2F1B750B7A00105E61 /* SandboxCentralDispatch */,
 				7D4278321551865E000240A5 /* SandboxAppDelegate.h */,
 				7D4278331551865E000240A5 /* SandboxAppDelegate.m */,
-				7D66AF2F1B750B7A00105E61 /* SandboxCentralDispatch */,
+				7D4278351551865E000240A5 /* Sandbox.storyboard */,
 				7D66AF271B74F73E00105E61 /* View Controllers */,
 				1FEB6EFB1A4C0D550049AFDD /* Data Managers */,
 				7D66AE331B6976C000105E61 /* Assets */,
@@ -457,7 +456,6 @@
 		7D66AF271B74F73E00105E61 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7D4278351551865E000240A5 /* Sandbox.storyboard */,
 				7D66AF451B76884700105E61 /* RootViewController */,
 				7D66AF3E1B76877C00105E61 /* ViewController */,
 				7D66AF3D1B76877500105E61 /* TableViewController */,
