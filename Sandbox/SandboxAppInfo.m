@@ -1,5 +1,5 @@
 //
-//  AppInfo.m
+//  SandboxAppInfo.m
 //  Sandbox
 //
 //  Created by Ken M. Haggerty on 8/9/15.
@@ -10,16 +10,16 @@
 
 #pragma mark - // IMPORTS (Private) //
 
-#import "AppInfo.h"
+#import "SandboxAppInfo.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
-@interface AppInfo ()
+@interface SandboxAppInfo ()
 @end
 
-@implementation AppInfo
+@implementation SandboxAppInfo
 
 #pragma mark - // SETTERS AND GETTERS //
 

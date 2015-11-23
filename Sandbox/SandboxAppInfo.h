@@ -1,5 +1,5 @@
 //
-//  AppInfo.h
+//  SandboxAppInfo.h
 //  Sandbox
 //
 //  Created by Ken M. Haggerty on 8/9/15.
@@ -19,5 +19,5 @@
 #define TEXT_LOGIN @"Sign In"
 #define TEXT_LOGOUT @"Sign Out"
 
-@interface AppInfo : NSObject
+@interface SandboxAppInfo : NSObject
 @end

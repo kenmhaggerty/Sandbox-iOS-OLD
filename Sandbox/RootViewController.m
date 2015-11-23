@@ -14,7 +14,7 @@
 #import "AKDebugger.h"
 #import "AKGenerics.h"
 #import "CentralDispatch+PRIVATE.h"
-#import "AppInfo.h"
+#import "SandboxAppInfo.h"
 #import "LoginManager.h"
 #import "UIAlertController+Info.h"
 

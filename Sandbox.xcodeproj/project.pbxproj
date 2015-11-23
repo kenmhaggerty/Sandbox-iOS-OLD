@@ -39,7 +39,7 @@
 		7D66AF2D1B75041400105E61 /* SyncEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF2C1B75041400105E61 /* SyncEngine.m */; };
 		7D66AF381B7535B200105E61 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF371B7535B200105E61 /* LoginManager.m */; };
 		7D66AF441B76884200105E61 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF431B76884200105E61 /* RootViewController.m */; };
-		7D66AF481B77A12200105E61 /* AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF471B77A12200105E61 /* AppInfo.m */; };
+		7D66AF481B77A12200105E61 /* SandboxAppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF471B77A12200105E61 /* SandboxAppInfo.m */; };
 		7D66AF5C1B7BEA9700105E61 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF5B1B7BEA9700105E61 /* User.m */; };
 		7D66AF651B7BF3B800105E61 /* MessageToMessageAndUserPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF641B7BF3B800105E61 /* MessageToMessageAndUserPolicy.m */; };
 		7D66AF681B7BF53900105E61 /* Migration_0,2_0,3.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7D66AF671B7BF53900105E61 /* Migration_0,2_0,3.xcmappingmodel */; };
@@ -130,8 +130,8 @@
 		7D66AF3A1B75490200105E61 /* ParseController+PRIVATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ParseController+PRIVATE.h"; sourceTree = "<group>"; };
 		7D66AF421B76884200105E61 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		7D66AF431B76884200105E61 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		7D66AF461B77A12200105E61 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
-		7D66AF471B77A12200105E61 /* AppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfo.m; sourceTree = "<group>"; };
+		7D66AF461B77A12200105E61 /* SandboxAppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxAppInfo.h; sourceTree = "<group>"; };
+		7D66AF471B77A12200105E61 /* SandboxAppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxAppInfo.m; sourceTree = "<group>"; };
 		7D66AF4D1B77A85300105E61 /* LoginManager+Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LoginManager+Delegate.h"; sourceTree = "<group>"; };
 		7D66AF501B77A93600105E61 /* SyncEngine+Delegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SyncEngine+Delegate.h"; sourceTree = "<group>"; };
 		7D66AF561B77ABDD00105E61 /* CentralDispatch+PRIVATE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CentralDispatch+PRIVATE.h"; sourceTree = "<group>"; };
@@ -370,8 +370,8 @@
 			children = (
 				7D66AE2E1B694E3500105E61 /* IMPORTED */,
 				1FEB6EFA1A4C0CDE0049AFDD /* AKPrivateInfo */,
-				7D66AF491B77A12500105E61 /* AppInfo */,
 				1FEB6F0D1A4F9F550049AFDD /* UIAlertController+Info */,
+				7D66AF491B77A12500105E61 /* SandboxAppInfo */,
 				7D4278321551865E000240A5 /* SandboxAppDelegate.h */,
 				7D4278331551865E000240A5 /* SandboxAppDelegate.m */,
 				7D66AF2F1B750B7A00105E61 /* CentralDispatch */,
@@ -516,13 +516,13 @@
 			name = RootViewController;
 			sourceTree = "<group>";
 		};
-		7D66AF491B77A12500105E61 /* AppInfo */ = {
+		7D66AF491B77A12500105E61 /* SandboxAppInfo */ = {
 			isa = PBXGroup;
 			children = (
-				7D66AF461B77A12200105E61 /* AppInfo.h */,
-				7D66AF471B77A12200105E61 /* AppInfo.m */,
+				7D66AF461B77A12200105E61 /* SandboxAppInfo.h */,
+				7D66AF471B77A12200105E61 /* SandboxAppInfo.m */,
 			);
-			name = AppInfo;
+			name = SandboxAppInfo;
 			sourceTree = "<group>";
 		};
 		7D66AF5D1B7BEAD400105E61 /* User */ = {
@@ -747,7 +747,7 @@
 				7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */,
 				1FEB6F061A4E76950049AFDD /* Message.m in Sources */,
 				7DDA09721B17E69600157479 /* UIViewController+Syncing.m in Sources */,
-				7D66AF481B77A12200105E61 /* AppInfo.m in Sources */,
+				7D66AF481B77A12200105E61 /* SandboxAppInfo.m in Sources */,
 				7D66AF651B7BF3B800105E61 /* MessageToMessageAndUserPolicy.m in Sources */,
 				7DDA09791B180A5400157479 /* SyncViewController.m in Sources */,
 				1F11C86B1B50DE680031B985 /* AlertSwitchViewController.m in Sources */,

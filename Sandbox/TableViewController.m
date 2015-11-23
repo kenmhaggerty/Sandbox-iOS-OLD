@@ -14,7 +14,7 @@
 #import "AKDebugger.h"
 #import "AKGenerics.h"
 #import "AKSystemInfo.h"
-#import "AppInfo.h"
+#import "SandboxAppInfo.h"
 #import "DataManager.h"
 #import "CentralDispatch.h"
 #import "Message.h"
