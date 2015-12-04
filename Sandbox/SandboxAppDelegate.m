@@ -13,9 +13,6 @@
 #import "SandboxAppDelegate.h"
 #import "AKDebugger.h"
 #import "AKGenerics.h"
-#import "CoreDataController.h"
-#import "ParseController.h"
-#import "SandboxCentralDispatch.h"
 
 #pragma mark - // DEFINITIONS (Private) //
 
@@ -48,18 +45,6 @@
 {
     [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
     
-    [ParseController setupApplication:application withLaunchOptions:launchOptions];
-    
-    [CoreDataController setup];
-    
-    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
-    [application registerUserNotificationSettings:settings];
-    [application registerForRemoteNotifications];
-    
-    NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (notificationPayload) [SandboxCentralDispatch processRemoteNotification:notificationPayload];
-    
     return YES;
 }
 
@@ -71,10 +56,7 @@
     {
         // The application was just brought from the background to the foreground,
         // so we consider the app as having been "opened by a push notification."
-        [ParseController trackAppOpenedWithRemoteNotificationPayload:userInfo];
     }
-    
-    [SandboxCentralDispatch processRemoteNotification:userInfo];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -102,14 +84,7 @@
 
 #pragma mark - // PUBLIC FUNCTIONS //
 
-#pragma mark - // DELEGATED FUNCTIONS (Parse) //
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    [AKDebugger logMethod:METHOD_NAME logType:AKLogTypeMethodName methodType:AKMethodTypeSetup tags:nil message:nil];
-    
-    [ParseController setDeviceTokenFromData:deviceToken];
-}
+#pragma mark - // DELEGATED FUNCTIONS //
 
 #pragma mark - // PRIVATE FUNCTIONS //
 
