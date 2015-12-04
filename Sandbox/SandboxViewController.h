@@ -1,9 +1,9 @@
 //
-//  ViewController.h
+//  SandboxViewController.h
 //  Sandbox
 //
-//  Created by Ken M. Haggerty on 11/30/12.
-//  Copyright (c) 2012 MCMDI. All rights reserved.
+//  Created by Ken M. Haggerty on 12/4/15.
+//  Copyright © 2015 MCMDI. All rights reserved.
 //
 
 #pragma mark - // NOTES (Public) //
@@ -16,5 +16,6 @@
 
 #pragma mark - // DEFINITIONS (Public) //
 
-@interface ViewController : UIViewController
+@interface SandboxViewController : UIViewController
+
 @end
