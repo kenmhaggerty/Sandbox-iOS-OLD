@@ -7,33 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F175CFC1C11F2DA008BF1D9 /* AKDebuggerRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F175CFB1C11F2DA008BF1D9 /* AKDebuggerRules.m */; };
 		1F3A982B1C11EA720074246B /* SandboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A982A1C11EA720074246B /* SandboxViewController.m */; };
 		1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB7580180F46BC005BE376 /* AKDebugger.m */; };
 		1FD4DBF71C03897700EC3601 /* SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4DBF61C03897700EC3601 /* SystemInfo.m */; };
-		1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */; };
 		1FECF6171B080BB10021D883 /* AKGenerics.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FECF6161B080BB10021D883 /* AKGenerics.m */; };
+		3E3B83534210E46EEBC8C241 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6169974FCD325BFD41A1AF08 /* libPods.a */; };
 		7D10BDF0160654FE00416C66 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BDEF160654FE00416C66 /* Default-568h@2x.png */; };
 		7D42782E1551865E000240A5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D42782C1551865E000240A5 /* InfoPlist.strings */; };
 		7D4278301551865E000240A5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D42782F1551865E000240A5 /* main.m */; };
 		7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4278331551865E000240A5 /* SandboxAppDelegate.m */; };
 		7D4278371551865E000240A5 /* Sandbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D4278351551865E000240A5 /* Sandbox.storyboard */; };
 		7D66AE301B69769E00105E61 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D66AE2F1B69769E00105E61 /* Launch Screen.xib */; };
-		7D66AE321B6976BA00105E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D66AE311B6976BA00105E61 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A80BD99C2B636DE248799D7 /* Pods-Sandbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandbox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sandbox/Pods-Sandbox.debug.xcconfig"; sourceTree = "<group>"; };
+		1F175CFA1C11F2DA008BF1D9 /* AKDebuggerRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDebuggerRules.h; sourceTree = "<group>"; };
+		1F175CFB1C11F2DA008BF1D9 /* AKDebuggerRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDebuggerRules.m; sourceTree = "<group>"; };
 		1F3A98291C11EA720074246B /* SandboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxViewController.h; sourceTree = "<group>"; };
 		1F3A982A1C11EA720074246B /* SandboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxViewController.m; sourceTree = "<group>"; };
 		1FCB757F180F46BC005BE376 /* AKDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKDebugger.h; path = ../../AKDebugger/AKDebugger.h; sourceTree = "<group>"; };
 		1FCB7580180F46BC005BE376 /* AKDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKDebugger.m; path = ../../AKDebugger/AKDebugger.m; sourceTree = "<group>"; };
 		1FD4DBF51C03897700EC3601 /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemInfo.h; path = ../../SystemInfo/SystemInfo.h; sourceTree = "<group>"; };
 		1FD4DBF61C03897700EC3601 /* SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemInfo.m; path = ../../SystemInfo/SystemInfo.m; sourceTree = "<group>"; };
-		1FEB6EE71A4BFFB70049AFDD /* AKDebuggerRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDebuggerRules.h; sourceTree = "<group>"; };
-		1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDebuggerRules.m; sourceTree = "<group>"; };
 		1FECF6151B080BB10021D883 /* AKGenerics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKGenerics.h; path = ../../AKGenerics/AKGenerics.h; sourceTree = "<group>"; };
 		1FECF6161B080BB10021D883 /* AKGenerics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKGenerics.m; path = ../../AKGenerics/AKGenerics.m; sourceTree = "<group>"; };
-		7D10BDEF160654FE00416C66 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Sandbox/Default-568h@2x.png"; sourceTree = "<group>"; };
+		6169974FCD325BFD41A1AF08 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		72C47DEBECD433305593768F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		7D10BDEF160654FE00416C66 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7D42781F1551865E000240A5 /* Sandbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sandbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D42782B1551865E000240A5 /* Sandbox-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sandbox-Info.plist"; sourceTree = "<group>"; };
 		7D42782D1551865E000240A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -43,10 +44,7 @@
 		7D4278331551865E000240A5 /* SandboxAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SandboxAppDelegate.m; sourceTree = "<group>"; };
 		7D4278361551865E000240A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Sandbox.storyboard; sourceTree = "<group>"; };
 		7D66AE2F1B69769E00105E61 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
-		7D66AE311B6976BA00105E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		B26A26A8E8CA2A6DDC8BFD85 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		EAE9FCCD1CBF13D613CCBFE0 /* Pods-Sandbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandbox.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sandbox/Pods-Sandbox.release.xcconfig"; sourceTree = "<group>"; };
-		F7CFEBCA72EF496C695A3A3E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		FA78466A5B01A4D49F43056D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,12 +52,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E3B83534210E46EEBC8C241 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11A1AAF9C4C876732EEBD85F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				72C47DEBECD433305593768F /* Pods.debug.xcconfig */,
+				FA78466A5B01A4D49F43056D /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		1F175CFD1C11F2DF008BF1D9 /* AKDebuggerRules */ = {
+			isa = PBXGroup;
+			children = (
+				1F175CFA1C11F2DA008BF1D9 /* AKDebuggerRules.h */,
+				1F175CFB1C11F2DA008BF1D9 /* AKDebuggerRules.m */,
+			);
+			name = AKDebuggerRules;
+			sourceTree = "<group>";
+		};
 		1F3A982C1C11EA760074246B /* SandboxViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,8 +91,6 @@
 			children = (
 				1FCB757F180F46BC005BE376 /* AKDebugger.h */,
 				1FCB7580180F46BC005BE376 /* AKDebugger.m */,
-				1FEB6EE71A4BFFB70049AFDD /* AKDebuggerRules.h */,
-				1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */,
 			);
 			name = AKDebugger;
 			sourceTree = "<group>";
@@ -98,26 +113,14 @@
 			name = AKGenerics;
 			sourceTree = "<group>";
 		};
-		467F20F8E0D5D0D5F38DCC2A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B26A26A8E8CA2A6DDC8BFD85 /* Pods.debug.xcconfig */,
-				F7CFEBCA72EF496C695A3A3E /* Pods.release.xcconfig */,
-				0A80BD99C2B636DE248799D7 /* Pods-Sandbox.debug.xcconfig */,
-				EAE9FCCD1CBF13D613CCBFE0 /* Pods-Sandbox.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		7D4278141551865D000240A5 = {
 			isa = PBXGroup;
 			children = (
-				7D10BDEF160654FE00416C66 /* Default-568h@2x.png */,
 				7D66AE2E1B694E3500105E61 /* IMPORTED */,
 				7D4278221551865E000240A5 /* FRAMEWORKS */,
 				7D4278291551865E000240A5 /* Sandbox */,
 				7D4278201551865E000240A5 /* Products */,
-				467F20F8E0D5D0D5F38DCC2A /* Pods */,
+				11A1AAF9C4C876732EEBD85F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,6 +135,7 @@
 		7D4278221551865E000240A5 /* FRAMEWORKS */ = {
 			isa = PBXGroup;
 			children = (
+				6169974FCD325BFD41A1AF08 /* libPods.a */,
 			);
 			name = FRAMEWORKS;
 			sourceTree = "<group>";
@@ -139,11 +143,12 @@
 		7D4278291551865E000240A5 /* Sandbox */ = {
 			isa = PBXGroup;
 			children = (
+				1F175CFD1C11F2DF008BF1D9 /* AKDebuggerRules */,
+				7D66AE331B6976C000105E61 /* ASSETS */,
 				7D4278321551865E000240A5 /* SandboxAppDelegate.h */,
 				7D4278331551865E000240A5 /* SandboxAppDelegate.m */,
 				7D4278351551865E000240A5 /* Sandbox.storyboard */,
 				7D66AF271B74F73E00105E61 /* View Controllers */,
-				7D66AE331B6976C000105E61 /* Assets */,
 				7D42782A1551865E000240A5 /* Supporting Files */,
 			);
 			path = Sandbox;
@@ -171,13 +176,13 @@
 			path = Sandbox;
 			sourceTree = "<group>";
 		};
-		7D66AE331B6976C000105E61 /* Assets */ = {
+		7D66AE331B6976C000105E61 /* ASSETS */ = {
 			isa = PBXGroup;
 			children = (
+				7D10BDEF160654FE00416C66 /* Default-568h@2x.png */,
 				7D66AE2F1B69769E00105E61 /* Launch Screen.xib */,
-				7D66AE311B6976BA00105E61 /* Media.xcassets */,
 			);
-			name = Assets;
+			name = ASSETS;
 			sourceTree = "<group>";
 		};
 		7D66AF271B74F73E00105E61 /* View Controllers */ = {
@@ -195,12 +200,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7D42783D1551865E000240A5 /* Build configuration list for PBXNativeTarget "Sandbox" */;
 			buildPhases = (
-				6204AB20CA5545268B95CCCD /* Check Pods Manifest.lock */,
+				06F256CC601E1BC05AA5A7F7 /* Check Pods Manifest.lock */,
 				7D42781B1551865E000240A5 /* Sources */,
 				7D42781C1551865E000240A5 /* Frameworks */,
 				7D42781D1551865E000240A5 /* Resources */,
-				98830C07D75B453EBFBF661C /* Copy Pods Resources */,
-				25233424CA96E3C847DF1BB7 /* Embed Pods Frameworks */,
+				11C4A25C8A09D9E7D173E7B6 /* Embed Pods Frameworks */,
+				7E29D98E9450C771820F2065 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -251,7 +256,6 @@
 				7D42782E1551865E000240A5 /* InfoPlist.strings in Resources */,
 				7D4278371551865E000240A5 /* Sandbox.storyboard in Resources */,
 				7D66AE301B69769E00105E61 /* Launch Screen.xib in Resources */,
-				7D66AE321B6976BA00105E61 /* Media.xcassets in Resources */,
 				7D10BDF0160654FE00416C66 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,22 +263,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		25233424CA96E3C847DF1BB7 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sandbox/Pods-Sandbox-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6204AB20CA5545268B95CCCD /* Check Pods Manifest.lock */ = {
+		06F256CC601E1BC05AA5A7F7 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -289,7 +278,22 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		98830C07D75B453EBFBF661C /* Copy Pods Resources */ = {
+		11C4A25C8A09D9E7D173E7B6 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7E29D98E9450C771820F2065 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -301,7 +305,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sandbox/Pods-Sandbox-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -316,8 +320,8 @@
 				7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */,
 				1FD4DBF71C03897700EC3601 /* SystemInfo.m in Sources */,
 				1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */,
+				1F175CFC1C11F2DA008BF1D9 /* AKDebuggerRules.m in Sources */,
 				1F3A982B1C11EA720074246B /* SandboxViewController.m in Sources */,
-				1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,14 +422,11 @@
 		};
 		7D42783E1551865E000240A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A80BD99C2B636DE248799D7 /* Pods-Sandbox.debug.xcconfig */;
+			baseConfigurationReference = 72C47DEBECD433305593768F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"/Users/MCMDI/Documents/PROGRAMMING/iOS/2_IMPORTS/FRAMEWORKS/parse-library-1.8.0",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sandbox/Sandbox-Prefix.pch";
 				INFOPLIST_FILE = "Sandbox/Sandbox-Info.plist";
@@ -440,14 +441,11 @@
 		};
 		7D42783F1551865E000240A5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EAE9FCCD1CBF13D613CCBFE0 /* Pods-Sandbox.release.xcconfig */;
+			baseConfigurationReference = FA78466A5B01A4D49F43056D /* Pods.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"/Users/MCMDI/Documents/PROGRAMMING/iOS/2_IMPORTS/FRAMEWORKS/parse-library-1.8.0",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sandbox/Sandbox-Prefix.pch";
 				INFOPLIST_FILE = "Sandbox/Sandbox-Info.plist";

@@ -1,6 +1,6 @@
 //
 //  AKDebuggerRules.h
-//  Sandbox
+//  <#ProjectName#>
 //
 //  Created by Ken M. Haggerty on 10/11/13.
 //  Copyright (c) 2013 Eureka Valley Co. All rights reserved.
@@ -19,61 +19,55 @@
 
 @interface AKDebuggerRules : NSObject <AKDebuggerRules>
 
-// RULES (General) //
+// General //
 
 + (BOOL)masterOn;
 
 + (BOOL)printClassMethods;
 + (BOOL)printInstanceMethods;
 
-+ (BOOL)printSetup;
+// AKLogType //
+
++ (BOOL)printMethodNames;
++ (BOOL)printInfos;
++ (BOOL)printDebugs;
++ (BOOL)printNotices;
++ (BOOL)printAlerts;
++ (BOOL)printWarnings;
++ (BOOL)printErrors;
++ (BOOL)printCriticals;
++ (BOOL)printEmergencies;
+
+// AKMethodType //
+
++ (BOOL)printSetups;
 + (BOOL)printSetters;
 + (BOOL)printGetters;
 + (BOOL)printCreators;
 + (BOOL)printDeletors;
 + (BOOL)printActions;
 + (BOOL)printValidators;
-+ (BOOL)printUnspecified;
++ (BOOL)printUnspecifieds;
 
-+ (BOOL)printMethodNames;
-+ (BOOL)printEmergencies;
-+ (BOOL)printAlerts;
-+ (BOOL)printFailures;
-+ (BOOL)printErrors;
-+ (BOOL)printWarnings;
-+ (BOOL)printNotices;
-+ (BOOL)printInformation;
-+ (BOOL)printDebug;
+// Tags //
 
-// RULES (Custom Categories) //
++ (nullable NSArray <NSString *> *)tagsToPrint;
++ (nullable NSArray <NSString *> *)tagsToSkip;
 
-+ (NSSet *)customCategoriesToPrint;
-+ (NSSet *)customCategoriesToSkip;
+// Classes //
 
-// RULES (View Controllers) //
++ (nullable NSArray <NSString *> *)classesToPrint;
++ (nullable NSArray <NSString *> *)classesToSkip;
 
-+ (BOOL)printViewControllers;
-+ (NSSet *)viewControllersToSkip;
-
-// RULES (Views) //
-
-+ (BOOL)printViews;
-+ (NSSet *)viewsToSkip;
-
-// RULES (Other) //
-
-+ (BOOL)printOtherClasses;
-+ (NSSet *)otherClassesToSkip;
-+ (NSSet *)methodsToSkip;
-+ (NSSet *)methodsToPrint;
-
-// RULES (Categories) //
+// Categories //
 
 + (BOOL)printCategories;
-+ (NSSet *)categoriesToSkip;
++ (nullable NSArray <NSString *> *)categoriesToPrint;
++ (nullable NSArray <NSString *> *)categoriesToSkip;
 
-// DEBUGGING //
+// Methods //
 
-+ (BOOL)test;
++ (nullable NSArray <NSString *> *)methodsToPrint;
++ (nullable NSArray <NSString *> *)methodsToSkip;
 
 @end

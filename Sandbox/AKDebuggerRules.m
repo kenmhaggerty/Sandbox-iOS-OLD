@@ -1,6 +1,6 @@
 //
 //  AKDebuggerRules.m
-//  Sandbox
+//  <#ProjectName#>
 //
 //  Created by Ken M. Haggerty on 10/11/13.
 //  Copyright (c) 2013 Eureka Valley Co. All rights reserved.
@@ -21,53 +21,49 @@
 #define PRINT_CLASS_METHODS YES
 #define PRINT_INSTANCE_METHODS YES
 
-#define PRINT_SETUP YES
+// RULES (AKLogType) //
+
+#define PRINT_METHOD_NAMES YES
+#define PRINT_INFOS YES
+#define PRINT_DEBUGS YES
+#define PRINT_NOTICES YES
+#define PRINT_ALERTS YES
+#define PRINT_WARNINGS YES
+#define PRINT_ERRORS YES
+#define PRINT_CRITICALS YES
+#define PRINT_EMERGENCIES YES
+
+// RULES (AKMethodType) //
+
+#define PRINT_SETUPS YES
 #define PRINT_SETTERS YES
 #define PRINT_GETTERS YES
 #define PRINT_CREATORS YES
 #define PRINT_DELETORS YES
 #define PRINT_ACTIONS YES
 #define PRINT_VALIDATORS YES
-#define PRINT_UNSPECIFIED YES
+#define PRINT_UNSPECIFIEDS YES
 
-#define PRINT_METHOD_NAMES YES
-#define PRINT_EMERGENCIES YES
-#define PRINT_ALERTS YES
-#define PRINT_FAILURES YES
-#define PRINT_ERRORS YES
-#define PRINT_WARNINGS YES
-#define PRINT_NOTICES YES
-#define PRINT_INFO YES
-#define PRINT_DEBUG YES
+// RULES (Tags) //
 
-// RULES (Custom Categories) //
+#define TAGS_TO_PRINT nil
+#define TAGS_TO_SKIP nil
 
-#define CUSTOM_CATEGORIES_TO_PRINT [NSSet setWithObjects:nil]
-#define CUSTOM_CATEGORIES_TO_SKIP [NSSet setWithObjects:nil]
+// RULES (Classes) //
 
-// RULES (View Controllers) //
-
-#define PRINT_VIEWCONTROLLERS YES
-#define VIEWCONTROLLERS_TO_SKIP [NSSet setWithObjects:nil]
-
-// RULES (Views) //
-
-#define PRINT_VIEWS YES
-#define VIEWS_TO_SKIP [NSSet setWithObjects:nil]
-
-// RULES (Other) //
-
-#define PRINT_OTHERCLASSES YES
-#define CLASSES_TO_SKIP [NSSet setWithObjects:nil]
-#define METHODS_TO_SKIP [NSSet setWithObjects:nil]
-#define METHODS_TO_PRINT nil
+#define CLASSES_TO_PRINT nil
+#define CLASSES_TO_SKIP nil
 
 // RULES (Categories) //
 
 #define PRINT_CATEGORIES YES
-#define CATEGORIES_TO_SKIP [NSSet setWithObjects:nil]
+#define CATEGORIES_TO_PRINT nil
+#define CATEGORIES_TO_SKIP nil
 
-// FORMATTING //
+// RULES (Methods) //
+
+#define METHODS_TO_PRINT nil
+#define METHODS_TO_SKIP nil
 
 // OTHER //
 
@@ -100,11 +96,78 @@
     return PRINT_INSTANCE_METHODS;
 }
 
-+ (BOOL)printSetup
+#pragma mark - // PUBLIC METHODS (AKLogType) //
+
++ (BOOL)printMethodNames
 {
     if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
     
-    return PRINT_SETUP;
+    return PRINT_METHOD_NAMES;
+}
+
++ (BOOL)printInfos
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return PRINT_INFOS;
+}
+
++ (BOOL)printDebugs
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return PRINT_DEBUGS;
+}
+
++ (BOOL)printNotices
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return PRINT_NOTICES;
+}
+
++ (BOOL)printAlerts
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return PRINT_ALERTS;
+}
+
++ (BOOL)printWarnings
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return PRINT_WARNINGS;
+}
+
++ (BOOL)printErrors
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return PRINT_ERRORS;
+}
+
++ (BOOL)printCriticals
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return PRINT_CRITICALS;
+}
+
++ (BOOL)printEmergencies
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return PRINT_EMERGENCIES;
+}
+
+#pragma mark - // PUBLIC METHODS (AKMethodType) //
+
++ (BOOL)printSetups
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return PRINT_SETUPS;
 }
 
 + (BOOL)printSetters
@@ -149,152 +212,43 @@
     return PRINT_VALIDATORS;
 }
 
-+ (BOOL)printUnspecified
++ (BOOL)printUnspecifieds
 {
     if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
     
-    return PRINT_UNSPECIFIED;
+    return PRINT_UNSPECIFIEDS;
 }
 
-+ (BOOL)printMethodNames
+#pragma mark - // PUBLIC METHODS (Tags) //
+
++ (nullable NSArray <NSString *> *)tagsToPrint
 {
     if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
     
-    return PRINT_METHOD_NAMES;
+    return TAGS_TO_PRINT;
 }
 
-+ (BOOL)printEmergencies
++ (nullable NSArray <NSString *> *)tagsToSkip
 {
     if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
     
-    return PRINT_EMERGENCIES;
+    return TAGS_TO_SKIP;
 }
 
-+ (BOOL)printAlerts
+#pragma mark - // PUBLIC METHODS (Classes) //
+
++ (nullable NSArray <NSString *> *)classesToPrint
 {
     if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
     
-    return PRINT_ALERTS;
+    return CLASSES_TO_PRINT;
 }
 
-+ (BOOL)printFailures
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return PRINT_FAILURES;
-}
-
-+ (BOOL)printErrors
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return PRINT_ERRORS;
-}
-
-+ (BOOL)printWarnings
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return PRINT_WARNINGS;
-}
-
-+ (BOOL)printNotices
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return PRINT_NOTICES;
-}
-
-+ (BOOL)printInformation
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return PRINT_INFO;
-}
-
-+ (BOOL)printDebug
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return PRINT_DEBUG;
-}
-
-#pragma mark - // PUBLIC METHODS (Custom Categories) //
-
-+ (NSSet *)customCategoriesToPrint
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return CUSTOM_CATEGORIES_TO_PRINT;
-}
-
-+ (NSSet *)customCategoriesToSkip
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return CUSTOM_CATEGORIES_TO_SKIP;
-}
-
-#pragma mark - // PUBLIC METHODS (View Controllers) //
-
-+ (BOOL)printViewControllers
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return PRINT_VIEWCONTROLLERS;
-}
-
-+ (NSSet *)viewControllersToSkip
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return VIEWCONTROLLERS_TO_SKIP;
-}
-
-#pragma mark - // PUBLIC METHODS (Views) //
-
-+ (BOOL)printViews
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return PRINT_VIEWS;
-}
-
-+ (NSSet *)viewsToSkip
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return VIEWS_TO_SKIP;
-}
-
-#pragma mark - // PUBLIC METHODS (Other) //
-
-+ (BOOL)printOtherClasses
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return PRINT_OTHERCLASSES;
-}
-
-+ (NSSet *)otherClassesToSkip
++ (nullable NSArray <NSString *> *)classesToSkip
 {
     if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
     
     return CLASSES_TO_SKIP;
-}
-
-+ (NSSet *)methodsToSkip
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return METHODS_TO_SKIP;
-}
-
-+ (NSSet *)methodsToPrint
-{
-    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
-    
-    return METHODS_TO_PRINT;
 }
 
 #pragma mark - // PUBLIC METHODS (Categories) //
@@ -306,20 +260,34 @@
     return PRINT_CATEGORIES;
 }
 
-+ (NSSet *)categoriesToSkip
++ (nullable NSArray <NSString *> *)categoriesToPrint
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return CATEGORIES_TO_PRINT;
+}
+
++ (nullable NSArray <NSString *> *)categoriesToSkip
 {
     if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
     
     return CATEGORIES_TO_SKIP;
 }
 
-#pragma mark - // PUBLIC METHODS (Debugging) //
+#pragma mark - // PUBLIC METHODS (Methods) //
 
-+ (BOOL)test
++ (nullable NSArray <NSString *> *)methodsToPrint
 {
     if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
     
-    return YES;
+    return METHODS_TO_PRINT;
+}
+
++ (nullable NSArray <NSString *> *)methodsToSkip
+{
+    if (PRINT_DEBUGGER) AKLog(@"%s", __PRETTY_FUNCTION__);
+    
+    return METHODS_TO_SKIP;
 }
 
 #pragma mark - // DELEGATED METHODS //
