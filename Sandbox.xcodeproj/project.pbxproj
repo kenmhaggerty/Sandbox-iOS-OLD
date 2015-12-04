@@ -14,6 +14,7 @@
 		1FA2480A183CEBE500351015 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA24809183CEBE500351015 /* TableViewController.m */; };
 		1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB7580180F46BC005BE376 /* AKDebugger.m */; };
 		1FD4DBF71C03897700EC3601 /* SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4DBF61C03897700EC3601 /* SystemInfo.m */; };
+		1FD4DBFA1C03B47700EC3601 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4DBF91C03B47700EC3601 /* TestViewController.m */; };
 		1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */; };
 		1FEB6EF41A4C0BFC0049AFDD /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EEF1A4C0BFC0049AFDD /* CoreDataController.m */; };
 		1FEB6EF61A4C0BFC0049AFDD /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEB6EF31A4C0BFC0049AFDD /* DataManager.m */; };
@@ -88,6 +89,8 @@
 		1FCB7580180F46BC005BE376 /* AKDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKDebugger.m; path = ../../AKDebugger/AKDebugger.m; sourceTree = "<group>"; };
 		1FD4DBF51C03897700EC3601 /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemInfo.h; path = ../../SystemInfo/SystemInfo.h; sourceTree = "<group>"; };
 		1FD4DBF61C03897700EC3601 /* SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemInfo.m; path = ../../SystemInfo/SystemInfo.m; sourceTree = "<group>"; };
+		1FD4DBF81C03B47700EC3601 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		1FD4DBF91C03B47700EC3601 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		1FEB6EE71A4BFFB70049AFDD /* AKDebuggerRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDebuggerRules.h; sourceTree = "<group>"; };
 		1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDebuggerRules.m; sourceTree = "<group>"; };
 		1FEB6EEE1A4C0BFC0049AFDD /* CoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataController.h; sourceTree = "<group>"; };
@@ -250,6 +253,15 @@
 				1FEB6EE81A4BFFB70049AFDD /* AKDebuggerRules.m */,
 			);
 			name = AKDebugger;
+			sourceTree = "<group>";
+		};
+		1FD4DBFB1C03B47A00EC3601 /* TestViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1FD4DBF81C03B47700EC3601 /* TestViewController.h */,
+				1FD4DBF91C03B47700EC3601 /* TestViewController.m */,
+			);
+			name = TestViewController;
 			sourceTree = "<group>";
 		};
 		1FEB6EED1A4C04D60049AFDD /* SystemInfo */ = {
@@ -459,6 +471,7 @@
 				7D66AF451B76884700105E61 /* RootViewController */,
 				7D66AF3E1B76877C00105E61 /* ViewController */,
 				7D66AF3D1B76877500105E61 /* TableViewController */,
+				1FD4DBFB1C03B47A00EC3601 /* TestViewController */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -764,6 +777,7 @@
 				1FCB7581180F46BC005BE376 /* AKDebugger.m in Sources */,
 				7D66AF681B7BF53900105E61 /* Migration_0,2_0,3.xcmappingmodel in Sources */,
 				7D66AF2A1B74F75A00105E61 /* SandboxCentralDispatch.m in Sources */,
+				1FD4DBFA1C03B47700EC3601 /* TestViewController.m in Sources */,
 				1F92A90B1B8255C800AB5490 /* NSMigrationManager+Lookup.m in Sources */,
 				1FEB6EE91A4BFFB70049AFDD /* AKDebuggerRules.m in Sources */,
 				7D66AF381B7535B200105E61 /* LoginManager.m in Sources */,
