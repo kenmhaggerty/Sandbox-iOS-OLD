@@ -70,11 +70,9 @@
 		7DDA09791B180A5400157479 /* SyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDA09771B180A5400157479 /* SyncViewController.m */; };
 		7DEC43DA1B83CADA005869E5 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DEC43D91B83CADA005869E5 /* Parse.framework */; };
 		7DFFAC5B164F058D00B58EE4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DFFAC5A164F058D00B58EE4 /* CoreData.framework */; };
-		9894FFFE75259EC23CFDE14C /* Pods_Sandbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0509EF5E99E5FFD93173F910 /* Pods_Sandbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0509EF5E99E5FFD93173F910 /* Pods_Sandbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sandbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A80BD99C2B636DE248799D7 /* Pods-Sandbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandbox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sandbox/Pods-Sandbox.debug.xcconfig"; sourceTree = "<group>"; };
 		1F11C8641B505AA80031B985 /* AKSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSwitchView.h; path = ../../AlertSwitchViewController/AKSwitchView.h; sourceTree = "<group>"; };
 		1F11C8651B505AA80031B985 /* AKSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSwitchView.m; path = ../../AlertSwitchViewController/AKSwitchView.m; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 		1FECF60F1B080B600021D883 /* CoreDataModel_0,0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel_0,0.xcdatamodel"; sourceTree = "<group>"; };
 		1FECF6151B080BB10021D883 /* AKGenerics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKGenerics.h; path = ../../AKGenerics/AKGenerics.h; sourceTree = "<group>"; };
 		1FECF6161B080BB10021D883 /* AKGenerics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKGenerics.m; path = ../../AKGenerics/AKGenerics.m; sourceTree = "<group>"; };
-		73B5602FF0F1B253E66B2ED6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D10BDEF160654FE00416C66 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Sandbox/Default-568h@2x.png"; sourceTree = "<group>"; };
 		7D3AC9F116691B5A00594015 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		7D3AC9F216691B5A00594015 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -208,7 +205,6 @@
 				7D4278261551865E000240A5 /* Foundation.framework in Frameworks */,
 				7D66AF1C1B74F20400105E61 /* Bolts.framework in Frameworks */,
 				7D4278281551865E000240A5 /* CoreGraphics.framework in Frameworks */,
-				9894FFFE75259EC23CFDE14C /* Pods_Sandbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,8 +370,6 @@
 				7D4278231551865E000240A5 /* UIKit.framework */,
 				7D9513D61B0A873800E508E8 /* libsqlite3.dylib */,
 				7D9513D41B0A872E00E508E8 /* libz.dylib */,
-				73B5602FF0F1B253E66B2ED6 /* libPods.a */,
-				0509EF5E99E5FFD93173F910 /* Pods_Sandbox.framework */,
 			);
 			name = FRAMEWORKS;
 			sourceTree = "<group>";

@@ -3,60 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
-	<dict>
-		<key>AFNetworking.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Bolts.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Parse.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-Sandbox.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Reachability.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-	</dict>
+	<dict/>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>0E2D30E9240D6562F25A2987928D9F72</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2C3B96F48A6363AFC4B37525A754FF2E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>511B536F0DE06D9C3BD65397A91990C0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>708E01B006A9F88B3C13711562282B5E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A484A7D01C06027CD2AECEE837D3D876</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>
