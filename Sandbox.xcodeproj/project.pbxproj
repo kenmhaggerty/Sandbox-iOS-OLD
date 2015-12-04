@@ -338,6 +338,7 @@
 			children = (
 				7D10BDEF160654FE00416C66 /* Default-568h@2x.png */,
 				7D66AE2E1B694E3500105E61 /* IMPORTED */,
+				7D4278221551865E000240A5 /* FRAMEWORKS */,
 				7D4278291551865E000240A5 /* Sandbox */,
 				7D4278201551865E000240A5 /* Products */,
 				467F20F8E0D5D0D5F38DCC2A /* Pods */,
@@ -352,7 +353,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7D4278221551865E000240A5 /* Frameworks */ = {
+		7D4278221551865E000240A5 /* FRAMEWORKS */ = {
 			isa = PBXGroup;
 			children = (
 				7D9513D81B0A874600E508E8 /* Accounts.framework */,
@@ -376,8 +377,7 @@
 				73B5602FF0F1B253E66B2ED6 /* libPods.a */,
 				0509EF5E99E5FFD93173F910 /* Pods_Sandbox.framework */,
 			);
-			name = Frameworks;
-			path = ..;
+			name = FRAMEWORKS;
 			sourceTree = "<group>";
 		};
 		7D4278291551865E000240A5 /* Sandbox */ = {
@@ -411,7 +411,6 @@
 		7D66AE2E1B694E3500105E61 /* IMPORTED */ = {
 			isa = PBXGroup;
 			children = (
-				7D4278221551865E000240A5 /* Frameworks */,
 				1FCB7582180F46D3005BE376 /* AKDebugger */,
 				1FEB6EED1A4C04D60049AFDD /* SystemInfo */,
 				1FECF6181B080BB40021D883 /* AKGenerics */,
