@@ -433,6 +433,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.eurekavalleyco.development.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Sandbox;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -454,6 +455,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.eurekavalleyco.development.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Sandbox;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
