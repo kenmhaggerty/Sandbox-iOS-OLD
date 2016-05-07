@@ -1,0 +1,156 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "23D6294FF433B578B3376B2E0BCB8E315D0C6036",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D33DFA3CBF12B9EFAC3E00C997DB43DE9993C032" : 0,
+    "180AEB9035F8B2E3D53D07BA453CBB1CF1D26099" : 0,
+    "EE2149F46CE9D12EEED852BC5841F1EB9896945C" : 0,
+    "EE5CAB27FBCA63AD112035623C9B3400891A2002" : 0,
+    "715B096CF0E4D7E2784DA9AA52C2CFC6A8DB63CE" : 0,
+    "CCEE0C092BE7A197D47603DA7FCF1132419254D6" : 0,
+    "249738F0A276B150378B589E80258D41888764CC" : 0,
+    "CD9C8CD98FD06B55D0666F7F547E7DA2855FA899" : 0,
+    "5B9F097DADE1B5E7FB1C37820AFC0BA849ACDCDA" : 0,
+    "A61C93C866543DE423F4A52EC439AF7B970D8236" : 0,
+    "07E5EF24F494A05042A8D999769F699D0AF12BD0" : 0,
+    "CB50C2B1EDC1676F7BB3EEB6D9FF9C7802E91EA8" : 0,
+    "A70C001FBDC74BE46D51AFC5419E146563D8E897" : 0,
+    "2B76CB00702962398286E8A7CEE2B77B1411D5E5" : 0,
+    "FC7EB595F0165B4E071792DDEF137676A766E0F2" : 0,
+    "C62B209600A0E4C0A1D692DE438020AB17D1D1C1" : 0,
+    "E84F1107029E0CB8CC7C7D28702EDAC8EE7C484E" : 0,
+    "23D6294FF433B578B3376B2E0BCB8E315D0C6036" : 0,
+    "BD83879B7A4B90FB5896FBDB5F2F33367ED9F0BC" : 0,
+    "FE14603F7334ACA5B2227A3072D8FD89C8340A65" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "48A4A83A-F416-429C-AD74-09F1B2F0ADC2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D33DFA3CBF12B9EFAC3E00C997DB43DE9993C032" : "Akay\/",
+    "180AEB9035F8B2E3D53D07BA453CBB1CF1D26099" : "AKDebugger",
+    "EE2149F46CE9D12EEED852BC5841F1EB9896945C" : "AKSuperViewController",
+    "EE5CAB27FBCA63AD112035623C9B3400891A2002" : "SwiftGenerics\/",
+    "715B096CF0E4D7E2784DA9AA52C2CFC6A8DB63CE" : "CentralDispatch\/",
+    "CCEE0C092BE7A197D47603DA7FCF1132419254D6" : "UIViewController+Keyboard\/",
+    "249738F0A276B150378B589E80258D41888764CC" : "AKSystemInfo",
+    "CD9C8CD98FD06B55D0666F7F547E7DA2855FA899" : "UITableViewCell+Swiped\/",
+    "5B9F097DADE1B5E7FB1C37820AFC0BA849ACDCDA" : "UIViewController+Syncing",
+    "A61C93C866543DE423F4A52EC439AF7B970D8236" : "AlertSwitchViewController",
+    "07E5EF24F494A05042A8D999769F699D0AF12BD0" : "NSMigrationManager-Lookup\/",
+    "CB50C2B1EDC1676F7BB3EEB6D9FF9C7802E91EA8" : "AlertTableViewController",
+    "A70C001FBDC74BE46D51AFC5419E146563D8E897" : "UITableView+Extras\/",
+    "2B76CB00702962398286E8A7CEE2B77B1411D5E5" : "NSArray+Extras\/",
+    "FC7EB595F0165B4E071792DDEF137676A766E0F2" : "AKGenerics",
+    "C62B209600A0E4C0A1D692DE438020AB17D1D1C1" : "MixpanelController\/",
+    "E84F1107029E0CB8CC7C7D28702EDAC8EE7C484E" : "UITableViewCell+IndexPath\/",
+    "23D6294FF433B578B3376B2E0BCB8E315D0C6036" : "Sandbox",
+    "BD83879B7A4B90FB5896FBDB5F2F33367ED9F0BC" : "NSObject+Basics\/",
+    "FE14603F7334ACA5B2227A3072D8FD89C8340A65" : "UITextView+Placeholder\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Sandbox",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Sandbox.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eurekavalleyco\/NSMigrationManager-Lookup.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "07E5EF24F494A05042A8D999769F699D0AF12BD0"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eurekavalleyco\/AKDebugger.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "180AEB9035F8B2E3D53D07BA453CBB1CF1D26099"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kenmhaggerty\/Sandbox.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "23D6294FF433B578B3376B2E0BCB8E315D0C6036"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eurekavalleyco\/AKSystemInfo.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "249738F0A276B150378B589E80258D41888764CC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:kenmhaggerty\/NSArray-Extras.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2B76CB00702962398286E8A7CEE2B77B1411D5E5"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kenmhaggerty\/UIViewController-Syncing.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5B9F097DADE1B5E7FB1C37820AFC0BA849ACDCDA"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:eurekavalleyco\/CentralDispatch.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "715B096CF0E4D7E2784DA9AA52C2CFC6A8DB63CE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eurekavalleyco\/AlertSwitchViewController.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A61C93C866543DE423F4A52EC439AF7B970D8236"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:eurekavalleyco\/UITableView-Extras.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A70C001FBDC74BE46D51AFC5419E146563D8E897"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:eurekavalleyco\/NSObject-Basics.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BD83879B7A4B90FB5896FBDB5F2F33367ED9F0BC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eurekavalleyco\/MixpanelController.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C62B209600A0E4C0A1D692DE438020AB17D1D1C1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eurekavalleyco\/AlertTableViewController.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CB50C2B1EDC1676F7BB3EEB6D9FF9C7802E91EA8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kenmhaggerty\/UIViewController-Keyboard.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CCEE0C092BE7A197D47603DA7FCF1132419254D6"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:eurekavalleyco\/UITableViewCell-Swiped.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CD9C8CD98FD06B55D0666F7F547E7DA2855FA899"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "bitbucket.org:eurekavalleyco\/akay.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D33DFA3CBF12B9EFAC3E00C997DB43DE9993C032"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:eurekavalleyco\/UITableViewCell-IndexPath.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E84F1107029E0CB8CC7C7D28702EDAC8EE7C484E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/eurekavalleyco\/aksuperviewcontroller.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EE2149F46CE9D12EEED852BC5841F1EB9896945C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:eurekavalleyco\/SwiftGenerics.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EE5CAB27FBCA63AD112035623C9B3400891A2002"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eurekavalleyco\/AKGenerics.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FC7EB595F0165B4E071792DDEF137676A766E0F2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eurekavalleyco\/UITextView-Placeholder.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FE14603F7334ACA5B2227A3072D8FD89C8340A65"
+    }
+  ]
+}

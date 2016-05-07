@@ -113,6 +113,15 @@
 			name = AKGenerics;
 			sourceTree = "<group>";
 		};
+		7D2020FC1CDE4E21008D9F5D /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				7D66AE2F1B69769E00105E61 /* Launch Screen.xib */,
+				7D4278351551865E000240A5 /* Sandbox.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
 		7D4278141551865D000240A5 = {
 			isa = PBXGroup;
 			children = (
@@ -144,10 +153,10 @@
 			isa = PBXGroup;
 			children = (
 				1F175CFD1C11F2DF008BF1D9 /* AKDebuggerRules */,
-				7D66AE331B6976C000105E61 /* ASSETS */,
+				7D66AE331B6976C000105E61 /* Assets */,
 				7D4278321551865E000240A5 /* SandboxAppDelegate.h */,
 				7D4278331551865E000240A5 /* SandboxAppDelegate.m */,
-				7D4278351551865E000240A5 /* Sandbox.storyboard */,
+				7D2020FC1CDE4E21008D9F5D /* Storyboards */,
 				7D66AF271B74F73E00105E61 /* View Controllers */,
 				7D42782A1551865E000240A5 /* Supporting Files */,
 			);
@@ -176,13 +185,12 @@
 			path = Sandbox;
 			sourceTree = "<group>";
 		};
-		7D66AE331B6976C000105E61 /* ASSETS */ = {
+		7D66AE331B6976C000105E61 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
 				7D10BDEF160654FE00416C66 /* Default-568h@2x.png */,
-				7D66AE2F1B69769E00105E61 /* Launch Screen.xib */,
 			);
-			name = ASSETS;
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		7D66AF271B74F73E00105E61 /* View Controllers */ = {
