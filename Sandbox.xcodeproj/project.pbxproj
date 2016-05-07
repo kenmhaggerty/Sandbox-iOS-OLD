@@ -13,7 +13,7 @@
 		1FD4DBF71C03897700EC3601 /* SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4DBF61C03897700EC3601 /* SystemInfo.m */; };
 		1FECF6171B080BB10021D883 /* AKGenerics.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FECF6161B080BB10021D883 /* AKGenerics.m */; };
 		3E3B83534210E46EEBC8C241 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6169974FCD325BFD41A1AF08 /* libPods.a */; };
-		7D10BDF0160654FE00416C66 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D10BDEF160654FE00416C66 /* Default-568h@2x.png */; };
+		7D2021041CDE53F1008D9F5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D2021031CDE53F1008D9F5D /* Assets.xcassets */; };
 		7D42782E1551865E000240A5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D42782C1551865E000240A5 /* InfoPlist.strings */; };
 		7D4278301551865E000240A5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D42782F1551865E000240A5 /* main.m */; };
 		7D4278341551865E000240A5 /* SandboxAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4278331551865E000240A5 /* SandboxAppDelegate.m */; };
@@ -24,8 +24,8 @@
 /* Begin PBXFileReference section */
 		1F175CFA1C11F2DA008BF1D9 /* AKDebuggerRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDebuggerRules.h; sourceTree = "<group>"; };
 		1F175CFB1C11F2DA008BF1D9 /* AKDebuggerRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDebuggerRules.m; sourceTree = "<group>"; };
-		1F3A98291C11EA720074246B /* SandboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxViewController.h; sourceTree = "<group>"; };
-		1F3A982A1C11EA720074246B /* SandboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxViewController.m; sourceTree = "<group>"; };
+		1F3A98291C11EA720074246B /* SandboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SandboxViewController.h; path = "View Controllers/SandboxViewController.h"; sourceTree = "<group>"; };
+		1F3A982A1C11EA720074246B /* SandboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SandboxViewController.m; path = "View Controllers/SandboxViewController.m"; sourceTree = "<group>"; };
 		1FCB757F180F46BC005BE376 /* AKDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKDebugger.h; path = ../../AKDebugger/AKDebugger.h; sourceTree = "<group>"; };
 		1FCB7580180F46BC005BE376 /* AKDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKDebugger.m; path = ../../AKDebugger/AKDebugger.m; sourceTree = "<group>"; };
 		1FD4DBF51C03897700EC3601 /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemInfo.h; path = ../../SystemInfo/SystemInfo.h; sourceTree = "<group>"; };
@@ -34,7 +34,7 @@
 		1FECF6161B080BB10021D883 /* AKGenerics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKGenerics.m; path = ../../AKGenerics/AKGenerics.m; sourceTree = "<group>"; };
 		6169974FCD325BFD41A1AF08 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		72C47DEBECD433305593768F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		7D10BDEF160654FE00416C66 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		7D2021031CDE53F1008D9F5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D42781F1551865E000240A5 /* Sandbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sandbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D42782B1551865E000240A5 /* Sandbox-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sandbox-Info.plist"; sourceTree = "<group>"; };
 		7D42782D1551865E000240A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -43,7 +43,7 @@
 		7D4278321551865E000240A5 /* SandboxAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SandboxAppDelegate.h; sourceTree = "<group>"; };
 		7D4278331551865E000240A5 /* SandboxAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SandboxAppDelegate.m; sourceTree = "<group>"; };
 		7D4278361551865E000240A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Sandbox.storyboard; sourceTree = "<group>"; };
-		7D66AE2F1B69769E00105E61 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		7D66AE2F1B69769E00105E61 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "en.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
 		FA78466A5B01A4D49F43056D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +113,15 @@
 			name = AKGenerics;
 			sourceTree = "<group>";
 		};
+		7D2020FC1CDE4E21008D9F5D /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				7D66AE2F1B69769E00105E61 /* Launch Screen.xib */,
+				7D4278351551865E000240A5 /* Sandbox.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
 		7D4278141551865D000240A5 = {
 			isa = PBXGroup;
 			children = (
@@ -144,10 +153,10 @@
 			isa = PBXGroup;
 			children = (
 				1F175CFD1C11F2DF008BF1D9 /* AKDebuggerRules */,
-				7D66AE331B6976C000105E61 /* ASSETS */,
+				7D2021031CDE53F1008D9F5D /* Assets.xcassets */,
 				7D4278321551865E000240A5 /* SandboxAppDelegate.h */,
 				7D4278331551865E000240A5 /* SandboxAppDelegate.m */,
-				7D4278351551865E000240A5 /* Sandbox.storyboard */,
+				7D2020FC1CDE4E21008D9F5D /* Storyboards */,
 				7D66AF271B74F73E00105E61 /* View Controllers */,
 				7D42782A1551865E000240A5 /* Supporting Files */,
 			);
@@ -174,15 +183,6 @@
 			);
 			name = IMPORTED;
 			path = Sandbox;
-			sourceTree = "<group>";
-		};
-		7D66AE331B6976C000105E61 /* ASSETS */ = {
-			isa = PBXGroup;
-			children = (
-				7D10BDEF160654FE00416C66 /* Default-568h@2x.png */,
-				7D66AE2F1B69769E00105E61 /* Launch Screen.xib */,
-			);
-			name = ASSETS;
 			sourceTree = "<group>";
 		};
 		7D66AF271B74F73E00105E61 /* View Controllers */ = {
@@ -255,8 +255,8 @@
 			files = (
 				7D42782E1551865E000240A5 /* InfoPlist.strings in Resources */,
 				7D4278371551865E000240A5 /* Sandbox.storyboard in Resources */,
+				7D2021041CDE53F1008D9F5D /* Assets.xcassets in Resources */,
 				7D66AE301B69769E00105E61 /* Launch Screen.xib in Resources */,
-				7D10BDF0160654FE00416C66 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
