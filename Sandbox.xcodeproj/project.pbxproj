@@ -59,7 +59,7 @@
 		7D4278141551865D000240A5 = {
 			isa = PBXGroup;
 			children = (
-				7D4278221551865E000240A5 /* FRAMEWORKS */,
+				7D79138D1D8719F60028DA2B /* IMPORTED */,
 				7D4278291551865E000240A5 /* Sandbox */,
 				7D4278201551865E000240A5 /* Products */,
 				7E70F5FD0D495E0C2D37A324 /* Pods */,
@@ -73,13 +73,6 @@
 				7D42781F1551865E000240A5 /* Sandbox.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		7D4278221551865E000240A5 /* FRAMEWORKS */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = FRAMEWORKS;
 			sourceTree = "<group>";
 		};
 		7D4278291551865E000240A5 /* Sandbox */ = {
@@ -100,6 +93,13 @@
 				7D42782B1551865E000240A5 /* Sandbox-Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7D79138D1D8719F60028DA2B /* IMPORTED */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = IMPORTED;
 			sourceTree = "<group>";
 		};
 		7E70F5FD0D495E0C2D37A324 /* Pods */ = {
