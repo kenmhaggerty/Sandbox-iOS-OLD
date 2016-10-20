@@ -132,10 +132,10 @@
 		7D4278161551865D000240A5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = Sandbox;
+				CLASSPREFIX = "";
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0710;
-				ORGANIZATIONNAME = MCMDI;
+				ORGANIZATIONNAME = "Ken M. Haggerty";
 				TargetAttributes = {
 					7D42781E1551865E000240A5 = {
 						DevelopmentTeam = 2D5JKD3JJW;
@@ -331,7 +331,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eurekavalleyco.development.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenmhaggerty.ios.sandbox;
 				PRODUCT_NAME = Sandbox;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sandbox/Sandbox-Bridging-Header.h";
@@ -356,7 +356,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eurekavalleyco.development.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kenmhaggerty.ios.sandbox;
 				PRODUCT_NAME = Sandbox;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sandbox/Sandbox-Bridging-Header.h";
