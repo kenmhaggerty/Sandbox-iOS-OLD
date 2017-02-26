@@ -10,7 +10,7 @@
 		280DD98AD35E6C10C6480B00 /* Pods_Sandbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 916B192C4DD754ADC97B1104 /* Pods_Sandbox.framework */; };
 		7D0EBBF41D19C2940024DB97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0EBBF31D19C2940024DB97 /* AppDelegate.swift */; };
 		7D3163551E431C9E00F98B47 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D3163541E431C9E00F98B47 /* Launch Screen.storyboard */; };
-		7D3163571E431CAD00F98B47 /* Sandbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D3163561E431CAC00F98B47 /* Sandbox.storyboard */; };
+		7D3163571E431CAD00F98B47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D3163561E431CAC00F98B47 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,7 +18,7 @@
 		7D0EBBF21D19C2930024DB97 /* Sandbox-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sandbox-Bridging-Header.h"; sourceTree = "<group>"; };
 		7D0EBBF31D19C2940024DB97 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D3163541E431C9E00F98B47 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		7D3163561E431CAC00F98B47 /* Sandbox.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sandbox.storyboard; sourceTree = "<group>"; };
+		7D3163561E431CAC00F98B47 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7D42781F1551865E000240A5 /* Sandbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sandbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D42782B1551865E000240A5 /* Sandbox-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sandbox-Info.plist"; sourceTree = "<group>"; };
 		916B192C4DD754ADC97B1104 /* Pods_Sandbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sandbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,7 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				7D3163541E431C9E00F98B47 /* Launch Screen.storyboard */,
-				7D3163561E431CAC00F98B47 /* Sandbox.storyboard */,
+				7D3163561E431CAC00F98B47 /* Main.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -164,7 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D3163551E431C9E00F98B47 /* Launch Screen.storyboard in Resources */,
-				7D3163571E431CAD00F98B47 /* Sandbox.storyboard in Resources */,
+				7D3163571E431CAD00F98B47 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
