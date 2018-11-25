@@ -1,0 +1,51 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "23D6294FF433B578B3376B2E0BCB8E315D0C6036",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "23D6294FF433B578B3376B2E0BCB8E315D0C6036" : 9223372036854775807,
+    "B2A2CE3AC9940920BBEDDED9742F80872E2893BA" : 9223372036854775807,
+    "E23C37978BB23C3F83BA1A9434A1CD32CEDB3FDE" : 9223372036854775807,
+    "7BC4C49B294A256156E2FF8247AC954FA81EEE53" : 9223372036854775807,
+    "644DE20ABE4D4A7138252F77F9CA73F6FA69B21C" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5361BA27-2ABA-4435-A812-6B5E859C5BFF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "23D6294FF433B578B3376B2E0BCB8E315D0C6036" : "Sandbox\/",
+    "B2A2CE3AC9940920BBEDDED9742F80872E2893BA" : "KMHPageViewController\/",
+    "E23C37978BB23C3F83BA1A9434A1CD32CEDB3FDE" : "KMHGenerics\/",
+    "7BC4C49B294A256156E2FF8247AC954FA81EEE53" : "KMHCoreDataController\/",
+    "644DE20ABE4D4A7138252F77F9CA73F6FA69B21C" : "..\/3_IMPORTS\/PROJECTS\/DATOutletSegue"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Sandbox",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Sandbox.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "bitbucket.org:kenmhaggerty\/sandbox.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "23D6294FF433B578B3376B2E0BCB8E315D0C6036"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:datinc\/DATOutletSegue.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "644DE20ABE4D4A7138252F77F9CA73F6FA69B21C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:kenmhaggerty\/KMHCoreDataController.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7BC4C49B294A256156E2FF8247AC954FA81EEE53"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:kenmhaggerty\/KMHPageViewController.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B2A2CE3AC9940920BBEDDED9742F80872E2893BA"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:kenmhaggerty\/KMHGenerics.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E23C37978BB23C3F83BA1A9434A1CD32CEDB3FDE"
+    }
+  ]
+}

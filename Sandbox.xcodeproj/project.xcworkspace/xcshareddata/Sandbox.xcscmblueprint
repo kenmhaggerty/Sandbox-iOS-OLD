@@ -1,0 +1,65 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "23D6294FF433B578B3376B2E0BCB8E315D0C6036",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "249738F0A276B150378B589E80258D41888764CC" : 0,
+    "CB50C2B1EDC1676F7BB3EEB6D9FF9C7802E91EA8" : 0,
+    "FC7EB595F0165B4E071792DDEF137676A766E0F2" : 0,
+    "E23C37978BB23C3F83BA1A9434A1CD32CEDB3FDE" : 0,
+    "5B9F097DADE1B5E7FB1C37820AFC0BA849ACDCDA" : 0,
+    "23D6294FF433B578B3376B2E0BCB8E315D0C6036" : 0,
+    "180AEB9035F8B2E3D53D07BA453CBB1CF1D26099" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "73E69532-BDAF-4523-B968-8A12A3768391",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "249738F0A276B150378B589E80258D41888764CC" : "AKSystemInfo",
+    "CB50C2B1EDC1676F7BB3EEB6D9FF9C7802E91EA8" : "AlertTableViewController",
+    "FC7EB595F0165B4E071792DDEF137676A766E0F2" : "AKGenerics",
+    "E23C37978BB23C3F83BA1A9434A1CD32CEDB3FDE" : "KMHGenerics\/",
+    "5B9F097DADE1B5E7FB1C37820AFC0BA849ACDCDA" : "UIViewController+Syncing",
+    "23D6294FF433B578B3376B2E0BCB8E315D0C6036" : "Sandbox",
+    "180AEB9035F8B2E3D53D07BA453CBB1CF1D26099" : "AKDebugger"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Sandbox",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Sandbox.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eurekavalleyco\/AKDebugger.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "180AEB9035F8B2E3D53D07BA453CBB1CF1D26099"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/eurekavalleyco\/sandbox.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "23D6294FF433B578B3376B2E0BCB8E315D0C6036"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eurekavalleyco\/AKSystemInfo.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "249738F0A276B150378B589E80258D41888764CC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kenmhaggerty\/UIViewController-Syncing",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5B9F097DADE1B5E7FB1C37820AFC0BA849ACDCDA"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eurekavalleyco\/AlertTableViewController.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CB50C2B1EDC1676F7BB3EEB6D9FF9C7802E91EA8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:kenmhaggerty\/KMHGenerics.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E23C37978BB23C3F83BA1A9434A1CD32CEDB3FDE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/eurekavalleyco\/AKGenerics.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FC7EB595F0165B4E071792DDEF137676A766E0F2"
+    }
+  ]
+}
